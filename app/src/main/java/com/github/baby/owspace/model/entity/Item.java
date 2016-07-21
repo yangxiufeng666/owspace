@@ -1,0 +1,468 @@
+package com.github.baby.owspace.model.entity;
+
+import java.util.List;
+
+/**
+ * Created by Mr.Yangxiufeng
+ * DATE 2016/7/21
+ * owspace
+ */
+public class Item {
+
+    /**
+     * id : 292322
+     * uid : 2131
+     * name :
+     * title : 上世纪的
+     美国精神
+     * excerpt : 无意关心过去的伤痛与不幸，单纯的乐观与无止境的希望，专瞩意于未来，这是上世纪的美国精神。如此名义的时代精神，造就了当时繁荣背后物质、膨胀的美国。
+     * lead : 本期单读音频，许知远和大家分享的是 H . S .康马杰的作品《美国精神》。也许每一个孕育于 19 世纪末 20 世纪初的美国人都无法忘却在这个处于民族、国家历史转变时期的繁荣景象。美国人用乐观的精神态度和野心勃勃的进取心将乡村发展为城市，让曾是被孤立的弱国焕然一新，推向世界舞台的中心。相似的繁荣背后，许知远表达了他对于当下中国正弥漫着的带有民族主义倾向的担忧，包容远比封闭自我更适于理解这个广阔的世界。
+     * model : 3
+     * position : 0
+     * thumbnail : http://img.owspace.com/Public/uploads/Picture/2016-07-19/578e28619dfbe.jpg
+     * create_time : 1468939309
+     * update_time : 2016/07/19
+     * tags : [{"name":"美国精神"},{"name":"民族主义"},{"name":"康马杰"}]
+     * status : 1
+     * video :
+     * fm : http://img.owspace.com/F_gye187532_1468925285.0854392.mp3
+     * link_url :
+     * publish_time : 0
+     * view : 1.2w
+     * share : http://static.owspace.com/wap/292322.html
+     * comment : 20
+     * good : 56
+     * bookmark : 0
+     * show_uid : 2131
+     * fm_play : http://img.owspace.com/Public/uploads/Picture/2016-07-19/578e25288e256.jpg
+     * hot_comments : [{"id":"39457","pid":"0","uid":"218409","content":"我们不要陷入自我的陷阱。唯有务实才是真正的办法","post_id":"292322","update_time":"2 天前","good":"6","model":"3","to_author_name":"Sying","under_id":"0","nickname":"Dolan Yves","avatar":"http://img.owspace.com//@/avatar/2016-04-19/46efbcfbfd6809f2eb2b34ab01ee874a45"}]
+     * html5 : http://static.owspace.com/wap/292322.html
+     * author : 单读音频
+     * tpl : 3
+     * avatar : http://img.owspace.com/Public/static/avatar/3.png
+     * category : TO LISTEN
+     * parseXML : 1
+     */
+
+    private String id;
+    private String uid;
+    private String name;
+    private String title;
+    private String excerpt;
+    private String lead;
+    private String model;
+    private String position;
+    private String thumbnail;
+    private String create_time;
+    private String update_time;
+    private String status;
+    private String video;
+    private String fm;
+    private String link_url;
+    private String publish_time;
+    private String view;
+    private String share;
+    private String comment;
+    private String good;
+    private String bookmark;
+    private String show_uid;
+    private String fm_play;
+    private String html5;
+    private String author;
+    private int tpl;
+    private String avatar;
+    private String category;
+    private int parseXML;
+    /**
+     * name : 美国精神
+     */
+
+    private List<TagsBean> tags;
+    /**
+     * id : 39457
+     * pid : 0
+     * uid : 218409
+     * content : 我们不要陷入自我的陷阱。唯有务实才是真正的办法
+     * post_id : 292322
+     * update_time : 2 天前
+     * good : 6
+     * model : 3
+     * to_author_name : Sying
+     * under_id : 0
+     * nickname : Dolan Yves
+     * avatar : http://img.owspace.com//@/avatar/2016-04-19/46efbcfbfd6809f2eb2b34ab01ee874a45
+     */
+
+    private List<HotCommentsBean> hot_comments;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getExcerpt() {
+        return excerpt;
+    }
+
+    public void setExcerpt(String excerpt) {
+        this.excerpt = excerpt;
+    }
+
+    public String getLead() {
+        return lead;
+    }
+
+    public void setLead(String lead) {
+        this.lead = lead;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
+    }
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
+
+    public String getFm() {
+        return fm;
+    }
+
+    public void setFm(String fm) {
+        this.fm = fm;
+    }
+
+    public String getLink_url() {
+        return link_url;
+    }
+
+    public void setLink_url(String link_url) {
+        this.link_url = link_url;
+    }
+
+    public String getPublish_time() {
+        return publish_time;
+    }
+
+    public void setPublish_time(String publish_time) {
+        this.publish_time = publish_time;
+    }
+
+    public String getView() {
+        return view;
+    }
+
+    public void setView(String view) {
+        this.view = view;
+    }
+
+    public String getShare() {
+        return share;
+    }
+
+    public void setShare(String share) {
+        this.share = share;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getGood() {
+        return good;
+    }
+
+    public void setGood(String good) {
+        this.good = good;
+    }
+
+    public String getBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(String bookmark) {
+        this.bookmark = bookmark;
+    }
+
+    public String getShow_uid() {
+        return show_uid;
+    }
+
+    public void setShow_uid(String show_uid) {
+        this.show_uid = show_uid;
+    }
+
+    public String getFm_play() {
+        return fm_play;
+    }
+
+    public void setFm_play(String fm_play) {
+        this.fm_play = fm_play;
+    }
+
+    public String getHtml5() {
+        return html5;
+    }
+
+    public void setHtml5(String html5) {
+        this.html5 = html5;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getTpl() {
+        return tpl;
+    }
+
+    public void setTpl(int tpl) {
+        this.tpl = tpl;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getParseXML() {
+        return parseXML;
+    }
+
+    public void setParseXML(int parseXML) {
+        this.parseXML = parseXML;
+    }
+
+    public List<TagsBean> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagsBean> tags) {
+        this.tags = tags;
+    }
+
+    public List<HotCommentsBean> getHot_comments() {
+        return hot_comments;
+    }
+
+    public void setHot_comments(List<HotCommentsBean> hot_comments) {
+        this.hot_comments = hot_comments;
+    }
+
+    public static class TagsBean {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class HotCommentsBean {
+        private String id;
+        private String pid;
+        private String uid;
+        private String content;
+        private String post_id;
+        private String update_time;
+        private String good;
+        private String model;
+        private String to_author_name;
+        private String under_id;
+        private String nickname;
+        private String avatar;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getPid() {
+            return pid;
+        }
+
+        public void setPid(String pid) {
+            this.pid = pid;
+        }
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getPost_id() {
+            return post_id;
+        }
+
+        public void setPost_id(String post_id) {
+            this.post_id = post_id;
+        }
+
+        public String getUpdate_time() {
+            return update_time;
+        }
+
+        public void setUpdate_time(String update_time) {
+            this.update_time = update_time;
+        }
+
+        public String getGood() {
+            return good;
+        }
+
+        public void setGood(String good) {
+            this.good = good;
+        }
+
+        public String getModel() {
+            return model;
+        }
+
+        public void setModel(String model) {
+            this.model = model;
+        }
+
+        public String getTo_author_name() {
+            return to_author_name;
+        }
+
+        public void setTo_author_name(String to_author_name) {
+            this.to_author_name = to_author_name;
+        }
+
+        public String getUnder_id() {
+            return under_id;
+        }
+
+        public void setUnder_id(String under_id) {
+            this.under_id = under_id;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+    }
+}
