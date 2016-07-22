@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.github.baby.owspace.view.widget.CustomScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.github.baby.owspace.view.widget.FixedImageView
+            android:id="@+id/splash_img"
+            android:layout_width="480dp"
+            android:layout_height="640dp"/>
+    </com.github.baby.owspace.view.widget.CustomScrollView>
+
+    <ImageView
+        android:id="@+id/weread_logo_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160.0dip"
+        android:scaleType="centerCrop"
+        android:src="@drawable/welcome_weread" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weread_logo_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="171.0dip"
+        android:scaleType="centerCrop"
+        android:src="@drawable/weread_signature" />
+
+    <ImageView
+        android:id="@+id/publish_logo_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35.0dip"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_xiaomi_welcome"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/publish_logo_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10.0dip"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_owspace" />
+
+</RelativeLayout>
