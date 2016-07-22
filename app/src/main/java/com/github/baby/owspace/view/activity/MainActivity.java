@@ -1,10 +1,11 @@
-package com.github.baby.owspace;
+package com.github.baby.owspace.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.entity.Detail;
 import com.github.baby.owspace.model.entity.Result;

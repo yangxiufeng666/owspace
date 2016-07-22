@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_bg_color_black">
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
+        <ImageView
+            android:id="@+id/right_slide_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/fork"/>
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/search_white"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/logo_iv"
+        android:layout_below="@id/title_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15.0dip"
+        android:scaleType="centerCrop"
+        android:src="@drawable/weread_horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/title_logo_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_iv"
+        android:layout_marginTop="38.0dip">
+
+        <View
+            android:layout_width="91.0dip"
+            android:layout_height="0.5dip"
+            android:layout_centerVertical="true"
+            android:background="#ff676767" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/weread_signature" />
+
+        <View
+            android:layout_width="91.0dip"
+            android:layout_height="0.5dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="#ff676767" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/column_ll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_logo_rl"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59.0dip"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/home_page_tv"
+            style="@style/MenuColunmStyle"
+            android:text="首   页" />
+
+        <TextView
+            android:id="@+id/words_tv"
+            style="@style/MenuColunmStyle"
+            android:layout_marginTop="18.0dip"
+            android:text="文   字" />
+
+        <TextView
+            android:id="@+id/voice_tv"
+            style="@style/MenuColunmStyle"
+            android:layout_marginTop="18.0dip"
+            android:text="声   音" />
+
+        <TextView
+            android:id="@+id/video_tv"
+            style="@style/MenuColunmStyle"
+            android:layout_marginTop="18.0dip"
+            android:text="影   像" />
+
+        <TextView
+            android:id="@+id/calendar_tv"
+            style="@style/MenuColunmStyle"
+            android:layout_marginTop="18.0dip"
+            android:text="单向历" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/column_ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50.0dip"
+        android:text="Powered by OWSPACE"
+        android:textColor="#ff888888"
+        android:textSize="7.0sp" />
+
+
+</RelativeLayout>
