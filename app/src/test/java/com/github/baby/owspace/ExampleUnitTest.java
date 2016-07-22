@@ -22,17 +22,6 @@ public class ExampleUnitTest {
     @Test
     public void addition1() throws Exception {
         System.out.println("asdadadadadada");
-        Call<Detail> detail = ApiClient.service.getDetail("api","getPost",292296,1);
-        detail.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                System.out.println(response.body());
-            }
 
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
     }
 }
