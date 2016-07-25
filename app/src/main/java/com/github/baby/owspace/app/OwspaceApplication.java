@@ -17,10 +17,8 @@ public class OwspaceApplication extends Application{
         initLogger();
     }
     private void initLogger(){
-        Logger.init("GithubOwspace")
+        Logger.init("GithubOwspace")                 // default PRETTYLOGGER or use just init()
                 .methodCount(3)                 // default 2
-                .hideThreadInfo()               // default shown
-                .logLevel(LogLevel.FULL)        // default LogLevel.FULL
-                .methodOffset(2);               // default 0
+                .logLevel(LogLevel.FULL) ;       // default LogLevel.FULL
     }
 }

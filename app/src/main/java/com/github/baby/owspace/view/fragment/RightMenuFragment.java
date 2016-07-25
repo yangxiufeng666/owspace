@@ -71,18 +71,6 @@ public class RightMenuFragment extends Fragment {
         mViewList.add(noteTv);
     }
     @Override
-    public void onResume() {
-        super.onResume();
-        Logger.e("RightMenuFragment onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Logger.e("RightMenuFragment onPause");
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);

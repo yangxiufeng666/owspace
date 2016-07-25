@@ -53,12 +53,6 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption {
         rightMenu = new RightMenuFragment();
         rightMenu.setSlideMenuOption(this);
         getSupportFragmentManager().beginTransaction().add(R.id.right_menu, rightMenu).commit();
-        slidingMenu.setOnOpenListener(new SlidingMenu.OnOpenListener() {
-            @Override
-            public void onOpen() {
-
-            }
-        });
     }
 
     @Override

@@ -59,19 +59,6 @@ public class LeftMenuFragment extends Fragment {
         loadView();
         return view;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Logger.e("LeftMenuFragment onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Logger.e("LeftMenuFragment onPause");
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
