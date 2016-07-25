@@ -12,12 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.presenter.SplashContract;
 import com.github.baby.owspace.presenter.SplashPresenter;
+import com.github.baby.owspace.util.FileUtil;
 import com.github.baby.owspace.view.widget.FixedImageView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,14 +66,33 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     }
 
     private void delaySplash(){
-        AssetManager assetManager = this.getAssets();
-        try {
-            InputStream in = assetManager.open("welcome_default.jpg");
-            splashImg.setBackgroundDrawable(InputStream2Drawable(in));
-            animWelcomeImage();
-        } catch (IOException e) {
-            e.printStackTrace();
+        List<String> picList = FileUtil.getAllAD();
+        if (picList.size()>0){
+            Random random = new Random();
+            int index = random.nextInt(picList.size());
+            File file = new File(picList.get(index));
+            try {
+                InputStream fis = new FileInputStream(file);
+                splashImg.setBackgroundDrawable(InputStream2Drawable(fis));
+                animWelcomeImage();
+                fis.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }catch (IOException e){
+
+            }
+        }else {
+            try {
+                AssetManager assetManager = this.getAssets();
+                InputStream in = assetManager.open("welcome_default.jpg");
+                splashImg.setBackgroundDrawable(InputStream2Drawable(in));
+                animWelcomeImage();
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
     public Drawable InputStream2Drawable(InputStream is) {
         Drawable drawable = BitmapDrawable.createFromStream(is,"splashImg");

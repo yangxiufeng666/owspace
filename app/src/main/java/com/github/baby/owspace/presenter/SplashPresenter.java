@@ -61,7 +61,7 @@ public class SplashPresenter implements SplashContract.Presenter{
             }
             @Override
             public void onFailure(Call<SplashEntity> call, Throwable t) {
-
+                Logger.e(t,"load splash failed:");
             }
         });
     }
