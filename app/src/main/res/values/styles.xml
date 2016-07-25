@@ -16,7 +16,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="AppTheme.Splash">
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">@drawable/welcome_default2</item>
         <!--<item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">false</item>

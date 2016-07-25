@@ -8,6 +8,7 @@
         android:layout_height="match_parent">
         <com.github.baby.owspace.view.widget.FixedImageView
             android:id="@+id/splash_img"
+            android:scaleType="centerCrop"
             android:layout_width="480dp"
             android:layout_height="640dp"/>
     </com.github.baby.owspace.view.widget.CustomScrollView>
