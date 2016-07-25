@@ -5,21 +5,22 @@
     android:background="@color/theme_bg_color_black">
 
     <RelativeLayout
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/right_slide_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:scaleType="center"
             android:layout_alignParentLeft="true"
+            android:clickable="true"
             android:src="@drawable/fork"/>
         <ImageView
             android:id="@+id/setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:scaleType="center"
             android:layout_alignParentRight="true"
             android:src="@drawable/setting"/>
     </RelativeLayout>
