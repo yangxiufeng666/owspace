@@ -6,9 +6,18 @@ import android.content.Context;
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.entity.SplashEntity;
+import com.github.baby.owspace.model.util.HttpUtils;
 import com.github.baby.owspace.util.AppUtil;
+import com.github.baby.owspace.util.NetUtil;
+import com.github.baby.owspace.util.OkHttpImageDownloader;
 import com.github.baby.owspace.util.TimeUtil;
+import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,9 +47,18 @@ public class SplashPresenter implements SplashContract.Presenter{
         call.enqueue(new Callback<SplashEntity>() {
             @Override
             public void onResponse(Call<SplashEntity> call, Response<SplashEntity> response) {
-                //TODO DOWNLOAD IMG
+                SplashEntity splashEntity = response.body();
+                if (NetUtil.isWifi(context)){
+                    if (splashEntity != null){
+                        List<String> imgs = splashEntity.getImages();
+                        for (String url:imgs) {
+                            OkHttpImageDownloader.download(url);
+                        }
+                    }
+                }else{
+                    Logger.i("不是WIFI环境");
+                }
             }
-
             @Override
             public void onFailure(Call<SplashEntity> call, Throwable t) {
 
