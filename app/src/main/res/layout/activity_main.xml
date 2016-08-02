@@ -9,8 +9,7 @@
     <com.github.baby.owspace.view.widget.VerticalViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"/>
+        android:layout_height="match_parent"/>
     <RelativeLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"

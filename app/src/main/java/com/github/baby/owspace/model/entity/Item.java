@@ -1,5 +1,9 @@
 package com.github.baby.owspace.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,7 +11,7 @@ import java.util.List;
  * DATE 2016/7/21
  * owspace
  */
-public class Item {
+public class Item implements Parcelable {
 
     /**
      * id : 292322
@@ -343,7 +347,7 @@ public class Item {
         this.hot_comments = hot_comments;
     }
 
-    public static class TagsBean {
+    public static class TagsBean implements Parcelable {
         private String name;
 
         public String getName() {
@@ -353,9 +357,38 @@ public class Item {
         public void setName(String name) {
             this.name = name;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.name);
+        }
+
+        public TagsBean() {
+        }
+
+        protected TagsBean(Parcel in) {
+            this.name = in.readString();
+        }
+
+        public static final Creator<TagsBean> CREATOR = new Creator<TagsBean>() {
+            @Override
+            public TagsBean createFromParcel(Parcel source) {
+                return new TagsBean(source);
+            }
+
+            @Override
+            public TagsBean[] newArray(int size) {
+                return new TagsBean[size];
+            }
+        };
     }
 
-    public static class HotCommentsBean {
+    public static class HotCommentsBean implements Parcelable {
         private String id;
         private String pid;
         private String uid;
@@ -464,5 +497,147 @@ public class Item {
         public void setAvatar(String avatar) {
             this.avatar = avatar;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.id);
+            dest.writeString(this.pid);
+            dest.writeString(this.uid);
+            dest.writeString(this.content);
+            dest.writeString(this.post_id);
+            dest.writeString(this.update_time);
+            dest.writeString(this.good);
+            dest.writeString(this.model);
+            dest.writeString(this.to_author_name);
+            dest.writeString(this.under_id);
+            dest.writeString(this.nickname);
+            dest.writeString(this.avatar);
+        }
+
+        public HotCommentsBean() {
+        }
+
+        protected HotCommentsBean(Parcel in) {
+            this.id = in.readString();
+            this.pid = in.readString();
+            this.uid = in.readString();
+            this.content = in.readString();
+            this.post_id = in.readString();
+            this.update_time = in.readString();
+            this.good = in.readString();
+            this.model = in.readString();
+            this.to_author_name = in.readString();
+            this.under_id = in.readString();
+            this.nickname = in.readString();
+            this.avatar = in.readString();
+        }
+
+        public static final Creator<HotCommentsBean> CREATOR = new Creator<HotCommentsBean>() {
+            @Override
+            public HotCommentsBean createFromParcel(Parcel source) {
+                return new HotCommentsBean(source);
+            }
+
+            @Override
+            public HotCommentsBean[] newArray(int size) {
+                return new HotCommentsBean[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.uid);
+        dest.writeString(this.name);
+        dest.writeString(this.title);
+        dest.writeString(this.excerpt);
+        dest.writeString(this.lead);
+        dest.writeString(this.model);
+        dest.writeString(this.position);
+        dest.writeString(this.thumbnail);
+        dest.writeString(this.create_time);
+        dest.writeString(this.update_time);
+        dest.writeString(this.status);
+        dest.writeString(this.video);
+        dest.writeString(this.fm);
+        dest.writeString(this.link_url);
+        dest.writeString(this.publish_time);
+        dest.writeString(this.view);
+        dest.writeString(this.share);
+        dest.writeString(this.comment);
+        dest.writeString(this.good);
+        dest.writeString(this.bookmark);
+        dest.writeString(this.show_uid);
+        dest.writeString(this.fm_play);
+        dest.writeString(this.html5);
+        dest.writeString(this.author);
+        dest.writeInt(this.tpl);
+        dest.writeString(this.avatar);
+        dest.writeString(this.category);
+        dest.writeInt(this.parseXML);
+        dest.writeList(this.tags);
+        dest.writeList(this.hot_comments);
+    }
+
+    public Item() {
+    }
+
+    protected Item(Parcel in) {
+        this.id = in.readString();
+        this.uid = in.readString();
+        this.name = in.readString();
+        this.title = in.readString();
+        this.excerpt = in.readString();
+        this.lead = in.readString();
+        this.model = in.readString();
+        this.position = in.readString();
+        this.thumbnail = in.readString();
+        this.create_time = in.readString();
+        this.update_time = in.readString();
+        this.status = in.readString();
+        this.video = in.readString();
+        this.fm = in.readString();
+        this.link_url = in.readString();
+        this.publish_time = in.readString();
+        this.view = in.readString();
+        this.share = in.readString();
+        this.comment = in.readString();
+        this.good = in.readString();
+        this.bookmark = in.readString();
+        this.show_uid = in.readString();
+        this.fm_play = in.readString();
+        this.html5 = in.readString();
+        this.author = in.readString();
+        this.tpl = in.readInt();
+        this.avatar = in.readString();
+        this.category = in.readString();
+        this.parseXML = in.readInt();
+        this.tags = new ArrayList<TagsBean>();
+        in.readList(this.tags, TagsBean.class.getClassLoader());
+        this.hot_comments = new ArrayList<HotCommentsBean>();
+        in.readList(this.hot_comments, HotCommentsBean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel source) {
+            return new Item(source);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 }
