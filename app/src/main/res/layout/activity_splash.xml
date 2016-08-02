@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.github.baby.owspace.view.widget.CustomScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.github.baby.owspace.view.widget.FixedImageView
@@ -11,7 +11,7 @@
             android:scaleType="centerCrop"
             android:layout_width="480dp"
             android:layout_height="640dp"/>
-    </com.github.baby.owspace.view.widget.CustomScrollView>
+    </ScrollView>
 
     <ImageView
         android:id="@+id/weread_logo_iv"

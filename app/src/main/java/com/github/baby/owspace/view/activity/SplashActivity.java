@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.presenter.SplashContract;
 import com.github.baby.owspace.presenter.SplashPresenter;
 import com.github.baby.owspace.util.FileUtil;
+import com.github.baby.owspace.util.PreferenceUtils;
 import com.github.baby.owspace.view.widget.FixedImageView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -51,7 +53,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
                 ButterKnife.bind(SplashActivity.this);
                 delaySplash();
             }
-        },500);
+        },250);
     }
 
     @Override
@@ -70,10 +72,19 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         if (picList.size()>0){
             Random random = new Random();
             int index = random.nextInt(picList.size());
+            int imgIndex = PreferenceUtils.getPrefInt(this,"splash_img_index",-1);
+            if (index == imgIndex){
+                if (index >= picList.size()){
+                    index --;
+                }else if (imgIndex == 0){
+                    index ++;
+                }
+            }
+            PreferenceUtils.setPrefInt(this,"splash_img_index",index);
             File file = new File(picList.get(index));
             try {
                 InputStream fis = new FileInputStream(file);
-                splashImg.setBackgroundDrawable(InputStream2Drawable(fis));
+                splashImg.setImageDrawable(InputStream2Drawable(fis));
                 animWelcomeImage();
                 fis.close();
             } catch (FileNotFoundException e) {
@@ -85,7 +96,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             try {
                 AssetManager assetManager = this.getAssets();
                 InputStream in = assetManager.open("welcome_default.jpg");
-                splashImg.setBackgroundDrawable(InputStream2Drawable(in));
+                splashImg.setImageDrawable(InputStream2Drawable(in));
                 animWelcomeImage();
                 in.close();
             } catch (IOException e) {
