@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/type_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/theme_bg_color"
+    android:paddingBottom="20.0dip"
+    android:paddingTop="18.0dip">
+
+    <ImageView
+        android:id="@+id/image_iv"
+        android:layout_width="91.0dip"
+        android:layout_height="67.0dip"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="14.0dip"
+        android:scaleType="centerCrop" />
+    <ImageView
+        android:id="@+id/arrow_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="13.0dip"
+        android:src="@drawable/arrow_right_grey" />
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/image_iv"
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_toRightOf="@id/image_iv"
+        android:layout_toLeftOf="@id/arrow_iv"
+        android:ellipsize="end"
+        android:lineSpacingExtra="3.0dip"
+        android:maxLines="2"
+        android:minLines="2"
+        android:textColor="@color/item_column_page_textcolor_title"
+        android:textSize="20.0sp"
+        android:text="巴西未来之国"/>
+
+    <TextView
+        android:id="@+id/author_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/image_iv"
+        android:layout_alignLeft="@id/title_tv"
+        android:textColor="@color/item_column_page_textcolor_author"
+        android:textSize="12.0sp"
+        android:text="作者"/>
+
+
+</RelativeLayout>

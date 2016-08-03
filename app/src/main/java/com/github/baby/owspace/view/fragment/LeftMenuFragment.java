@@ -1,5 +1,6 @@
 package com.github.baby.owspace.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,13 +11,13 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.view.activity.ArtActivity;
+import com.github.baby.owspace.view.activity.DailyActivity;
 import com.github.baby.owspace.view.listener.SlideMenuOption;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,7 @@ public class LeftMenuFragment extends Fragment {
 
     @OnClick({R.id.right_slide_close, R.id.search, R.id.home_page_tv, R.id.words_tv, R.id.voice_tv, R.id.video_tv, R.id.calendar_tv})
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.right_slide_close:
                 slideMenuOption.hideMenu();
@@ -88,12 +90,26 @@ public class LeftMenuFragment extends Fragment {
             case R.id.home_page_tv:
                 break;
             case R.id.words_tv:
+                intent = new Intent(getActivity(), ArtActivity.class);
+                intent.putExtra("mode",1);
+                intent.putExtra("title","文  字");
+                startActivity(intent);
                 break;
             case R.id.voice_tv:
+                intent = new Intent(getActivity(), ArtActivity.class);
+                intent.putExtra("mode",3);
+                intent.putExtra("title","声  音");
+                startActivity(intent);
                 break;
             case R.id.video_tv:
+                intent = new Intent(getActivity(), ArtActivity.class);
+                intent.putExtra("mode",2);
+                intent.putExtra("title","影  像");
+                startActivity(intent);
                 break;
             case R.id.calendar_tv:
+                intent = new Intent(getActivity(), DailyActivity.class);
+                startActivity(intent);
                 break;
         }
     }

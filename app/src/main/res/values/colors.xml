@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#ff313131</color>
     <color name="colorPrimaryDark">#ff030303</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
 
     <color name="theme_bg_color_black">#ff313131</color>
     <color name="item_column_page_textcolor_title">#ff030303</color>
@@ -11,4 +12,11 @@
     <color name="pagefragment_textcolor_cust1">#ff000000</color>
     <color name="pagefragment_textcolor_common">#ff000000</color>
     <color name="pagefragment_view_line_bg_common">#ffc0c0c0</color>
+
+    <color name="red">#ff990000</color>
+    <color name="green">#ff009900</color>
+    <color name="blue">#ff000099</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="primary">#ff212324</color>
 </resources>
