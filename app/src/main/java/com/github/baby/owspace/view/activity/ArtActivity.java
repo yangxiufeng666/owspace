@@ -16,6 +16,9 @@ import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.presenter.ListBaseContract;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.view.adapter.ArtRecycleViewAdapter;
+import com.github.baby.owspace.view.widget.DividerItemDecoration;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -33,21 +36,31 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
     @Bind(R.id.toolBar)
     Toolbar toolbar;
     @Bind(R.id.recycleView)
-    RecyclerView recycleView;
+    XRecyclerView recycleView;
 
     private ArticalPresenter presenter;
     private ArtRecycleViewAdapter recycleViewAdapter;
     private int page=1;
+    private int mode=1;
+    private boolean isRefresh;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_layout);
         ButterKnife.bind(this);
+        initView();
+        mode = getIntent().getIntExtra("mode",1);
+//        loadData(page, mode, "0", "0");
+    }
+
+    private void initView() {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("");
+        String tt = getIntent().getStringExtra("title");
+        title.setText(tt);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,12 +69,27 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         });
         recycleViewAdapter = new ArtRecycleViewAdapter(this);
         recycleView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recycleView.addItemDecoration(new DividerItemDecoration(this));
         recycleView.setAdapter(recycleViewAdapter);
+        recycleView.setLoadingMoreEnabled(true);
+        recycleView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+        recycleView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        recycleView.setArrowImageView(R.drawable.iconfont_downgrey);
         presenter = new ArticalPresenter(this, this);
-        int mode = getIntent().getIntExtra("mode",1);
-        String tt = getIntent().getStringExtra("title");
-        title.setText(tt);
-        loadData(page, mode, "0", "0");
+        recycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                page=1;
+                isRefresh = true;
+                loadData(page, mode, "0", "0");
+            }
+
+            @Override
+            public void onLoadMore() {
+                loadData(page, mode, recycleViewAdapter.getLastItemId(), recycleViewAdapter.getLastItemCreateTime());
+            }
+        });
+        recycleView.setRefreshing(true);
     }
 
     private void loadData(int page, int mode, String pageId, String createTime) {
@@ -80,21 +108,32 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
 
     @Override
     public void showNoData() {
-
+        recycleView.refreshComplete();
+        recycleView.loadMoreComplete();
     }
 
     @Override
     public void showNoMore() {
-
+        recycleView.setIsnomore(true);
     }
 
     @Override
     public void updateListUI(List<Item> itemList) {
-        recycleViewAdapter.setArtList(itemList);
+        page++;
+        recycleView.refreshComplete();
+        recycleView.loadMoreComplete();
+        if (isRefresh){
+            isRefresh = false;
+            recycleViewAdapter.replaceAllData(itemList);
+        }else {
+            recycleViewAdapter.setArtList(itemList);
+        }
+
     }
 
     @Override
     public void showOnFailure() {
-
+        recycleView.refreshComplete();
+        recycleView.loadMoreComplete();
     }
 }

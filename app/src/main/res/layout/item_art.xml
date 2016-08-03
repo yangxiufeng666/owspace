@@ -3,7 +3,6 @@
     android:id="@+id/type_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/theme_bg_color"
     android:paddingBottom="20.0dip"
     android:paddingTop="18.0dip">
 

@@ -47,6 +47,11 @@ public class SplashPresenter implements SplashContract.Presenter{
         call.enqueue(new Callback<SplashEntity>() {
             @Override
             public void onResponse(Call<SplashEntity> call, Response<SplashEntity> response) {
+                okhttp3.Response res = response.raw();
+                if (!res.isSuccessful()){
+                    Logger.e("failed:"+res.message());
+                    return;
+                }
                 SplashEntity splashEntity = response.body();
                 if (NetUtil.isWifi(context)){
                     if (splashEntity != null){

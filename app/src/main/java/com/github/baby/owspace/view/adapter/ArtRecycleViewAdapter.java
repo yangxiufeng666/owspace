@@ -57,6 +57,25 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<ArtRecycleViewAd
         this.artList.addAll(artList);
         notifyItemChanged(position);
     }
+    public void replaceAllData(List<Item> artList){
+        this.artList.clear();
+        this.artList.addAll(artList);
+        notifyDataSetChanged();
+    }
+    public String getLastItemId(){
+        if (artList.size()==0){
+            return "0";
+        }
+        Item item = artList.get(artList.size()-1);
+        return item.getId();
+    }
+    public String getLastItemCreateTime(){
+        if (artList.size()==0){
+            return "0";
+        }
+        Item item = artList.get(artList.size()-1);
+        return item.getCreate_time();
+    }
 
     static class ArtHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.image_iv)
@@ -74,4 +93,5 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<ArtRecycleViewAd
             ButterKnife.bind(this,itemView);
         }
     }
+
 }

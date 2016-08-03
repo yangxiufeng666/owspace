@@ -34,6 +34,12 @@ public class MainPresenter implements MainContract.Presenter{
         call.enqueue(new Callback<Result.Data<List<Item>>>() {
             @Override
             public void onResponse(Call<Result.Data<List<Item>>> call, Response<Result.Data<List<Item>>> response) {
+                okhttp3.Response res = response.raw();
+                if (!res.isSuccessful()){
+                    Logger.e("failed:"+res.message());
+                    view.showOnFailure();
+                    return;
+                }
                 Result.Data<List<Item>> listData = response.body();
                 int size = listData.getDatas().size();
                 if(size>0){
