@@ -5,6 +5,7 @@ import android.content.Context;
 import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.model.entity.Result;
+import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.util.TimeUtil;
 import com.orhanobut.logger.Logger;
 
@@ -28,8 +29,8 @@ public class MainPresenter implements MainContract.Presenter{
         this.context = context;
     }
     @Override
-    public void getListByPage(int page, int model, String pageId,String deviceId) {
-        Call<Result.Data<List<Item>>> call = ApiClient.service.getList("api","getList",page,model,pageId, TimeUtil.getCurrentSeconds(), deviceId,1);
+    public void getListByPage(int page, int model, String pageId,String deviceId,String createTime) {
+        Call<Result.Data<List<Item>>> call = ApiClient.service.getList("api","getList",page,model,pageId,createTime,"android","1.3.0",TimeUtil.getCurrentSeconds(), deviceId,1);
         call.enqueue(new Callback<Result.Data<List<Item>>>() {
             @Override
             public void onResponse(Call<Result.Data<List<Item>>> call, Response<Result.Data<List<Item>>> response) {

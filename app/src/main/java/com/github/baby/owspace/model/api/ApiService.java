@@ -53,5 +53,5 @@ public interface ApiService {
      * @return
      */
     @GET("/")
-    Call<Result.Data<List<Item>>> getList(@Query("c")String c, @Query("a") String a,@Query("p") int page,@Query("model")int model,@Query("page_id") String pageId,@Query("time") long time,@Query("device_id") String imei,@Query("show_sdv") int show_sdv);
+    Call<Result.Data<List<Item>>> getList(@Query("c")String c, @Query("a") String a,@Query("p") int page,@Query("model")int model,@Query("page_id") String pageId,@Query("create_time")String createTime,@Query("client") String client,@Query("version") String version,@Query("time") long time,@Query("device_id") String deviceId,@Query("show_sdv") int show_sdv);
 }

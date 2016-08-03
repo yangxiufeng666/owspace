@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
-import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,6 +41,12 @@ public class MainFragment extends Fragment {
     TextView contentTv;
     @Bind(R.id.author_tv)
     TextView authorTv;
+    @Bind(R.id.type_tv)
+    TextView typeTv;
+    @Bind(R.id.time_tv)
+    TextView timeTv;
+    @Bind(R.id.image_type)
+    ImageView imageType;
 
     public static Fragment instance(Item item) {
         Fragment fragment = new MainFragment();
@@ -71,6 +76,21 @@ public class MainFragment extends Fragment {
         titleTv.setText(item.getTitle());
         contentTv.setText(item.getExcerpt());
         authorTv.setText(item.getAuthor());
+        typeTv.setText(item.getCategory());
+        int model = Integer.valueOf(item.getModel());
+        switch (model) {
+            case 2:
+                imageType.setVisibility(View.VISIBLE);
+                imageType.setImageResource(R.drawable.library_video_play_symbol);
+                break;
+            case 3:
+                imageType.setVisibility(View.VISIBLE);
+                imageType.setImageResource(R.drawable.library_voice_play_symbol);
+                break;
+            default:
+                imageType.setVisibility(View.GONE);
+
+        }
     }
 
     @Override

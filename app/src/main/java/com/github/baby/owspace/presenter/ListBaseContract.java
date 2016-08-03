@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ListBaseContract {
     interface ListBasePresenter{
-        void getListByPage(int page,int model, String pageId,String deviceId);
+        void getListByPage(int page, int model, String pageId,String deviceId,String createTime);
     }
     interface ListBaseView{
         void showLoading();

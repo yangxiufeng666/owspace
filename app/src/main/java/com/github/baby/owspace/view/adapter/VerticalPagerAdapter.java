@@ -35,4 +35,18 @@ public class VerticalPagerAdapter extends FragmentStatePagerAdapter{
         dataList.addAll(data);
         notifyDataSetChanged();
     }
+    public String getLastItemId(){
+        if (dataList.size()==0){
+            return "0";
+        }
+        Item item = dataList.get(dataList.size()-1);
+        return item.getId();
+    }
+    public String getLastItemCreateTime(){
+        if (dataList.size()==0){
+            return "0";
+        }
+        Item item = dataList.get(dataList.size()-1);
+        return item.getCreate_time();
+    }
 }

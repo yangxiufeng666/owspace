@@ -5,13 +5,52 @@
     android:layout_height="match_parent"
     android:background="@color/theme_bg_color"
     android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/image_iv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="230.0dip"
-        android:scaleType="centerCrop" />
+        android:layout_height="230.0dip">
+        <ImageView
+            android:id="@+id/image_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+        <ImageView
+            android:id="@+id/image_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="19.0dip">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2.0dip"
+            android:background="#ffcead53" />
+
+        <TextView
+            android:id="@+id/type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="#ffcead53"
+            android:paddingBottom="5.0dip"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="5.0dip"
+            android:textColor="#ffffffff"
+            android:textSize="8.0sp" />
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#ff808080"
+            android:textSize="11.0sp"
+            android:visibility="gone" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/title_tv"
         android:layout_width="fill_parent"
@@ -25,7 +64,6 @@
         android:minLines="2"
         android:textColor="@color/pagefragment_textcolor_common"
         android:textSize="37.0sp" />
-
     <TextView
         android:id="@+id/content_tv"
         android:layout_width="wrap_content"
