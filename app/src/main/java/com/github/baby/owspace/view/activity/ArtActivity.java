@@ -49,8 +49,8 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_layout);
         ButterKnife.bind(this);
-        initView();
         mode = getIntent().getIntExtra("mode",1);
+        initView();
 //        loadData(page, mode, "0", "0");
     }
 
@@ -122,6 +122,7 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         page++;
         recycleView.refreshComplete();
         recycleView.loadMoreComplete();
+        recycleView.setIsnomore(false);
         if (isRefresh){
             isRefresh = false;
             recycleViewAdapter.replaceAllData(itemList);
@@ -135,5 +136,6 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
     public void showOnFailure() {
         recycleView.refreshComplete();
         recycleView.loadMoreComplete();
+        recycleView.setIsnomore(false);
     }
 }
