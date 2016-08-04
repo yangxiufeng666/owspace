@@ -50,8 +50,10 @@ public class FileUtil {
         File file = new File(FileUtil.ADPATH);
         File[] fileList = file.listFiles();
         List<String> list = new ArrayList<>();
-        for (File f:fileList) {
-            list.add(f.getAbsolutePath());
+        if(null != fileList){
+            for (File f:fileList) {
+                list.add(f.getAbsolutePath());
+            }
         }
         return list;
     }
