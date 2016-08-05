@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/theme_bg_color">
+
+    <RelativeLayout
+        android:id="@+id/date_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15.0dip"
+        android:layout_marginRight="15.0dip">
+
+        <TextView
+            android:id="@+id/month_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13.0dip"
+            android:textColor="#ff000000"
+            android:textSize="12.0sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/year_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/month_tv"
+            android:layout_below="@id/month_tv"
+            android:textColor="#ff000000"
+            android:textSize="12.0sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/month_tv"
+            android:scaleType="centerCrop"
+            android:src="@drawable/arrow_right_grey" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/calendar_iv"
+        android:layout_width="331.0dip"
+        android:layout_height="495.0dip"
+        android:layout_below="@id/date_rl"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17.0dip"
+        android:scaleType="centerCrop" />
+</RelativeLayout>

@@ -5,6 +5,8 @@ import android.app.Application;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 /**
  * Created by Mr.Yangxiufeng
  * DATE 2016/7/21
@@ -15,6 +17,7 @@ public class OwspaceApplication extends Application{
     public void onCreate() {
         super.onCreate();
         initLogger();
+        JodaTimeAndroid.init(this);
     }
     private void initLogger(){
         Logger.init("GithubOwspace")                 // default PRETTYLOGGER or use just init()

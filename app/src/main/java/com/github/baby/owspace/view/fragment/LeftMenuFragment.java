@@ -18,6 +18,7 @@ import com.github.baby.owspace.R;
 import com.github.baby.owspace.view.activity.ArtActivity;
 import com.github.baby.owspace.view.activity.DailyActivity;
 import com.github.baby.owspace.view.listener.SlideMenuOption;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,6 @@ public class LeftMenuFragment extends Fragment {
 
     private SlideMenuOption slideMenuOption;
     private List<View> mViewList = new ArrayList();
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,6 +88,7 @@ public class LeftMenuFragment extends Fragment {
             case R.id.search:
                 break;
             case R.id.home_page_tv:
+                slideMenuOption.hideMenu();
                 break;
             case R.id.words_tv:
                 intent = new Intent(getActivity(), ArtActivity.class);

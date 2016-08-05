@@ -43,6 +43,7 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
     private int page=1;
     private int mode=1;
     private boolean isRefresh;
+    private String deviceId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +52,6 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         ButterKnife.bind(this);
         mode = getIntent().getIntExtra("mode",1);
         initView();
-//        loadData(page, mode, "0", "0");
     }
 
     private void initView() {
@@ -81,19 +81,20 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
             public void onRefresh() {
                 page=1;
                 isRefresh = true;
-                loadData(page, mode, "0", "0");
+                loadData(page, mode, "0",deviceId, "0");
             }
 
             @Override
             public void onLoadMore() {
-                loadData(page, mode, recycleViewAdapter.getLastItemId(), recycleViewAdapter.getLastItemCreateTime());
+                loadData(page, mode, recycleViewAdapter.getLastItemId(),deviceId, recycleViewAdapter.getLastItemCreateTime());
             }
         });
+        deviceId =  AppUtil.getDeviceId(this);
         recycleView.setRefreshing(true);
     }
 
-    private void loadData(int page, int mode, String pageId, String createTime) {
-        presenter.getListByPage(page, mode, pageId, AppUtil.getDeviceId(this), createTime);
+    private void loadData(int page, int mode, String pageId, String deviceId,String createTime) {
+        presenter.getListByPage(page, mode, pageId, deviceId, createTime);
     }
 
     @Override
