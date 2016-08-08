@@ -18,7 +18,6 @@ import com.github.baby.owspace.R;
 import com.github.baby.owspace.view.activity.ArtActivity;
 import com.github.baby.owspace.view.activity.DailyActivity;
 import com.github.baby.owspace.view.listener.SlideMenuOption;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;

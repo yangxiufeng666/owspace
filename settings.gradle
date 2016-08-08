@@ -1,1 +1,1 @@
-include ':app', ':SildeMenulibrary'
+include ':app'
