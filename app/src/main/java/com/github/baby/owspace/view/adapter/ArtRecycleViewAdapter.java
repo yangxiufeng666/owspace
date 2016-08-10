@@ -1,6 +1,8 @@
 package com.github.baby.owspace.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
+import com.github.baby.owspace.view.activity.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +44,18 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<ArtRecycleViewAd
 
     @Override
     public void onBindViewHolder(ArtHolder holder, int position) {
-        Item item = artList.get(position);
+        final Item item = artList.get(position);
         holder.authorTv.setText(item.getAuthor());
         holder.titleTv.setText(item.getTitle());
         Glide.with(context).load(item.getThumbnail()).centerCrop().into(holder.imageIv);
+        holder.typeContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("itemId",item.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -1,13 +1,6 @@
 package com.github.baby.owspace;
 
-import com.github.baby.owspace.model.api.ApiClient;
-import com.github.baby.owspace.model.entity.Detail;
-
 import org.junit.Test;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static org.junit.Assert.*;
 

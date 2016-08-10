@@ -1,5 +1,6 @@
 package com.github.baby.owspace.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
+import com.github.baby.owspace.view.activity.DetailActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -67,7 +69,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Item item = getArguments().getParcelable("item");
+        final Item item = getArguments().getParcelable("item");
         title = item.getTitle();
         Glide.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(imageIv);
         commentTv.setText(item.getComment());
@@ -91,6 +93,14 @@ public class MainFragment extends Fragment {
                 imageType.setVisibility(View.GONE);
 
         }
+        typeContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("itemId",item.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

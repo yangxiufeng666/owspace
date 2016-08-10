@@ -1,6 +1,6 @@
 package com.github.baby.owspace.model.api;
 
-import com.github.baby.owspace.model.entity.Detail;
+import com.github.baby.owspace.model.entity.DetailEntity;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.model.entity.Result;
 import com.github.baby.owspace.model.entity.SplashEntity;
@@ -37,7 +37,7 @@ public interface ApiService {
      * @return
      */
     @GET("/")
-    Call<Result.Data<Detail>> getDetail(@Query("c")String c, @Query("a") String a, @Query("post_id") int post_id, @Query("show_sdv") int show_sdv);
+    Call<Result.Data<DetailEntity>> getDetail(@Query("c")String c, @Query("a") String a, @Query("post_id") String post_id, @Query("show_sdv") int show_sdv);
 
     /**
      * <p>分类列表</p>

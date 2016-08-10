@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.view.WindowManager;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -62,5 +63,18 @@ public class AppUtil {
     public static String getDeviceId(Context context){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getDeviceId();
+    }
+    public static int dp2px(Context paramContext, float paramFloat)
+    {
+        float scale = paramContext.getResources().getDisplayMetrics().density;
+        return (int)(0.5F + paramFloat * scale);
+    }
+    public static int getWindowWidth(Context paramContext)
+    {
+        return getWindowManager(paramContext).getDefaultDisplay().getWidth();
+    }
+    public static WindowManager getWindowManager(Context paramContext)
+    {
+        return (WindowManager)paramContext.getSystemService(Context.WINDOW_SERVICE);
     }
 }

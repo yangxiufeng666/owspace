@@ -7,7 +7,7 @@ import java.util.List;
  * DATE 2016/7/21
  * Owspace
  */
-public class Detail {
+public class DetailEntity {
 
     /**
      * id : 292296
@@ -326,7 +326,7 @@ public class Detail {
 
     @Override
     public String toString() {
-        return "Detail{" +
+        return "DetailEntity{" +
                 "id='" + id + '\'' +
                 ", uid='" + uid + '\'' +
                 ", name='" + name + '\'' +
