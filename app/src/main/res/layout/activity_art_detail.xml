@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,7 +30,8 @@
                     android:id="@+id/news_top_img_under_line"
                     android:layout_width="fill_parent"
                     android:layout_height="2.0dip"
-                    android:background="#ffcead53" />
+                    android:background="#ffcead53"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -104,7 +104,7 @@
                     android:layout_height="0.5dp"
                     android:layout_margin="5dp"
                     android:background="@color/item_column_page_textcolor_author"
-                    android:layerType="software" />
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,13 +127,6 @@
         </LinearLayout>
 
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
-
-    <!--<android.support.design.widget.AppBarLayout-->
-    <!--android:id="@+id/appBar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-    <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
@@ -172,7 +165,5 @@
                 android:layout_marginRight="15dp"
                 android:src="@drawable/share" />
         </LinearLayout>
-
     </android.support.v7.widget.Toolbar>
-    <!--</android.support.design.widget.AppBarLayout>-->
 </FrameLayout>

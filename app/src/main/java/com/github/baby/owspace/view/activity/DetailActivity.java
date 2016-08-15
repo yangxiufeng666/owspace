@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +23,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -57,6 +59,12 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     TextView newsTopAuthor;
     @Bind(R.id.news_top_lead)
     TextView newsTopLead;
+    @Bind(R.id.news_top)
+    LinearLayout newsTop;
+    @Bind(R.id.news_top_img_under_line)
+    View newsTopImgUnderLine;
+    @Bind(R.id.news_top_lead_line)
+    View newsTopLeadLine;
 
     private DetailPresenter presenter;
     private int mParallaxImageHeight;
@@ -86,17 +94,16 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         toolBar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
         scrollView.setScrollViewCallbacks(this);
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
-        initWebViewSetting();
     }
 
     private void initWebViewSetting() {
-//        WebSettings localWebSettings = this.webView.getSettings();
-//        localWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-//        localWebSettings.setJavaScriptEnabled(true);
-//        localWebSettings.setSupportZoom(true);
-//        webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-//        localWebSettings.setUseWideViewPort(true);
-//        localWebSettings.setLoadWithOverviewMode(true);
+        WebSettings localWebSettings = this.webView.getSettings();
+        localWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        localWebSettings.setJavaScriptEnabled(true);
+        localWebSettings.setSupportZoom(true);
+        webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        localWebSettings.setUseWideViewPort(true);
+        localWebSettings.setLoadWithOverviewMode(true);
     }
 
     @Override
@@ -117,16 +124,17 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         newsTopAuthor.setText(detailEntity.getAuthor());
         newsTopLead.setText(detailEntity.getLead());
         if (detailEntity.getParseXML() == 1) {
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("<html>");
-//            sb.append("<body>");
-//            sb.append(detailEntity.getContent());
-//            sb.append("</body></html>");
-//            webView.loadData(sb.toString(), "text/html; charset=UTF-8", null);//这种写法可以正确解码
+            newsTopLeadLine.setVisibility(View.VISIBLE);
+            newsTopImgUnderLine.setVisibility(View.VISIBLE);
             int i = detailEntity.getLead().trim().length();
             AnalysisHTML analysisHTML = new AnalysisHTML();
             analysisHTML.loadHtml(this, detailEntity.getContent(), analysisHTML.HTML_STRING, newsParseWeb, i);
         } else {
+            initWebViewSetting();
+            newsParseWeb.setVisibility(View.GONE);
+            image.setVisibility(View.GONE);
+            webView.setVisibility(View.VISIBLE);
+            newsTop.setVisibility(View.GONE);
             webView.loadUrl(addParams2WezeitUrl(detailEntity.getHtml5(), false));
         }
 
@@ -160,7 +168,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         localStringBuffer.append(url);
         localStringBuffer.append("?client=android");
         localStringBuffer.append("&device_id=" + AppUtil.getDeviceId(this));
-        localStringBuffer.append("&version=" + "1.1.0");
+        localStringBuffer.append("&version=" + "1.3.0");
         if (paramBoolean)
             localStringBuffer.append("&show_video=0");
         else {
