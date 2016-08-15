@@ -25,6 +25,7 @@
         <activity android:name=".view.activity.ArtActivity"/>
         <activity android:name=".view.activity.DailyActivity"/>
         <activity android:name=".view.activity.DetailActivity"/>
+        <activity android:name=".view.activity.SettingsActivity"/>
         <meta-data android:name="com.github.baby.owspace.util.GlideConfiguration" android:value="GlideModule"/>
     </application>
 

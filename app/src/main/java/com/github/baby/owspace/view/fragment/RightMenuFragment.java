@@ -1,5 +1,6 @@
 package com.github.baby.owspace.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.view.activity.SettingsActivity;
 import com.github.baby.owspace.view.listener.SlideMenuOption;
 import com.orhanobut.logger.Logger;
 
@@ -83,6 +85,9 @@ public class RightMenuFragment extends Fragment {
                 slideMenuOption.hideMenu();
                 break;
             case R.id.setting:
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), SettingsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.notification_tv:
                 break;

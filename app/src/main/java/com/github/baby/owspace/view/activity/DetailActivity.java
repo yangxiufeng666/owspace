@@ -129,6 +129,18 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             int i = detailEntity.getLead().trim().length();
             AnalysisHTML analysisHTML = new AnalysisHTML();
             analysisHTML.loadHtml(this, detailEntity.getContent(), analysisHTML.HTML_STRING, newsParseWeb, i);
+            int mode = Integer.valueOf(detailEntity.getModel());
+            switch (mode){
+                case 1:
+                    newsTopType.setText("文 字");
+                    break;
+                case 2:
+                    newsTopType.setText("视 频");
+                    break;
+                case 3:
+                    newsTopType.setText("音 频");
+                    break;
+            }
         } else {
             initWebViewSetting();
             newsParseWeb.setVisibility(View.GONE);

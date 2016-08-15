@@ -19,4 +19,10 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="primary">#ff212324</color>
+
+    <color name="setting_act_viewline_common">#ffc6c5c4</color>
+    <color name="setting_act_textcolor_common">#ff727272</color>
+    <color name="setting_act_textcolor_cus1">#ffd4d4d4</color>
+    <color name="setting_act_rl_bgcolor_common">#ffffffff</color>
+
 </resources>
