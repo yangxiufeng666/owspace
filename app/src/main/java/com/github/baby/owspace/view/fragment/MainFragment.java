@@ -1,6 +1,7 @@
 package com.github.baby.owspace.view.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,12 @@ public class MainFragment extends Fragment {
     TextView timeTv;
     @Bind(R.id.image_type)
     ImageView imageType;
+    @Bind(R.id.download_start_white)
+    ImageView downloadStartWhite;
+    @Bind(R.id.home_advertise_iv)
+    ImageView homeAdvertiseIv;
+    @Bind(R.id.pager_content)
+    LinearLayout pagerContent;
 
     public static Fragment instance(Item item) {
         Fragment fragment = new MainFragment();
@@ -70,35 +77,51 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         final Item item = getArguments().getParcelable("item");
-        title = item.getTitle();
-        Glide.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(imageIv);
-        commentTv.setText(item.getComment());
-        likeTv.setText(item.getGood());
-        readcountTv.setText(item.getView());
-        titleTv.setText(item.getTitle());
-        contentTv.setText(item.getExcerpt());
-        authorTv.setText(item.getAuthor());
-        typeTv.setText(item.getCategory());
-        int model = Integer.valueOf(item.getModel());
-        switch (model) {
-            case 2:
-                imageType.setVisibility(View.VISIBLE);
-                imageType.setImageResource(R.drawable.library_video_play_symbol);
-                break;
-            case 3:
-                imageType.setVisibility(View.VISIBLE);
-                imageType.setImageResource(R.drawable.library_voice_play_symbol);
-                break;
-            default:
-                imageType.setVisibility(View.GONE);
-
+        final int model = Integer.valueOf(item.getModel());
+        if (model == 5){
+            pagerContent.setVisibility(View.GONE);
+            homeAdvertiseIv.setVisibility(View.VISIBLE);
+            Glide.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(homeAdvertiseIv);
+        }else{
+            pagerContent.setVisibility(View.VISIBLE);
+            homeAdvertiseIv.setVisibility(View.GONE);
+            title = item.getTitle();
+            Glide.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(imageIv);
+            commentTv.setText(item.getComment());
+            likeTv.setText(item.getGood());
+            readcountTv.setText(item.getView());
+            titleTv.setText(item.getTitle());
+            contentTv.setText(item.getExcerpt());
+            authorTv.setText(item.getAuthor());
+            typeTv.setText(item.getCategory());
+            switch (model) {
+                case 2:
+                    imageType.setVisibility(View.VISIBLE);
+                    downloadStartWhite.setVisibility(View.GONE);
+                    imageType.setImageResource(R.drawable.library_video_play_symbol);
+                    break;
+                case 3:
+                    imageType.setVisibility(View.VISIBLE);
+                    downloadStartWhite.setVisibility(View.VISIBLE);
+                    imageType.setImageResource(R.drawable.library_voice_play_symbol);
+                    break;
+                default:
+                    downloadStartWhite.setVisibility(View.GONE);
+                    imageType.setVisibility(View.GONE);
+            }
         }
         typeContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("itemId",item.getId());
-                startActivity(intent);
+                if (model==5){
+                    Uri uri = Uri.parse(item.getHtml5());
+                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra("itemId", item.getId());
+                    startActivity(intent);
+                }
             }
         });
     }

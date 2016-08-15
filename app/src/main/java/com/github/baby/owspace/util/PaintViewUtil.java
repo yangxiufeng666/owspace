@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
-import com.github.baby.owspace.util.note.ArticleStyleBean;
-import com.github.baby.owspace.util.note.PagerNotes;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -27,7 +25,6 @@ public class PaintViewUtil {
     private final String LINE_H3 = "LINE_H3";
     private final String LINE_H4 = "LINE_H4";
     private final String LINE_HR = "LINE_HR";
-    private ArticleStyleBean articleStyleACache;
     private TextView blockTv;
     private int imgH;
     private int imgW;

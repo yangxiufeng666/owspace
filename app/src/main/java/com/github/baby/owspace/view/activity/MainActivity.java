@@ -172,8 +172,7 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
     public void showOnFailure() {
         if (pagerAdapter.getCount()==0){
             showNoData();
-        }else{
-            Toast.makeText(this,"加载数据失败，请检查您的网络",Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this,"加载数据失败，请检查您的网络",Toast.LENGTH_SHORT).show();
     }
 }
