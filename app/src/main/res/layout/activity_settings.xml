@@ -64,6 +64,7 @@
                 android:background="@color/setting_act_viewline_common" />
 
             <RelativeLayout
+                android:id="@+id/cacheLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_menu_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -74,6 +75,7 @@
                     android:text="清除缓存" />
 
                 <TextView
+                    android:id="@+id/cacheSize"
                     style="@style/SettingMenuRightStyle"
                     android:text="1.42M" />
             </RelativeLayout>
@@ -150,6 +152,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/setting_act_viewline_common" />
             <RelativeLayout
+                android:id="@+id/about"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_menu_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -169,6 +172,7 @@
                 android:layout_marginLeft="15dp"
                 android:background="@color/setting_act_viewline_common" />
             <RelativeLayout
+                android:id="@+id/feedback"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_menu_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -192,6 +196,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/setting_act_viewline_common" />
             <RelativeLayout
+                android:id="@+id/checkUpgrade"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_menu_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -202,6 +207,7 @@
                     android:text="版本更新" />
 
                 <TextView
+                    android:id="@+id/version_tv"
                     style="@style/SettingMenuRightStyle"
                     android:text="1.3.0"/>
             </RelativeLayout>

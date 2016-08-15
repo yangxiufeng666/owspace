@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
-
+// 根据日期自动生成build号
+def calendar = Calendar.getInstance();
+def time = String.format("%d%02d%02d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+def name = time+"build";
 android {
     signingConfigs {
         config {
@@ -15,14 +18,15 @@ android {
         applicationId "com.github.baby.owspace"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode Integer.parseInt(time)
+        versionName name
         signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         debug {
             signingConfig signingConfigs.config
@@ -40,8 +44,8 @@ repositories{
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile(name:'SildeMenulibrary-release',ext:'aar')
-    compile(name:'ObservableScrollView-release',ext:'aar')
+    compile(name: 'SildeMenulibrary-release', ext: 'aar')
+    compile(name: 'ObservableScrollView-release', ext: 'aar')
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.6.2'
