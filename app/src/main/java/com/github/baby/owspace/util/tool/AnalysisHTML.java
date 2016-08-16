@@ -46,7 +46,7 @@ public class AnalysisHTML {
     private Elements pChild;
     private PaintViewUtil paintViewUtil = new PaintViewUtil();
     private int r;
-    private int space=10;
+    private int space = 10;
     private StyleSpan span;
     private SpannableStringBuilder ssb;
     private Thread strThread;
@@ -81,68 +81,30 @@ public class AnalysisHTML {
 
     private void parseChildOfPH(Element paramElement) {
         String str1 = paramElement.text().replaceAll("br;", "\n");
-        Iterator localIterator;
         if (!TextUtils.isEmpty(str1)) {
             ssb = new SpannableStringBuilder(str1);
-//            pChild = paramElement.children();
-//            if (pChild.size() > 0) {
-//                localIterator = paramElement.children().iterator();
-//                while (localIterator.hasNext()) {
-//                    if (paramElement.nodeName().equals("h1")) {
-//                        viewType = 1;
-//                    } else if (paramElement.nodeName().equals("h2")) {
-//                        viewType = 2;
-//                    } else if (paramElement.nodeName().equals("h3")) {
-//                        viewType = 3;
-//                    } else if (paramElement.nodeName().equals("h4")) {
-//                        viewType = 4;
-//                    } else if (paramElement.nodeName().equals("h5")) {
-//                        viewType = 5;
-//                    } else if (paramElement.nodeName().equals("h6")) {
-//                        viewType = 6;
-//                    } else if (paramElement.nodeName().equals("block")) {
-//                        viewType = 7;
-//                    } else if (paramElement.nodeName().equals("poetry")) {
-//                        viewType = 8;
-//                    } else if (paramElement.nodeName().equals("hr")) {
-//                        this.viewType = 10;
-//                    }
-//                    this.paintViewUtil.addTypeView(context, this.fuView, this.viewType, ssb, null, null, null, this.wordsLength, 4 * space);
-//                    this.wordsLength += str1.trim().length();
-//                    Element localElement = (Element) localIterator.next();
-//                    String str2 = localElement.text();
-//                    int i = str1.indexOf(str2);
-//                    int j = i + str2.length();
-//                    if (localElement.nodeName().matches("strong")) {
-//                        ssb = setTextSpan(i, j, 1);
-//                    } else if (localElement.nodeName().matches("em")) {
-//                        ssb = setTextSpan(i, j, 2);
-//                    }
-//                }
-//            }else{
-                if (paramElement.nodeName().equals("h1")) {
-                    viewType = 1;
-                } else if (paramElement.nodeName().equals("h2")) {
-                    viewType = 2;
-                } else if (paramElement.nodeName().equals("h3")) {
-                    viewType = 3;
-                } else if (paramElement.nodeName().equals("h4")) {
-                    viewType = 4;
-                } else if (paramElement.nodeName().equals("h5")) {
-                    viewType = 5;
-                } else if (paramElement.nodeName().equals("h6")) {
-                    viewType = 6;
-                } else if (paramElement.nodeName().equals("block")) {
-                    viewType = 7;
-                } else if (paramElement.nodeName().equals("poetry")) {
-                    viewType = 8;
-                } else if (paramElement.nodeName().equals("hr")) {
-                    this.viewType = 10;
-                }else {
-                    viewType = 0;
-                }
-                paintViewUtil.addTypeView(context,this.fuView, this.viewType, ssb, null, null, null, this.wordsLength, 4 * space);
-//            }
+            if (paramElement.nodeName().equals("h1")) {
+                viewType = 1;
+            } else if (paramElement.nodeName().equals("h2")) {
+                viewType = 2;
+            } else if (paramElement.nodeName().equals("h3")) {
+                viewType = 3;
+            } else if (paramElement.nodeName().equals("h4")) {
+                viewType = 4;
+            } else if (paramElement.nodeName().equals("h5")) {
+                viewType = 5;
+            } else if (paramElement.nodeName().equals("h6")) {
+                viewType = 6;
+            } else if (paramElement.nodeName().equals("block")) {
+                viewType = 7;
+            } else if (paramElement.nodeName().equals("poetry")) {
+                viewType = 8;
+            } else if (paramElement.nodeName().equals("hr")) {
+                this.viewType = 10;
+            } else {
+                viewType = 0;
+            }
+            paintViewUtil.addTypeView(context, this.fuView, this.viewType, ssb, null, null, null, this.wordsLength, 4 * space);
         }
     }
 

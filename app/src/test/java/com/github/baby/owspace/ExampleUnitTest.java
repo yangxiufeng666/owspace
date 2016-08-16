@@ -2,6 +2,8 @@ package com.github.baby.owspace;
 
 import org.junit.Test;
 
+import java.util.Calendar;
+
 import static org.junit.Assert.*;
 
 /**
@@ -14,7 +16,12 @@ public class ExampleUnitTest {
     }
     @Test
     public void addition1() throws Exception {
-        System.out.println("asdadadadadada");
+        Calendar calendar = Calendar.getInstance();
+        String time = String.format("%d%02d%02d%d%d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE));
+        System.out.println(time);
+        System.out.println(calendar.get(Calendar.HOUR_OF_DAY));
+        System.out.println(calendar.get(Calendar.MINUTE));
+        System.out.println(calendar.get(Calendar.MILLISECOND));
 
     }
 }
