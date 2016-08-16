@@ -15,7 +15,7 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 ![image](https://github.com/babylikebird/owspace/blob/master/owspace.gif)
 
 #TODO LIST
-* 缓存
+* sqldelight SqlBrite 缓存
 * 字体
 * 评论列表
 * some fucking features
@@ -40,8 +40,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.daimajia.easing:library:1.0.1@aar'
-    compile 'com.daimajia.androidanimations:library:1.1.3@aar'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.orhanobut:logger:1.15'
     compile 'com.android.support:recyclerview-v7:24.1.1'
