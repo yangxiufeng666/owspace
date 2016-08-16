@@ -15,10 +15,6 @@ import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.util.TimeUtil;
 
-import net.danlew.android.joda.DateUtils;
-
-import org.joda.time.DateTime;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 

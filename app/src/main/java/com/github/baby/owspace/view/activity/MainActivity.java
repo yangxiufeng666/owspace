@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
     private VerticalPagerAdapter pagerAdapter;
 
     private int page = 1;
-    private boolean isLoading=true;
+    private boolean isLoading = true;
     private long mLastClickTime;
 
     @Override
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
         ButterKnife.bind(this);
         initMenu();
         initPage();
-        loadData(1, 0, "0","0");
+        loadData(1, 0, "0", "0");
     }
 
     private void initMenu() {
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
         rightMenu.setSlideMenuOption(this);
         getSupportFragmentManager().beginTransaction().add(R.id.right_menu, rightMenu).commit();
     }
-    private void initPage(){
+
+    private void initPage() {
         pagerAdapter = new VerticalPagerAdapter(getSupportFragmentManager());
         presenter = new MainPresenter(this, this);
         viewPager.setAdapter(pagerAdapter);
@@ -80,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
 
             @Override
             public void onPageSelected(int position) {
-                if (pagerAdapter.getCount() <= position +2 && !isLoading){
-                    Logger.e("page="+page+",getLastItemId="+pagerAdapter.getLastItemId());
-                    loadData(page, 0, pagerAdapter.getLastItemId(),pagerAdapter.getLastItemCreateTime());
+                if (pagerAdapter.getCount() <= position + 2 && !isLoading) {
+                    Logger.e("page=" + page + ",getLastItemId=" + pagerAdapter.getLastItemId());
+                    loadData(page, 0, pagerAdapter.getLastItemId(), pagerAdapter.getLastItemCreateTime());
                 }
             }
 
@@ -92,21 +93,22 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
             }
         });
     }
-    private void loadData(int page,int mode,String pageId,String createTime){
+
+    private void loadData(int page, int mode, String pageId, String createTime) {
         isLoading = true;
-        presenter.getListByPage(page,mode,pageId, AppUtil.getDeviceId(this),createTime);
+        presenter.getListByPage(page, mode, pageId, AppUtil.getDeviceId(this), createTime);
     }
 
     @Override
     public void onBackPressed() {
-        if (slidingMenu.isMenuShowing()|| slidingMenu.isSecondaryMenuShowing()){
+        if (slidingMenu.isMenuShowing() || slidingMenu.isSecondaryMenuShowing()) {
             slidingMenu.showContent();
-        }else{
-            if (System.currentTimeMillis() - mLastClickTime <= 2000L){
+        } else {
+            if (System.currentTimeMillis() - mLastClickTime <= 2000L) {
                 super.onBackPressed();
-            }else {
+            } else {
                 mLastClickTime = System.currentTimeMillis();
-                Toast.makeText(this,"再按一次退出",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
 
     @Override
     public void showNoMore() {
-        Toast.makeText(this,"没有更多数据了",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "没有更多数据了", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -170,9 +172,9 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
 
     @Override
     public void showOnFailure() {
-        if (pagerAdapter.getCount()==0){
+        if (pagerAdapter.getCount() == 0) {
             showNoData();
         }
-        Toast.makeText(this,"加载数据失败，请检查您的网络",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "加载数据失败，请检查您的网络", Toast.LENGTH_SHORT).show();
     }
 }

@@ -53,7 +53,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:textColor="#ffcead53"
-                            android:text="文字"/>
+                            android:text=""/>
                     </LinearLayout>
 
                     <LinearLayout
