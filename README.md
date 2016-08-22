@@ -5,11 +5,12 @@ owspace是基于MVP和Retrofit2.0的APP
 owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 #你能学到
-* 采用MVP模式
-* Retrofit2.0 + okhttp3
+* MVP模式
+* Retrofit2.0 + rxjava
 * Material Design
 * Android6.0 动态权限申请
 * jsoup解析DOM
+* sqldelight SqlBrite
 
 #展示
 ![image](https://github.com/babylikebird/owspace/blob/master/owspace.gif)
@@ -25,19 +26,21 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 #thanks
 ```
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+ compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile(name:'SildeMenulibrary-release',ext:'aar')
-    compile(name:'ObservableScrollView-release',ext:'aar')
+    compile(name: 'SildeMenulibrary-release', ext: 'aar')
+    compile(name: 'ObservableScrollView-release', ext: 'aar')
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'net.danlew:android.joda:2.9.3'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0' 
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0' 
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0' 
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -46,6 +49,5 @@ dependencies {
     compile 'com.jcodecraeer:xrecyclerview:1.2.7'
     compile 'com.android.support:design:24.1.1'
     compile 'org.jsoup:jsoup:1.7.3'
-}
 ```
 
