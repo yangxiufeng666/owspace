@@ -8,6 +8,9 @@ import com.github.baby.owspace.model.entity.Result;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -23,17 +26,24 @@ public class DetailPresenter implements DetailContract.Presenter{
 
     @Override
     public void getDetail(String itemId) {
-        Call<Result.Data<DetailEntity>> call = ApiClient.service.getDetail("api","getPost",itemId,1);
-        call.enqueue(new Callback<Result.Data<DetailEntity>>() {
-            @Override
-            public void onResponse(Call<Result.Data<DetailEntity>> call, Response<Result.Data<DetailEntity>> response) {
-                view.updateListUI(response.body().getDatas());
-            }
+        ApiClient.service.getDetail("api","getPost",itemId,1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result.Data<DetailEntity>>() {
+                    @Override
+                    public void onCompleted() {
 
-            @Override
-            public void onFailure(Call<Result.Data<DetailEntity>> call, Throwable t) {
-                view.showOnFailure();
-            }
-        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showOnFailure();
+                    }
+
+                    @Override
+                    public void onNext(Result.Data<DetailEntity> detailEntityData) {
+                        view.updateListUI(detailEntityData.getDatas());
+                    }
+                });
     }
 }

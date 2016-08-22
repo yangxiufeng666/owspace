@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
             @Override
             public void onPageSelected(int position) {
                 if (pagerAdapter.getCount() <= position + 2 && !isLoading) {
-                    Logger.e("page=" + page + ",getLastItemId=" + pagerAdapter.getLastItemId());
+                    Logger.i("page=" + page + ",getLastItemId=" + pagerAdapter.getLastItemId());
                     loadData(page, 0, pagerAdapter.getLastItemId(), pagerAdapter.getLastItemCreateTime());
                 }
             }

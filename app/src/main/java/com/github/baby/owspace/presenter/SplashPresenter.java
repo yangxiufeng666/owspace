@@ -3,24 +3,19 @@ package com.github.baby.owspace.presenter;
 
 import android.content.Context;
 
-import com.bumptech.glide.Glide;
 import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.entity.SplashEntity;
-import com.github.baby.owspace.model.util.HttpUtils;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.util.NetUtil;
 import com.github.baby.owspace.util.OkHttpImageDownloader;
 import com.github.baby.owspace.util.TimeUtil;
 import com.orhanobut.logger.Logger;
 
-import java.io.IOException;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -38,36 +33,36 @@ public class SplashPresenter implements SplashContract.Presenter{
 
     @Override
     public void getSplash() {
-        //String client, String version, Long time,String imei
         String client = "android";
         String version = "1.3.0";
         Long time = TimeUtil.getCurrentSeconds();
         String deviceId = AppUtil.getDeviceId(context);
-        Call<SplashEntity> call = ApiClient.service.getSplash(client,version,time,deviceId);
-        call.enqueue(new Callback<SplashEntity>() {
-            @Override
-            public void onResponse(Call<SplashEntity> call, Response<SplashEntity> response) {
-                okhttp3.Response res = response.raw();
-                if (!res.isSuccessful()){
-                    Logger.e("failed:"+res.message());
-                    return;
-                }
-                SplashEntity splashEntity = response.body();
-                if (NetUtil.isWifi(context)){
-                    if (splashEntity != null){
-                        List<String> imgs = splashEntity.getImages();
-                        for (String url:imgs) {
-                            OkHttpImageDownloader.download(url);
+        ApiClient.service.getSplash(client,version,time,deviceId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<SplashEntity>() {
+                    @Override
+                    public void onCompleted() {
+                        Logger.e("load splash onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e,"load splash failed:");
+                    }
+                    @Override
+                    public void onNext(SplashEntity splashEntity) {
+                        if (NetUtil.isWifi(context)){
+                            if (splashEntity != null){
+                                List<String> imgs = splashEntity.getImages();
+                                for (String url:imgs) {
+                                    OkHttpImageDownloader.download(url);
+                                }
+                            }
+                        }else{
+                            Logger.i("不是WIFI环境,就不去下载图片了");
                         }
                     }
-                }else{
-                    Logger.i("不是WIFI环境");
-                }
-            }
-            @Override
-            public void onFailure(Call<SplashEntity> call, Throwable t) {
-                Logger.e(t,"load splash failed:");
-            }
-        });
+                });
     }
 }

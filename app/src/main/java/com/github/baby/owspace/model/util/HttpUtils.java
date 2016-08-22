@@ -1,7 +1,6 @@
 package com.github.baby.owspace.model.util;
 
 import com.github.baby.owspace.BuildConfig;
-import com.github.baby.owspace.util.CustomLoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,9 +20,9 @@ public class HttpUtils {
             .addInterceptor(createHttpLoggingInterceptor())
             .build();
 
-    private static CustomLoggingInterceptor createHttpLoggingInterceptor() {
-        CustomLoggingInterceptor loggingInterceptor = new CustomLoggingInterceptor();
-        loggingInterceptor.setLevel(BuildConfig.DEBUG ? CustomLoggingInterceptor.Level.BODY : CustomLoggingInterceptor.Level.NONE);
+    private static HttpLoggingInterceptor createHttpLoggingInterceptor() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         return loggingInterceptor;
     }
 }

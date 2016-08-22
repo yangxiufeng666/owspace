@@ -6,10 +6,10 @@ import com.github.baby.owspace.model.entity.Result;
 import com.github.baby.owspace.model.entity.SplashEntity;
 
 import java.util.List;
-
-import retrofit2.Call;
+;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -27,7 +27,7 @@ public interface ApiService {
      * @return
      */
     @GET("static/picture_list.txt")
-    Call<SplashEntity> getSplash(@Query("client") String client, @Query("version") String version, @Query("time") Long time, @Query("device_id") String imei);
+    Observable<SplashEntity> getSplash(@Query("client") String client, @Query("version") String version, @Query("time") Long time, @Query("device_id") String imei);
 
     /**
      * http://static.owspace.com/?c=api&a=getPost&post_id=292296&show_sdv=1
@@ -40,7 +40,7 @@ public interface ApiService {
      * @return
      */
     @GET("/")
-    Call<Result.Data<DetailEntity>> getDetail(@Query("c") String c, @Query("a") String a, @Query("post_id") String post_id, @Query("show_sdv") int show_sdv);
+    Observable<Result.Data<DetailEntity>> getDetail(@Query("c") String c, @Query("a") String a, @Query("post_id") String post_id, @Query("show_sdv") int show_sdv);
 
     /**
      * <p>分类列表</p>
@@ -57,5 +57,5 @@ public interface ApiService {
      * @return
      */
     @GET("/")
-    Call<Result.Data<List<Item>>> getList(@Query("c") String c, @Query("a") String a, @Query("p") int page, @Query("model") int model, @Query("page_id") String pageId, @Query("create_time") String createTime, @Query("client") String client, @Query("version") String version, @Query("time") long time, @Query("device_id") String deviceId, @Query("show_sdv") int show_sdv);
+    Observable<Result.Data<List<Item>>> getList(@Query("c") String c, @Query("a") String a, @Query("p") int page, @Query("model") int model, @Query("page_id") String pageId, @Query("create_time") String createTime, @Query("client") String client, @Query("version") String version, @Query("time") long time, @Query("device_id") String deviceId, @Query("show_sdv") int show_sdv);
 }

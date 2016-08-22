@@ -1,12 +1,8 @@
 package com.github.baby.owspace.util;
 
-
-import android.os.Environment;
-
 import com.github.baby.owspace.model.util.HttpUtils;
 import com.orhanobut.logger.Logger;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
