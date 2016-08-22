@@ -39,7 +39,7 @@ public class SplashPresenter implements SplashContract.Presenter{
         String deviceId = AppUtil.getDeviceId(context);
         ApiClient.service.getSplash(client,version,time,deviceId)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(new Subscriber<SplashEntity>() {
                     @Override
                     public void onCompleted() {

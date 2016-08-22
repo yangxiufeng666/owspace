@@ -10,16 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.presenter.SplashContract;
@@ -33,15 +29,19 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -69,15 +69,17 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
             checkPermissions(needPermissions);
         }else{
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setContentView(R.layout.activity_splash);
-                    ButterKnife.bind(SplashActivity.this);
-                    delaySplash();
-                    checkPermissions(needPermissions);
-                }
-            },250);
+            Observable.timer(250, TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Long>() {
+                        @Override
+                        public void call(Long aLong) {
+                            setContentView(R.layout.activity_splash);
+                            ButterKnife.bind(SplashActivity.this);
+                            delaySplash();
+                        }
+                    });
         }
     }
 

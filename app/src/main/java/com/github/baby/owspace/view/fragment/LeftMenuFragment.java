@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.model.entity.Event;
+import com.github.baby.owspace.util.tool.RxBus;
 import com.github.baby.owspace.view.activity.ArtActivity;
 import com.github.baby.owspace.view.activity.DailyActivity;
 import com.github.baby.owspace.view.listener.SlideMenuOption;
@@ -82,12 +84,14 @@ public class LeftMenuFragment extends Fragment {
         Intent intent;
         switch (view.getId()) {
             case R.id.right_slide_close:
-                slideMenuOption.hideMenu();
+//                slideMenuOption.hideMenu();
+                RxBus.getInstance().postEvent(new Event(1000,"closeMenu"));
                 break;
             case R.id.search:
                 break;
             case R.id.home_page_tv:
-                slideMenuOption.hideMenu();
+//                slideMenuOption.hideMenu();
+                RxBus.getInstance().postEvent(new Event(1000,"closeMenu"));
                 break;
             case R.id.words_tv:
                 intent = new Intent(getActivity(), ArtActivity.class);

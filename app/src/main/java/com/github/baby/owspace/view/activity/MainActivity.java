@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.model.entity.Event;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.presenter.MainContract;
 import com.github.baby.owspace.presenter.MainPresenter;
 import com.github.baby.owspace.util.AppUtil;
+import com.github.baby.owspace.util.tool.RxBus;
 import com.github.baby.owspace.view.adapter.VerticalPagerAdapter;
 import com.github.baby.owspace.view.fragment.LeftMenuFragment;
 import com.github.baby.owspace.view.fragment.RightMenuFragment;
@@ -24,8 +26,10 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscription;
+import rx.functions.Action1;
 
-public class MainActivity extends AppCompatActivity implements SlideMenuOption, MainContract.View {
+public class MainActivity extends AppCompatActivity implements MainContract.View {
 
     @Bind(R.id.view_pager)
     VerticalViewPager viewPager;
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
     private int page = 1;
     private boolean isLoading = true;
     private long mLastClickTime;
+
+    private Subscription subscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +67,17 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(R.layout.left_menu);
         leftMenu = new LeftMenuFragment();
-        leftMenu.setSlideMenuOption(this);
         getSupportFragmentManager().beginTransaction().add(R.id.left_menu, leftMenu).commit();
         slidingMenu.setSecondaryMenu(R.layout.right_menu);
         rightMenu = new RightMenuFragment();
-        rightMenu.setSlideMenuOption(this);
         getSupportFragmentManager().beginTransaction().add(R.id.right_menu, rightMenu).commit();
+        subscription = RxBus.getInstance().toObservable(Event.class)
+                .subscribe(new Action1<Event>() {
+                    @Override
+                    public void call(Event event) {
+                        slidingMenu.showContent();
+                    }
+                });
     }
 
     private void initPage() {
@@ -113,20 +124,6 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
 
         }
 
-    }
-
-    @Override
-    public void showMenu(int flag) {
-        if (flag == 1) {
-            slidingMenu.showMenu();
-        } else {
-            slidingMenu.showSecondaryMenu();
-        }
-    }
-
-    @Override
-    public void hideMenu() {
-        slidingMenu.showContent();
     }
 
     @OnClick({R.id.left_slide, R.id.right_slide})
@@ -176,5 +173,13 @@ public class MainActivity extends AppCompatActivity implements SlideMenuOption, 
             showNoData();
         }
         Toast.makeText(this, "加载数据失败，请检查您的网络", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (subscription.isUnsubscribed()){
+            subscription.unsubscribe();
+        }
+        super.onDestroy();
     }
 }

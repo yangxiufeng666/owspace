@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.model.entity.Event;
+import com.github.baby.owspace.util.tool.RxBus;
 import com.github.baby.owspace.view.activity.SettingsActivity;
 import com.github.baby.owspace.view.listener.SlideMenuOption;
 import com.orhanobut.logger.Logger;
@@ -82,7 +84,8 @@ public class RightMenuFragment extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.right_slide_close:
-                slideMenuOption.hideMenu();
+//                slideMenuOption.hideMenu();
+                RxBus.getInstance().postEvent(new Event(1000,"closeMenu"));
                 break;
             case R.id.setting:
                 Intent intent = new Intent();
