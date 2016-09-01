@@ -12,6 +12,7 @@ import java.util.List;
 public interface MainContract {
     interface Presenter{
         void getListByPage(int page, int model, String pageId,String deviceId,String createTime);
+        void getRecommend(String deviceId);
     }
     interface View{
         void showLoading();
@@ -20,5 +21,6 @@ public interface MainContract {
         void showNoMore();
         void updateListUI(List<Item> itemList);
         void showOnFailure();
+        void showLunar(String content);
     }
 }

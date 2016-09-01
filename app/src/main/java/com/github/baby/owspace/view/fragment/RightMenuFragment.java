@@ -18,8 +18,6 @@ import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Event;
 import com.github.baby.owspace.util.tool.RxBus;
 import com.github.baby.owspace.view.activity.SettingsActivity;
-import com.github.baby.owspace.view.listener.SlideMenuOption;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +51,7 @@ public class RightMenuFragment extends Fragment {
     @Bind(R.id.title_bar)
     RelativeLayout titleBar;
 
-    private SlideMenuOption slideMenuOption;
     private List<View> mViewList = new ArrayList();
-
-    public void setSlideMenuOption(SlideMenuOption slideMenuOption) {
-        this.slideMenuOption = slideMenuOption;
-    }
 
     @Nullable
     @Override

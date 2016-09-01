@@ -25,6 +25,7 @@ import com.github.baby.owspace.util.PreferenceUtils;
 import com.github.baby.owspace.view.widget.FixedImageView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -98,15 +99,19 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         if (picList.size()>0){
             Random random = new Random();
             int index = random.nextInt(picList.size());
-            int imgIndex = PreferenceUtils.getPrefInt(this,"splash_img_index",-1);
+            int imgIndex = PreferenceUtils.getPrefInt(this,"splash_img_index",0);
+            Logger.i("当前的imgIndex="+imgIndex);
             if (index == imgIndex){
                 if (index >= picList.size()){
                     index --;
                 }else if (imgIndex == 0){
-                    index ++;
+                    if (index + 1 < picList.size()){
+                        index++;
+                    }
                 }
             }
             PreferenceUtils.setPrefInt(this,"splash_img_index",index);
+            Logger.i("当前的picList.size="+picList.size()+",index = "+index);
             File file = new File(picList.get(index));
             try {
                 InputStream fis = new FileInputStream(file);

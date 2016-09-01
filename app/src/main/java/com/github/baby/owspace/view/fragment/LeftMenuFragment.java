@@ -19,7 +19,6 @@ import com.github.baby.owspace.model.entity.Event;
 import com.github.baby.owspace.util.tool.RxBus;
 import com.github.baby.owspace.view.activity.ArtActivity;
 import com.github.baby.owspace.view.activity.DailyActivity;
-import com.github.baby.owspace.view.listener.SlideMenuOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,6 @@ public class LeftMenuFragment extends Fragment {
     @Bind(R.id.title_bar)
     RelativeLayout titleBar;
 
-    private SlideMenuOption slideMenuOption;
     private List<View> mViewList = new ArrayList();
     @Nullable
     @Override
@@ -65,10 +63,6 @@ public class LeftMenuFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-    }
-
-    public void setSlideMenuOption(SlideMenuOption slideMenuOption) {
-        this.slideMenuOption = slideMenuOption;
     }
 
     private void loadView() {

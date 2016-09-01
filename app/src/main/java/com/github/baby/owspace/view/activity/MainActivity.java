@@ -3,20 +3,25 @@ package com.github.baby.owspace.view.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Event;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.presenter.MainContract;
 import com.github.baby.owspace.presenter.MainPresenter;
 import com.github.baby.owspace.util.AppUtil;
+import com.github.baby.owspace.util.PreferenceUtils;
+import com.github.baby.owspace.util.TimeUtil;
 import com.github.baby.owspace.util.tool.RxBus;
 import com.github.baby.owspace.view.adapter.VerticalPagerAdapter;
 import com.github.baby.owspace.view.fragment.LeftMenuFragment;
 import com.github.baby.owspace.view.fragment.RightMenuFragment;
-import com.github.baby.owspace.view.listener.SlideMenuOption;
+import com.github.baby.owspace.view.widget.LunarDialog;
 import com.github.baby.owspace.view.widget.VerticalViewPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.orhanobut.logger.Logger;
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private Subscription subscription;
 
+    private String deviceId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         ButterKnife.bind(this);
         initMenu();
         initPage();
+        deviceId = AppUtil.getDeviceId(this);
+        String getLunar= PreferenceUtils.getPrefString(this,"getLunar",null);
+        if (!TimeUtil.getDate("yyyyMMdd").equals(getLunar)){
+            loadRecommend();
+        }
         loadData(1, 0, "0", "0");
     }
 
@@ -107,7 +119,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private void loadData(int page, int mode, String pageId, String createTime) {
         isLoading = true;
-        presenter.getListByPage(page, mode, pageId, AppUtil.getDeviceId(this), createTime);
+        presenter.getListByPage(page, mode, pageId, deviceId, createTime);
+    }
+    private void loadRecommend(){
+        presenter.getRecommend(deviceId);
     }
 
     @Override
@@ -173,6 +188,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             showNoData();
         }
         Toast.makeText(this, "加载数据失败，请检查您的网络", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLunar(String content) {
+        Logger.e("showLunar:"+content);
+        PreferenceUtils.setPrefString(this,"getLunar",TimeUtil.getDate("yyyyMMdd"));
+        LunarDialog lunarDialog = new LunarDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_lunar,null);
+        ImageView imageView = (ImageView)view.findViewById(R.id.image_iv);
+        Glide.with(this).load(content).into(imageView);
+        lunarDialog.setContentView(view);
+        lunarDialog.show();
     }
 
     @Override

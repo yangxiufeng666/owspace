@@ -45,4 +45,8 @@ public class TimeUtil {
         }
         return null;
     }
+    public static String getDate(String formate){
+        String str = new SimpleDateFormat(formate, Locale.ENGLISH).format(new Date());
+        return str;
+    }
 }
