@@ -96,7 +96,7 @@ public class VerticalRecycleViewAdapter extends RecyclerView.Adapter<VerticalRec
     public int getItemCount() {
         return dataList.size();
     }
-    public void addItems(List<Item> items){
+    public void setDataList(List<Item> items){
         int position = dataList.size();
         dataList.addAll(items);
         notifyItemChanged(position);

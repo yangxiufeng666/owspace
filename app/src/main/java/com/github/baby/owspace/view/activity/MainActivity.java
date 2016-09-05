@@ -20,10 +20,12 @@ import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.util.PreferenceUtils;
 import com.github.baby.owspace.util.TimeUtil;
 import com.github.baby.owspace.util.tool.RxBus;
+import com.github.baby.owspace.view.adapter.VerticalPagerAdapter;
 import com.github.baby.owspace.view.adapter.VerticalRecycleViewAdapter;
 import com.github.baby.owspace.view.fragment.LeftMenuFragment;
 import com.github.baby.owspace.view.fragment.RightMenuFragment;
 import com.github.baby.owspace.view.widget.LunarDialog;
+import com.github.baby.owspace.view.widget.VerticalViewPager;
 import com.github.baby.owspace.view.widget.recycleView.RecyclerViewPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.orhanobut.logger.Logger;
@@ -39,13 +41,13 @@ import rx.functions.Action1;
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
     @Bind(R.id.view_pager)
-    RecyclerViewPager viewPager;
+    VerticalViewPager viewPager;
     private SlidingMenu slidingMenu;
     private LeftMenuFragment leftMenu;
     private RightMenuFragment rightMenu;
 
     private MainPresenter presenter;
-    private VerticalRecycleViewAdapter pagerAdapter;
+    private VerticalPagerAdapter pagerAdapter;
 
     private int page = 1;
     private boolean isLoading = true;
@@ -95,11 +97,35 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void initPage() {
-        pagerAdapter = new VerticalRecycleViewAdapter(this);
+        pagerAdapter = new VerticalPagerAdapter(getSupportFragmentManager());
         presenter = new MainPresenter(this, this);
-        viewPager.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+//        viewPager.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangedListener(new RecyclerViewPager.OnPageChangedListener() {
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                if (pagerAdapter.getCount() <= position + 2 && !isLoading) {
+                    if (isLoading){
+                        Toast.makeText(MainActivity.this,"正在努力加载...",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Logger.i("page=" + page + ",getLastItemId=" + pagerAdapter.getLastItemId());
+                    loadData(page, 0, pagerAdapter.getLastItemId(), pagerAdapter.getLastItemCreateTime());
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+       /* viewPager.addOnPageChangedListener(new RecyclerViewPager.OnPageChangedListener() {
             @Override
             public void OnPageChanged(int oldPosition, int newPosition) {
                Logger.e("oldPosition="+oldPosition+",newPosition="+newPosition);
@@ -111,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     loadData(page, 0, pagerAdapter.getLastItemId(), pagerAdapter.getLastItemCreateTime());
                 }
             }
-        });
+        });*/
     }
 
     private void loadData(int page, int mode, String pageId, String createTime) {
@@ -175,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void updateListUI(List<Item> itemList) {
         isLoading = false;
-        pagerAdapter.addItems(itemList);
+        pagerAdapter.setDataList(itemList);
         page++;
     }
 

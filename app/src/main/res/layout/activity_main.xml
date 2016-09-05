@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".view.activity.MainActivity">
 
-    <com.github.baby.owspace.view.widget.recycleView.RecyclerViewPager
+    <com.github.baby.owspace.view.widget.VerticalViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -6,7 +6,6 @@ import com.github.baby.owspace.model.entity.Result;
 import com.github.baby.owspace.model.entity.SplashEntity;
 
 import java.util.List;
-;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -23,7 +22,7 @@ public interface ApiService {
      * @param client
      * @param version
      * @param time
-     * @param imei
+     * @param deviceId
      * @return
      */
     @GET("static/picture_list.txt")
