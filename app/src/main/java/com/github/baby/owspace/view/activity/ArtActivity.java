@@ -16,14 +16,16 @@ import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.presenter.ListBaseContract;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.view.adapter.ArtRecycleViewAdapter;
+import com.github.baby.owspace.view.widget.CustomPtrHeader;
 import com.github.baby.owspace.view.widget.DividerItemDecoration;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -36,12 +38,14 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
     @Bind(R.id.toolBar)
     Toolbar toolbar;
     @Bind(R.id.recycleView)
-    XRecyclerView recycleView;
+    RecyclerView recycleView;
+    @Bind(R.id.ptrFrameLayout)
+    PtrClassicFrameLayout mPtrFrame;
 
     private ArticalPresenter presenter;
     private ArtRecycleViewAdapter recycleViewAdapter;
-    private int page=1;
-    private int mode=1;
+    private int page = 1;
+    private int mode = 1;
     private boolean isRefresh;
     private String deviceId;
 
@@ -50,7 +54,7 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_layout);
         ButterKnife.bind(this);
-        mode = getIntent().getIntExtra("mode",1);
+        mode = getIntent().getIntExtra("mode", 1);
         initView();
     }
 
@@ -68,32 +72,28 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
             }
         });
         recycleViewAdapter = new ArtRecycleViewAdapter(this);
-        recycleView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recycleView.addItemDecoration(new DividerItemDecoration(this));
         recycleView.setAdapter(recycleViewAdapter);
-        recycleView.setLoadingMoreEnabled(true);
-        recycleView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-        recycleView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        recycleView.setArrowImageView(R.drawable.iconfont_downgrey);
         presenter = new ArticalPresenter(this, this);
-        recycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        mPtrFrame.setPtrHandler(new PtrDefaultHandler() {
             @Override
-            public void onRefresh() {
+            public void onRefreshBegin(PtrFrameLayout frame) {
                 page=1;
-                isRefresh = true;
-                loadData(page, mode, "0",deviceId, "0");
-            }
-
-            @Override
-            public void onLoadMore() {
-                loadData(page, mode, recycleViewAdapter.getLastItemId(),deviceId, recycleViewAdapter.getLastItemCreateTime());
+                isRefresh=true;
+                loadData(page, mode, "0", deviceId, "0");
             }
         });
-        deviceId =  AppUtil.getDeviceId(this);
-        recycleView.setRefreshing(true);
+        mPtrFrame.setOffsetToRefresh(200);
+        mPtrFrame.autoRefresh(true);
+        CustomPtrHeader header = new CustomPtrHeader(this,mode);
+        mPtrFrame.setHeaderView(header);
+        mPtrFrame.addPtrUIHandler(header);
+//        loadData(page, mode, recycleViewAdapter.getLastItemId(),deviceId, recycleViewAdapter.getLastItemCreateTime());
+
     }
 
-    private void loadData(int page, int mode, String pageId, String deviceId,String createTime) {
+    private void loadData(int page, int mode, String pageId, String deviceId, String createTime) {
         presenter.getListByPage(page, mode, pageId, deviceId, createTime);
     }
 
@@ -109,25 +109,20 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
 
     @Override
     public void showNoData() {
-        recycleView.refreshComplete();
-        recycleView.loadMoreComplete();
     }
 
     @Override
     public void showNoMore() {
-        recycleView.setIsnomore(true);
     }
 
     @Override
     public void updateListUI(List<Item> itemList) {
+        mPtrFrame.refreshComplete();
         page++;
-        recycleView.refreshComplete();
-        recycleView.loadMoreComplete();
-        recycleView.setIsnomore(false);
-        if (isRefresh){
+        if (isRefresh) {
             isRefresh = false;
             recycleViewAdapter.replaceAllData(itemList);
-        }else {
+        } else {
             recycleViewAdapter.setArtList(itemList);
         }
 
@@ -135,8 +130,5 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
 
     @Override
     public void showOnFailure() {
-        recycleView.refreshComplete();
-        recycleView.loadMoreComplete();
-        recycleView.setIsnomore(false);
     }
 }
