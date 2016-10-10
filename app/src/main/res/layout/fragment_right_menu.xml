@@ -111,8 +111,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30.0dip"
+        android:layout_marginBottom="10.0dip"
         android:textColor="#ffb6b6b6"
+        android:text="v1.2"
         android:textSize="7.0sp" />
 
     <ImageView
@@ -121,7 +122,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/version_tv"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18.0dip"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_owspace" />
 </RelativeLayout>

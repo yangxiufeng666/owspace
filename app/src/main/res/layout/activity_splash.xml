@@ -5,7 +5,8 @@
     android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
         <com.github.baby.owspace.view.widget.FixedImageView
             android:id="@+id/splash_img"
             android:scaleType="centerCrop"

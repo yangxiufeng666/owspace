@@ -1,19 +1,17 @@
 package com.github.baby.owspace.view.activity;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -23,8 +21,6 @@ import com.github.baby.owspace.presenter.SplashPresenter;
 import com.github.baby.owspace.util.FileUtil;
 import com.github.baby.owspace.util.PreferenceUtils;
 import com.github.baby.owspace.view.widget.FixedImageView;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -32,29 +28,25 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by Mr.Yangxiufeng
  * DATE 2016/7/22
  * owspace
  */
-public class SplashActivity extends AppCompatActivity implements SplashContract.View,ActivityCompat.OnRequestPermissionsResultCallback{
+public class SplashActivity extends AppCompatActivity implements SplashContract.View, EasyPermissions.PermissionCallbacks {
     @Bind(R.id.splash_img)
     FixedImageView splashImg;
 
     SplashPresenter presenter;
-    private static final int PERMISSON_REQUESTCODE = 0;
+    private static final int PERMISSON_REQUESTCODE = 1;
     /**
      * 需要进行检测的权限数组
      */
@@ -63,25 +55,17 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE
     };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new SplashPresenter(this,this);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-            checkPermissions(needPermissions);
-        }else{
-            Observable.timer(250, TimeUnit.MILLISECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<Long>() {
-                        @Override
-                        public void call(Long aLong) {
-                            setContentView(R.layout.activity_splash);
-                            ButterKnife.bind(SplashActivity.this);
-                            delaySplash();
-                        }
-                    });
-        }
+        presenter = new SplashPresenter(this, this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestCodePermissions();
     }
 
     @Override
@@ -94,24 +78,24 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         super.onResume();
     }
 
-    private void delaySplash(){
+    private void delaySplash() {
         List<String> picList = FileUtil.getAllAD();
-        if (picList.size()>0){
+        if (picList.size() > 0) {
             Random random = new Random();
             int index = random.nextInt(picList.size());
-            int imgIndex = PreferenceUtils.getPrefInt(this,"splash_img_index",0);
-            Logger.i("当前的imgIndex="+imgIndex);
-            if (index == imgIndex){
-                if (index >= picList.size()){
-                    index --;
-                }else if (imgIndex == 0){
-                    if (index + 1 < picList.size()){
+            int imgIndex = PreferenceUtils.getPrefInt(this, "splash_img_index", 0);
+            Logger.i("当前的imgIndex=" + imgIndex);
+            if (index == imgIndex) {
+                if (index >= picList.size()) {
+                    index--;
+                } else if (imgIndex == 0) {
+                    if (index + 1 < picList.size()) {
                         index++;
                     }
                 }
             }
-            PreferenceUtils.setPrefInt(this,"splash_img_index",index);
-            Logger.i("当前的picList.size="+picList.size()+",index = "+index);
+            PreferenceUtils.setPrefInt(this, "splash_img_index", index);
+            Logger.i("当前的picList.size=" + picList.size() + ",index = " + index);
             File file = new File(picList.get(index));
             try {
                 InputStream fis = new FileInputStream(file);
@@ -120,10 +104,10 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
                 fis.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }catch (IOException e){
+            } catch (IOException e) {
 
             }
-        }else {
+        } else {
             try {
                 AssetManager assetManager = this.getAssets();
                 InputStream in = assetManager.open("welcome_default.jpg");
@@ -136,13 +120,14 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         }
 
     }
+
     public Drawable InputStream2Drawable(InputStream is) {
-        Drawable drawable = BitmapDrawable.createFromStream(is,"splashImg");
+        Drawable drawable = BitmapDrawable.createFromStream(is, "splashImg");
         return drawable;
     }
-    private void animWelcomeImage()
-    {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(splashImg,"translationX",-100F);
+
+    private void animWelcomeImage() {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(splashImg, "translationX", -100F);
         animator.setDuration(1500L).start();
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -152,7 +137,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -168,104 +153,37 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             }
         });
     }
+
     /**
      * 申请权限结果的回调方法
      */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] paramArrayOfInt) {
-        if (requestCode == PERMISSON_REQUESTCODE) {
-            if (!verifyPermissions(paramArrayOfInt)) {
-                showMissingPermissionDialog();
-            }else{
-                setContentView(R.layout.activity_splash);
-                ButterKnife.bind(SplashActivity.this);
-                delaySplash();
-                presenter.getSplash();
-            }
-        }
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, paramArrayOfInt, this);
     }
-    /**
-     *  启动应用的设置
-     *
-     * @since 2.5.0
-     *
-     */
-    private void startAppSettings() {
-        Intent intent = new Intent(
-                Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + getPackageName()));
-        startActivity(intent);
-    }
-    /**
-     *
-     * @param
-     * @since 2.5.0
-     * requestPermissions方法是请求某一权限，
-     */
-    private void checkPermissions(String... permissions) {
-        List<String> needRequestPermissonList = findDeniedPermissions(permissions);
-        if (null != needRequestPermissonList
-                && needRequestPermissonList.size() > 0) {
-            ActivityCompat.requestPermissions(this,
-                    needRequestPermissonList.toArray(
-                            new String[needRequestPermissonList.size()]),
-                    PERMISSON_REQUESTCODE);
-        }else{
+
+    @AfterPermissionGranted(PERMISSON_REQUESTCODE)
+    private void requestCodePermissions() {
+        if (!EasyPermissions.hasPermissions(this, needPermissions)) {
+            EasyPermissions.requestPermissions(this, "应用需要这些权限", PERMISSON_REQUESTCODE, needPermissions);
+        } else {
             setContentView(R.layout.activity_splash);
             ButterKnife.bind(SplashActivity.this);
             delaySplash();
-            presenter.getSplash();
         }
     }
 
-    /**
-     * 获取权限集中需要申请权限的列表
-     *
-     * @param permissions
-     * @return
-     * @since 2.5.0
-     * checkSelfPermission方法是在用来判断是否app已经获取到某一个权限
-     * shouldShowRequestPermissionRationale方法用来判断是否
-     * 显示申请权限对话框，如果同意了或者不在询问则返回false
-     */
-    private List<String> findDeniedPermissions(String[] permissions) {
-        List<String> needRequestPermissonList = new ArrayList<String>();
-        for (String perm : permissions) {
-            if (ContextCompat.checkSelfPermission(this,
-                    perm) != PackageManager.PERMISSION_GRANTED) {
-                needRequestPermissonList.add(perm);
-            } else {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        this, perm)) {
-                    needRequestPermissonList.add(perm);
-                }
-            }
-        }
-        return needRequestPermissonList;
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        recreate();
     }
 
-    /**
-     * 检测是否所有的权限都已经授权
-     * @param grantResults
-     * @return
-     * @since 2.5.0
-     *
-     */
-    private boolean verifyPermissions(int[] grantResults) {
-        for (int result : grantResults) {
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        showMissingPermissionDialog();
     }
-    /**
-     * 显示提示信息
-     *
-     * @since 2.5.0
-     *
-     */
+
     private void showMissingPermissionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示");
@@ -293,4 +211,13 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         builder.show();
     }
 
+    /**
+     * 启动应用的设置
+     */
+    private void startAppSettings() {
+        Intent intent = new Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        startActivity(intent);
+    }
 }

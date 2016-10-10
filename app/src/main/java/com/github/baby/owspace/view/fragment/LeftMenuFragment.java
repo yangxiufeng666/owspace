@@ -78,13 +78,11 @@ public class LeftMenuFragment extends Fragment {
         Intent intent;
         switch (view.getId()) {
             case R.id.right_slide_close:
-//                slideMenuOption.hideMenu();
                 RxBus.getInstance().postEvent(new Event(1000,"closeMenu"));
                 break;
             case R.id.search:
                 break;
             case R.id.home_page_tv:
-//                slideMenuOption.hideMenu();
                 RxBus.getInstance().postEvent(new Event(1000,"closeMenu"));
                 break;
             case R.id.words_tv:
@@ -113,32 +111,28 @@ public class LeftMenuFragment extends Fragment {
     }
 
     public void startAnim() {
-        startIconAnim(titleBar);
+        startIconAnim(search);
+        startIconAnim(rightSlideClose);
         startColumnAnim();
     }
 
     private void startColumnAnim() {
-        int i = this.mViewList.size();
-        int j = 0;
-        TranslateAnimation localTranslateAnimation = new TranslateAnimation(j * -35, 0.0F, 0.0F, 0.0F);
+        TranslateAnimation localTranslateAnimation = new TranslateAnimation(0F, 0.0F, 0.0F, 0.0F);
         localTranslateAnimation.setDuration(700L);
-        while (true) {
+        for (int j=0;j<mViewList.size();j++){
             View localView = this.mViewList.get(j);
             localView.startAnimation(localTranslateAnimation);
-            j++;
-            if (j >= i)
-                break;
-            localTranslateAnimation = new TranslateAnimation(j * -35, 0.0F, 0.0F, 0.0F);
+            localTranslateAnimation = new TranslateAnimation(j * -35,0.0F, 0.0F, 0.0F);
             localTranslateAnimation.setDuration(700L);
         }
     }
 
     private void startIconAnim(View paramView) {
-        ScaleAnimation localScaleAnimation = new ScaleAnimation(0.1F, 1.0F, 0.1F, 1.0F, this.titleBar.getWidth() / 2, this.titleBar.getHeight() / 2);
+        ScaleAnimation localScaleAnimation = new ScaleAnimation(0.1F, 1.0F, 0.1F, 1.0F, paramView.getWidth() / 2, paramView.getHeight() / 2);
         localScaleAnimation.setDuration(1000L);
         paramView.startAnimation(localScaleAnimation);
-        float f1 = titleBar.getWidth() / 2;
-        float f2 = titleBar.getHeight() / 2;
+        float f1 = paramView.getWidth() / 2;
+        float f2 = paramView.getHeight() / 2;
         localScaleAnimation = new ScaleAnimation(1.0F, 0.5F, 1.0F, 0.5F, f1, f2);
         localScaleAnimation.setInterpolator(new BounceInterpolator());
     }

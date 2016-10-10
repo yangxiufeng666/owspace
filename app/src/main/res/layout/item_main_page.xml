@@ -13,12 +13,14 @@
         android:layout_height="fill_parent"
         android:scaleType="centerCrop"
         android:visibility="gone" />
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/pager_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <RelativeLayout
+            android:id="@+id/topPanel"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="230.0dip">
 
@@ -47,6 +49,8 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/typePanel"
+            android:layout_below="@id/topPanel"
             android:layout_width="match_parent"
             android:layout_height="19.0dip">
 
@@ -80,12 +84,13 @@
         </RelativeLayout>
 
         <TextView
+            android:layout_below="@id/typePanel"
             android:id="@+id/title_tv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50.0dip"
             android:layout_marginRight="50.0dip"
-            android:layout_marginTop="30.0dip"
+            android:layout_marginTop="25.0dip"
             android:gravity="top|center"
             android:lineSpacingExtra="6.0dip"
             android:maxLines="2"
@@ -94,12 +99,13 @@
             android:textSize="37.0sp" />
 
         <TextView
+            android:layout_below="@id/title_tv"
             android:id="@+id/content_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="37.0dip"
             android:layout_marginRight="37.0dip"
-            android:layout_marginTop="20.0dip"
+            android:layout_marginTop="10.0dip"
             android:gravity="center"
             android:lineSpacingExtra="8.0dip"
             android:maxLines="4"
@@ -108,29 +114,32 @@
             android:textSize="15.0sp" />
 
         <View
+            android:id="@+id/divider"
             android:layout_width="181.0dip"
             android:layout_height="0.5dip"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="19.0dip"
+            android:layout_below="@id/content_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10.0dip"
             android:background="@color/pagefragment_view_line_bg_common" />
 
         <TextView
             android:id="@+id/author_tv"
+            android:layout_below="@id/divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="23.0dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10.0dip"
             android:maxLines="1"
             android:textColor="@color/pagefragment_textcolor_common"
             android:textSize="18.0sp" />
 
 
         <RelativeLayout
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15.0dip"
-            android:layout_marginRight="15.0dip"
-            android:layout_marginTop="20.0dip">
+            android:layout_marginRight="15.0dip">
 
             <TextView
                 android:id="@+id/comment_tv"
@@ -163,7 +172,7 @@
                 android:textColor="@color/pagefragment_textcolor_cust1"
                 android:textSize="10.0sp" />
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

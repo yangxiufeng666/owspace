@@ -8,9 +8,9 @@ android {
     signingConfigs {
         config {
             keyAlias 'babylikebird'
-            keyPassword ''
+            keyPassword 'hh125469'
             storeFile file('D:/android_env/babylike.jks')
-            storePassword ''
+            storePassword 'hh125469'
         }
     }
     compileSdkVersion 24
@@ -50,7 +50,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile(name: 'SildeMenulibrary-release', ext: 'aar')
     compile(name: 'ObservableScrollView-release', ext: 'aar')
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'net.danlew:android.joda:2.9.3'
@@ -63,11 +63,12 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1' // RxAndroid
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.orhanobut:logger:1.15'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.jcodecraeer:xrecyclerview:1.2.7'
-    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:design:24.2.1'
     compile 'org.jsoup:jsoup:1.7.3'
+    compile 'pub.devrel:easypermissions:0.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 }

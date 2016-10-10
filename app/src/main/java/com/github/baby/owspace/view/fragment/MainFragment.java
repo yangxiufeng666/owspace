@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -55,7 +56,7 @@ public class MainFragment extends Fragment {
     @Bind(R.id.home_advertise_iv)
     ImageView homeAdvertiseIv;
     @Bind(R.id.pager_content)
-    LinearLayout pagerContent;
+    RelativeLayout pagerContent;
 
     public static Fragment instance(Item item) {
         Fragment fragment = new MainFragment();
