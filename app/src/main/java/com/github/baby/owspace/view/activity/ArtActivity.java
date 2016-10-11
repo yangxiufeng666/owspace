@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
@@ -47,6 +48,7 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
     private int page = 1;
     private int mode = 1;
     private boolean isRefresh;
+    private boolean hasMore=true;
     private String deviceId;
 
     @Override
@@ -65,6 +67,7 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         actionBar.setTitle("");
         String tt = getIntent().getStringExtra("title");
         title.setText(tt);
+        deviceId = AppUtil.getDeviceId(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +84,7 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
             public void onRefreshBegin(PtrFrameLayout frame) {
                 page=1;
                 isRefresh=true;
+                hasMore = true;
                 loadData(page, mode, "0", deviceId, "0");
             }
         });
@@ -89,8 +93,19 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         CustomPtrHeader header = new CustomPtrHeader(this,mode);
         mPtrFrame.setHeaderView(header);
         mPtrFrame.addPtrUIHandler(header);
-//        loadData(page, mode, recycleViewAdapter.getLastItemId(),deviceId, recycleViewAdapter.getLastItemCreateTime());
+        recycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && !isRefresh && hasMore){
+                    loadData(page, mode, recycleViewAdapter.getLastItemId(),deviceId, recycleViewAdapter.getLastItemCreateTime());
+                }
+            }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     private void loadData(int page, int mode, String pageId, String deviceId, String createTime) {
@@ -113,6 +128,12 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
 
     @Override
     public void showNoMore() {
+        hasMore = false;
+        if (!isRefresh){
+            //显示没有更多
+            recycleViewAdapter.setHasMore(false);
+            recycleViewAdapter.notifyItemChanged(recycleViewAdapter.getItemCount()-1);
+        }
     }
 
     @Override
@@ -120,6 +141,8 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         mPtrFrame.refreshComplete();
         page++;
         if (isRefresh) {
+            recycleViewAdapter.setHasMore(true);
+            recycleViewAdapter.setError(false);
             isRefresh = false;
             recycleViewAdapter.replaceAllData(itemList);
         } else {
@@ -130,5 +153,12 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
 
     @Override
     public void showOnFailure() {
+        if (!isRefresh){
+            //显示失败
+            recycleViewAdapter.setError(true);
+            recycleViewAdapter.notifyItemChanged(recycleViewAdapter.getItemCount()-1);
+        }else{
+            Toast.makeText(this,"~~~~(>_<)~~~~刷新失败",Toast.LENGTH_SHORT).show();
+        }
     }
 }

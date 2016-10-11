@@ -2,7 +2,6 @@ package com.github.baby.owspace.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.view.activity.DetailActivity;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,40 +27,95 @@ import butterknife.ButterKnife;
  * DATE 2016/8/3
  * owspace
  */
-public class ArtRecycleViewAdapter extends RecyclerView.Adapter<ArtRecycleViewAdapter.ArtHolder> {
+public class ArtRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int FOOTER_TYPE = 1001;
+    private static final int CONTENT_TYPE = 1002;
     private List<Item> artList = new ArrayList<>();
     private Context context;
+    private boolean hasMore=true;
+    private boolean error=false;
+
+    public void setHasMore(boolean hasMore) {
+        this.hasMore = hasMore;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
 
     public ArtRecycleViewAdapter(Context context) {
         this.context = context;
     }
 
     @Override
-    public ArtHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_art, parent, false);
-        return new ArtHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == FOOTER_TYPE){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_footer, parent, false);
+            return new FooterViewHolder(view);
+        }else{
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_art, parent, false);
+            return new ArtHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(ArtHolder holder, int position) {
-        final Item item = artList.get(position);
-        holder.authorTv.setText(item.getAuthor());
-        holder.titleTv.setText(item.getTitle());
-        Glide.with(context).load(item.getThumbnail()).centerCrop().into(holder.imageIv);
-        holder.typeContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("itemId",item.getId());
-                context.startActivity(intent);
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            return FOOTER_TYPE;
+        }
+        return CONTENT_TYPE;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (position + 1 == getItemCount()) {
+            if (artList.size()==0){
+                return;
             }
-        });
+            FooterViewHolder footerHolder = (FooterViewHolder)holder;
+            if (error){
+                error = false;
+                footerHolder.avi.setVisibility(View.GONE);
+                footerHolder.noMoreTx.setVisibility(View.GONE);
+                footerHolder.errorTx.setVisibility(View.VISIBLE);
+                footerHolder.errorTx.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO 重新加载
+                    }
+                });
+            }
+            if (hasMore){
+                footerHolder.avi.setVisibility(View.VISIBLE);
+                footerHolder.noMoreTx.setVisibility(View.GONE);
+                footerHolder.errorTx.setVisibility(View.GONE);
+            }else {
+                footerHolder.avi.setVisibility(View.GONE);
+                footerHolder.noMoreTx.setVisibility(View.VISIBLE);
+                footerHolder.errorTx.setVisibility(View.GONE);
+            }
+        } else {
+            ArtHolder artHolder = (ArtHolder) holder;
+            final Item item = artList.get(position);
+            artHolder.authorTv.setText(item.getAuthor());
+            artHolder.titleTv.setText(item.getTitle());
+            Glide.with(context).load(item.getThumbnail()).centerCrop().into(artHolder.imageIv);
+            artHolder.typeContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("itemId", item.getId());
+                    context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return artList.size();
+        return artList.size() + 1;
     }
 
     public void setArtList(List<Item> artList) {
@@ -68,23 +123,26 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<ArtRecycleViewAd
         this.artList.addAll(artList);
         notifyItemChanged(position);
     }
-    public void replaceAllData(List<Item> artList){
+
+    public void replaceAllData(List<Item> artList) {
         this.artList.clear();
         this.artList.addAll(artList);
         notifyDataSetChanged();
     }
-    public String getLastItemId(){
-        if (artList.size()==0){
+
+    public String getLastItemId() {
+        if (artList.size() == 0) {
             return "0";
         }
-        Item item = artList.get(artList.size()-1);
+        Item item = artList.get(artList.size() - 1);
         return item.getId();
     }
-    public String getLastItemCreateTime(){
-        if (artList.size()==0){
+
+    public String getLastItemCreateTime() {
+        if (artList.size() == 0) {
             return "0";
         }
-        Item item = artList.get(artList.size()-1);
+        Item item = artList.get(artList.size() - 1);
         return item.getCreate_time();
     }
 
@@ -99,10 +157,23 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<ArtRecycleViewAd
         TextView authorTv;
         @Bind(R.id.type_container)
         RelativeLayout typeContainer;
+
         public ArtHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
+    static class FooterViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.avi)
+        AVLoadingIndicatorView avi;
+        @Bind(R.id.nomore_tx)
+        TextView noMoreTx;
+        @Bind(R.id.error_tx)
+        TextView errorTx;
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
 }
