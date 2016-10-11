@@ -12,6 +12,10 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 * jsoup解析DOM
 * sqldelight SqlBrite
 
+#demo
+[点击下载](https://beta.bugly.qq.com/rfgu)
+
+
 #展示
 ![image](https://github.com/babylikebird/owspace/blob/master/owspace.gif)
 
