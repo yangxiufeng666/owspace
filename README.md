@@ -13,7 +13,7 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 * sqldelight SqlBrite
 
 #demo
-[点击下载](https://beta.bugly.qq.com/rfgu)
+[点击下载](https://beta.bugly.qq.com/dsn9)
 
 
 #展示
