@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.presenter.ArticalPresenter;
-import com.github.baby.owspace.presenter.ListBaseContract;
+import com.github.baby.owspace.presenter.ArticalContract;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.view.adapter.ArtRecycleViewAdapter;
 import com.github.baby.owspace.view.widget.CustomPtrHeader;
@@ -33,7 +33,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * DATE 2016/8/3
  * owspace
  */
-public class ArtActivity extends AppCompatActivity implements ListBaseContract.ListBaseView {
+public class ArtActivity extends AppCompatActivity implements ArticalContract.View {
     @Bind(R.id.title)
     TextView title;
     @Bind(R.id.toolBar)
@@ -79,7 +79,7 @@ public class ArtActivity extends AppCompatActivity implements ListBaseContract.L
         recycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recycleView.addItemDecoration(new DividerItemDecoration(this));
         recycleView.setAdapter(recycleViewAdapter);
-        presenter = new ArticalPresenter(this, this);
+        presenter = new ArticalPresenter(this);
         mPtrFrame.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {

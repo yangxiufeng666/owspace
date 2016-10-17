@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.presenter.ArticalPresenter;
-import com.github.baby.owspace.presenter.ListBaseContract;
+import com.github.baby.owspace.presenter.ArticalContract;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.view.adapter.DailyViewPagerAdapter;
 import com.github.baby.owspace.view.widget.VerticalViewPager;
@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
  * DATE 2016/8/3
  * owspace
  */
-public class DailyActivity extends AppCompatActivity implements ListBaseContract.ListBaseView{
+public class DailyActivity extends AppCompatActivity implements ArticalContract.View{
     @Bind(R.id.title)
     TextView title;
     @Bind(R.id.toolBar)
@@ -50,7 +50,7 @@ public class DailyActivity extends AppCompatActivity implements ListBaseContract
         setContentView(R.layout.activity_daily);
         ButterKnife.bind(this);
         initView();
-        presenter = new ArticalPresenter(this,this);
+        presenter = new ArticalPresenter(this);
         deviceId = AppUtil.getDeviceId(this);
         presenter.getListByPage(page,MODE,"0", deviceId,"0");
     }

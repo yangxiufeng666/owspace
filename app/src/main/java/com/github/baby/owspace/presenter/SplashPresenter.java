@@ -32,11 +32,10 @@ public class SplashPresenter implements SplashContract.Presenter{
     }
 
     @Override
-    public void getSplash() {
+    public void getSplash(String deviceId ) {
         String client = "android";
         String version = "1.3.0";
         Long time = TimeUtil.getCurrentSeconds();
-        String deviceId = AppUtil.getDeviceId(context);
         ApiClient.service.getSplash(client,version,time,deviceId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())

@@ -9,11 +9,11 @@ import java.util.List;
  * DATE 2016/8/2
  * owspace
  */
-public interface ListBaseContract {
-    interface ListBasePresenter{
+public interface ArticalContract {
+    interface Presenter{
         void getListByPage(int page, int model, String pageId,String deviceId,String createTime);
     }
-    interface ListBaseView{
+    interface View{
         void showLoading();
         void dismissLoading();
         void showNoData();

@@ -8,7 +8,7 @@ package com.github.baby.owspace.presenter;
  */
 public interface SplashContract {
     interface Presenter {
-        void getSplash();
+        void getSplash(String deviceId);
     }
     interface View {
 

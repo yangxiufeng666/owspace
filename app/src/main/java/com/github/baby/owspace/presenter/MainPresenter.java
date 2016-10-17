@@ -1,15 +1,9 @@
 package com.github.baby.owspace.presenter;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.entity.Item;
-import com.github.baby.owspace.model.entity.Recommend;
 import com.github.baby.owspace.model.entity.Result;
 import com.github.baby.owspace.util.TimeUtil;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -19,7 +13,6 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -29,11 +22,9 @@ import rx.schedulers.Schedulers;
  */
 public class MainPresenter implements MainContract.Presenter {
     private MainContract.View view;
-    private Context context;
 
-    public MainPresenter(MainContract.View view, Context context) {
+    public MainPresenter(MainContract.View view) {
         this.view = view;
-        this.context = context;
     }
 
     @Override

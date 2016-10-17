@@ -18,14 +18,12 @@ import rx.schedulers.Schedulers;
  * DATE 2016/8/3
  * owspace
  */
-public class ArticalPresenter implements ListBaseContract.ListBasePresenter{
+public class ArticalPresenter implements ArticalContract.Presenter{
 
-    private ListBaseContract.ListBaseView view;
-    private Context context;
+    private ArticalContract.View view;
 
-    public ArticalPresenter(ListBaseContract.ListBaseView view, Context context) {
+    public ArticalPresenter(ArticalContract.View view) {
         this.view = view;
-        this.context = context;
     }
 
     @Override

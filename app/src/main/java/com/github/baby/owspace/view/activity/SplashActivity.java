@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.presenter.SplashContract;
 import com.github.baby.owspace.presenter.SplashPresenter;
+import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.util.FileUtil;
 import com.github.baby.owspace.util.PreferenceUtils;
 import com.github.baby.owspace.view.widget.FixedImageView;
@@ -171,6 +172,8 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             setContentView(R.layout.activity_splash);
             ButterKnife.bind(SplashActivity.this);
             delaySplash();
+            String deviceId = AppUtil.getDeviceId(this);
+            presenter.getSplash(deviceId);
         }
     }
 

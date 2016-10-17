@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private void initPage() {
         pagerAdapter = new VerticalPagerAdapter(getSupportFragmentManager());
-        presenter = new MainPresenter(this, this);
+        presenter = new MainPresenter(this);
 //        viewPager.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

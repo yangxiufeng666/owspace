@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.baby.owspace.cache;
+package com.github.baby.owspace.model.cache;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
