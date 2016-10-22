@@ -11,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.di.components.DaggerArtComponent;
+import com.github.baby.owspace.di.components.DaggerDailyComponent;
+import com.github.baby.owspace.di.modules.ArtModule;
+import com.github.baby.owspace.di.modules.DailyModule;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.presenter.ArticalContract;
@@ -20,6 +24,8 @@ import com.github.baby.owspace.view.widget.VerticalViewPager;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,8 +42,8 @@ public class DailyActivity extends AppCompatActivity implements ArticalContract.
     Toolbar toolBar;
     @Bind(R.id.view_pager)
     VerticalViewPager viewPager;
-
-    private ArticalPresenter presenter;
+    @Inject
+    ArticalPresenter presenter;
     private int page=1;
     private static final int MODE = 4;
     private boolean isLoading=true;
@@ -49,12 +55,17 @@ public class DailyActivity extends AppCompatActivity implements ArticalContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
         ButterKnife.bind(this);
+        initPresenter();
         initView();
-        presenter = new ArticalPresenter(this);
         deviceId = AppUtil.getDeviceId(this);
         presenter.getListByPage(page,MODE,"0", deviceId,"0");
     }
-
+    private void initPresenter(){
+        DaggerDailyComponent.builder()
+                .dailyModule(new DailyModule(this))
+                .build()
+                .inject(this);
+    }
     private void initView() {
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();

@@ -5,6 +5,8 @@ import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.entity.DetailEntity;
 import com.github.baby.owspace.model.entity.Result;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,7 +21,7 @@ import rx.schedulers.Schedulers;
  */
 public class DetailPresenter implements DetailContract.Presenter{
     private DetailContract.View view;
-
+    @Inject
     public DetailPresenter(DetailContract.View view) {
         this.view = view;
     }

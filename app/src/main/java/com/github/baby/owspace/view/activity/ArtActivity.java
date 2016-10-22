@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.di.components.DaggerArtComponent;
+import com.github.baby.owspace.di.modules.ArtModule;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.presenter.ArticalContract;
@@ -21,6 +23,8 @@ import com.github.baby.owspace.view.widget.CustomPtrHeader;
 import com.github.baby.owspace.view.widget.DividerItemDecoration;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,8 +46,8 @@ public class ArtActivity extends AppCompatActivity implements ArticalContract.Vi
     RecyclerView recycleView;
     @Bind(R.id.ptrFrameLayout)
     PtrClassicFrameLayout mPtrFrame;
-
-    private ArticalPresenter presenter;
+    @Inject
+    ArticalPresenter presenter;
     private ArtRecycleViewAdapter recycleViewAdapter;
     private int page = 1;
     private int mode = 1;
@@ -58,9 +62,15 @@ public class ArtActivity extends AppCompatActivity implements ArticalContract.Vi
         setContentView(R.layout.activity_list_layout);
         ButterKnife.bind(this);
         mode = getIntent().getIntExtra("mode", 1);
+        initPresenter();
         initView();
     }
-
+    private void initPresenter(){
+        DaggerArtComponent.builder()
+                .artModule(new ArtModule(this))
+                .build()
+                .inject(this);
+    }
     private void initView() {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -79,7 +89,6 @@ public class ArtActivity extends AppCompatActivity implements ArticalContract.Vi
         recycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recycleView.addItemDecoration(new DividerItemDecoration(this));
         recycleView.setAdapter(recycleViewAdapter);
-        presenter = new ArticalPresenter(this);
         mPtrFrame.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {

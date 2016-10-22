@@ -3,8 +3,6 @@ package com.github.baby.owspace.view.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +10,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.di.components.DaggerMainComponent;
+import com.github.baby.owspace.di.modules.MainModule;
 import com.github.baby.owspace.model.entity.Event;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.presenter.MainContract;
@@ -21,16 +21,16 @@ import com.github.baby.owspace.util.PreferenceUtils;
 import com.github.baby.owspace.util.TimeUtil;
 import com.github.baby.owspace.util.tool.RxBus;
 import com.github.baby.owspace.view.adapter.VerticalPagerAdapter;
-import com.github.baby.owspace.view.adapter.VerticalRecycleViewAdapter;
 import com.github.baby.owspace.view.fragment.LeftMenuFragment;
 import com.github.baby.owspace.view.fragment.RightMenuFragment;
 import com.github.baby.owspace.view.widget.LunarDialog;
 import com.github.baby.owspace.view.widget.VerticalViewPager;
-import com.github.baby.owspace.view.widget.recycleView.RecyclerViewPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private SlidingMenu slidingMenu;
     private LeftMenuFragment leftMenu;
     private RightMenuFragment rightMenu;
-
-    private MainPresenter presenter;
+    @Inject
+    MainPresenter presenter;
     private VerticalPagerAdapter pagerAdapter;
 
     private int page = 1;
@@ -98,7 +98,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private void initPage() {
         pagerAdapter = new VerticalPagerAdapter(getSupportFragmentManager());
-        presenter = new MainPresenter(this);
+        DaggerMainComponent.builder().
+                mainModule(new MainModule(this))
+                .build()
+                .inject(this);
+//        presenter = new MainPresenter(this);
 //        viewPager.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

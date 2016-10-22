@@ -11,6 +11,8 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -23,6 +25,7 @@ import rx.schedulers.Schedulers;
 public class MainPresenter implements MainContract.Presenter {
     private MainContract.View view;
 
+    @Inject
     public MainPresenter(MainContract.View view) {
         this.view = view;
     }

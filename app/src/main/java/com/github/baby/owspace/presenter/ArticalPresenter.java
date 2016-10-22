@@ -1,13 +1,13 @@
 package com.github.baby.owspace.presenter;
 
-import android.content.Context;
-
 import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.model.entity.Result;
 import com.github.baby.owspace.util.TimeUtil;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 public class ArticalPresenter implements ArticalContract.Presenter{
 
     private ArticalContract.View view;
-
+    @Inject
     public ArticalPresenter(ArticalContract.View view) {
         this.view = view;
     }

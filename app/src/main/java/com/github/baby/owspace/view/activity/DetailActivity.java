@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.di.components.DaggerDetailComponent;
+import com.github.baby.owspace.di.modules.DetailModule;
 import com.github.baby.owspace.model.entity.DetailEntity;
 import com.github.baby.owspace.presenter.DetailContract;
 import com.github.baby.owspace.presenter.DetailPresenter;
@@ -23,6 +25,8 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,8 +69,8 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     View newsTopImgUnderLine;
     @Bind(R.id.news_top_lead_line)
     View newsTopLeadLine;
-
-    private DetailPresenter presenter;
+    @Inject
+    DetailPresenter presenter;
     private int mParallaxImageHeight;
 
     @Override
@@ -75,11 +79,16 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         setContentView(R.layout.activity_art_detail);
         ButterKnife.bind(this);
         initView();
-        presenter = new DetailPresenter(this);
+        initPresenter();
         String itemId = getIntent().getStringExtra("itemId");
         presenter.getDetail(itemId);
     }
-
+    private void initPresenter(){
+        DaggerDetailComponent.builder()
+                .detailModule(new DetailModule(this))
+                .build()
+                .inject(this);
+    }
     private void initView() {
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
