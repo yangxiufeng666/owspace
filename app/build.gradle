@@ -10,9 +10,9 @@ android {
     signingConfigs {
         config {
             keyAlias 'babylikebird'
-            keyPassword 'hh125469'
+            keyPassword ''
             storeFile file('D:/android_env/babylike.jks')
-            storePassword 'hh125469'
+            storePassword ''
         }
     }
     compileSdkVersion 24
