@@ -1,6 +1,7 @@
 package com.github.baby.owspace.presenter;
 
 import com.github.baby.owspace.model.api.ApiClient;
+import com.github.baby.owspace.model.api.ApiService;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.model.entity.Result;
 import com.github.baby.owspace.util.TimeUtil;
@@ -24,15 +25,18 @@ import rx.schedulers.Schedulers;
  */
 public class MainPresenter implements MainContract.Presenter {
     private MainContract.View view;
+    private ApiService apiService;
 
     @Inject
-    public MainPresenter(MainContract.View view) {
+    public MainPresenter(MainContract.View view,ApiService apiService) {
         this.view = view;
+        this.apiService = apiService;
+        Logger.d("apppp:"+apiService);
     }
 
     @Override
     public void getListByPage(int page, int model, String pageId, String deviceId, String createTime) {
-        ApiClient.service.getList("api", "getList", page, model, pageId, createTime, "android", "1.3.0", TimeUtil.getCurrentSeconds(), deviceId, 1)
+        apiService.getList("api", "getList", page, model, pageId, createTime, "android", "1.3.0", TimeUtil.getCurrentSeconds(), deviceId, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Result.Data<List<Item>>>() {
@@ -63,7 +67,7 @@ public class MainPresenter implements MainContract.Presenter {
     public void getRecommend(String deviceId) {
         String key = TimeUtil.getDate("yyyyMMdd");
         Logger.e("getRecommend key:"+key);
-        ApiClient.service.getRecommend("home","Api","getLunar","android",deviceId,deviceId)
+        apiService.getRecommend("home","Api","getLunar","android",deviceId,deviceId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<String>() {

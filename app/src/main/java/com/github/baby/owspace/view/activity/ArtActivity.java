@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerArtComponent;
 import com.github.baby.owspace.di.modules.ArtModule;
 import com.github.baby.owspace.model.entity.Item;
@@ -68,6 +69,7 @@ public class ArtActivity extends AppCompatActivity implements ArticalContract.Vi
     private void initPresenter(){
         DaggerArtComponent.builder()
                 .artModule(new ArtModule(this))
+                .netComponent(OwspaceApplication.get(this).getNetComponent())
                 .build()
                 .inject(this);
     }

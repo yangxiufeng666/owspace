@@ -16,6 +16,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.OwspaceApplication;
+import com.github.baby.owspace.di.components.DaggerSplashComponent;
+import com.github.baby.owspace.di.modules.SplashModule;
+import com.github.baby.owspace.model.api.ApiService;
 import com.github.baby.owspace.presenter.SplashContract;
 import com.github.baby.owspace.presenter.SplashPresenter;
 import com.github.baby.owspace.util.AppUtil;
@@ -32,6 +36,8 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -45,8 +51,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class SplashActivity extends AppCompatActivity implements SplashContract.View, EasyPermissions.PermissionCallbacks {
     @Bind(R.id.splash_img)
     FixedImageView splashImg;
-
+    @Inject
     SplashPresenter presenter;
+
     private static final int PERMISSON_REQUESTCODE = 1;
     /**
      * 需要进行检测的权限数组
@@ -60,7 +67,10 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new SplashPresenter(this, this);
+        DaggerSplashComponent.builder()
+                .netComponent(OwspaceApplication.get(this).getNetComponent())
+                .splashModule(new SplashModule(this))
+                .build().inject(this);
     }
 
     @Override

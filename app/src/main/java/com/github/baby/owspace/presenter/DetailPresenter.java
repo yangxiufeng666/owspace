@@ -2,6 +2,7 @@ package com.github.baby.owspace.presenter;
 
 
 import com.github.baby.owspace.model.api.ApiClient;
+import com.github.baby.owspace.model.api.ApiService;
 import com.github.baby.owspace.model.entity.DetailEntity;
 import com.github.baby.owspace.model.entity.Result;
 
@@ -21,14 +22,16 @@ import rx.schedulers.Schedulers;
  */
 public class DetailPresenter implements DetailContract.Presenter{
     private DetailContract.View view;
+    private ApiService apiService;
     @Inject
-    public DetailPresenter(DetailContract.View view) {
+    public DetailPresenter(DetailContract.View view,ApiService apiService) {
         this.view = view;
+        this.apiService = apiService;
     }
 
     @Override
     public void getDetail(String itemId) {
-        ApiClient.service.getDetail("api","getPost",itemId,1)
+        apiService.getDetail("api","getPost",itemId,1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Result.Data<DetailEntity>>() {

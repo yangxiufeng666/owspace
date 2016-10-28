@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerMainComponent;
 import com.github.baby.owspace.di.modules.MainModule;
 import com.github.baby.owspace.model.entity.Event;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         pagerAdapter = new VerticalPagerAdapter(getSupportFragmentManager());
         DaggerMainComponent.builder().
                 mainModule(new MainModule(this))
+                .netComponent(OwspaceApplication.get(this).getNetComponent())
                 .build()
                 .inject(this);
 //        presenter = new MainPresenter(this);

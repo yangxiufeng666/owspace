@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerArtComponent;
 import com.github.baby.owspace.di.components.DaggerDailyComponent;
 import com.github.baby.owspace.di.modules.ArtModule;
@@ -63,6 +64,7 @@ public class DailyActivity extends AppCompatActivity implements ArticalContract.
     private void initPresenter(){
         DaggerDailyComponent.builder()
                 .dailyModule(new DailyModule(this))
+                .netComponent(OwspaceApplication.get(this).getNetComponent())
                 .build()
                 .inject(this);
     }

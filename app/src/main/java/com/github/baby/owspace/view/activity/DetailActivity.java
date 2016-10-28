@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerDetailComponent;
 import com.github.baby.owspace.di.modules.DetailModule;
 import com.github.baby.owspace.model.entity.DetailEntity;
@@ -85,6 +86,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     }
     private void initPresenter(){
         DaggerDetailComponent.builder()
+                .netComponent(OwspaceApplication.get(this).getNetComponent())
                 .detailModule(new DetailModule(this))
                 .build()
                 .inject(this);

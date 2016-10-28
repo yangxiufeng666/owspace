@@ -1,11 +1,9 @@
 package com.github.baby.owspace.presenter;
 
 
-import android.content.Context;
-
-import com.github.baby.owspace.model.api.ApiClient;
+import com.github.baby.owspace.app.OwspaceApplication;
+import com.github.baby.owspace.model.api.ApiService;
 import com.github.baby.owspace.model.entity.SplashEntity;
-import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.util.NetUtil;
 import com.github.baby.owspace.util.OkHttpImageDownloader;
 import com.github.baby.owspace.util.TimeUtil;
@@ -13,8 +11,9 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
@@ -24,19 +23,19 @@ import rx.schedulers.Schedulers;
  */
 public class SplashPresenter implements SplashContract.Presenter{
     private SplashContract.View view;
-    private Context context;
-
-    public SplashPresenter(SplashContract.View view,Context context) {
+    private ApiService apiService;
+    @Inject
+    public SplashPresenter(SplashContract.View view, ApiService apiService) {
         this.view = view;
-        this.context = context;
+        this.apiService = apiService;
+        Logger.d("apppp:"+apiService);
     }
-
     @Override
     public void getSplash(String deviceId ) {
         String client = "android";
         String version = "1.3.0";
         Long time = TimeUtil.getCurrentSeconds();
-        ApiClient.service.getSplash(client,version,time,deviceId)
+        apiService.getSplash(client,version,time,deviceId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(new Subscriber<SplashEntity>() {
@@ -51,7 +50,7 @@ public class SplashPresenter implements SplashContract.Presenter{
                     }
                     @Override
                     public void onNext(SplashEntity splashEntity) {
-                        if (NetUtil.isWifi(context)){
+                        if (NetUtil.isWifi(OwspaceApplication.getInstance().getApplicationContext())){
                             if (splashEntity != null){
                                 List<String> imgs = splashEntity.getImages();
                                 for (String url:imgs) {

@@ -1,6 +1,7 @@
 package com.github.baby.owspace.di.components;
 
 import com.github.baby.owspace.di.modules.ArtModule;
+import com.github.baby.owspace.di.scopes.UserScope;
 import com.github.baby.owspace.view.activity.ArtActivity;
 
 import dagger.Component;
@@ -10,7 +11,8 @@ import dagger.Component;
  * DATE 2016/10/22
  * owspace
  */
-@Component(modules = ArtModule.class)
+@UserScope
+@Component(modules = ArtModule.class,dependencies = NetComponent.class)
 public interface ArtComponent {
     void inject(ArtActivity artActivity);
 }
