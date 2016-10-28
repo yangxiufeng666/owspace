@@ -1,5 +1,5 @@
 # owspace
-owspace是基于MVP和Retrofit2.0的APP
+owspace是基于MVP+Dagger2+Retrofit2.0+Rxjava的APP
 
 #简介
 owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
@@ -7,8 +7,7 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 #你能学到
 * MVP模式
 * Retrofit2.0 + rxjava
-* Material Design
-* Android6.0 动态权限申请
+* Dagger2
 * jsoup解析DOM
 * sqldelight SqlBrite
 
