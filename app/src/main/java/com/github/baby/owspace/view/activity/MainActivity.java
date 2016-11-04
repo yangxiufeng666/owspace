@@ -2,7 +2,6 @@ package com.github.baby.owspace.view.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +38,7 @@ import butterknife.OnClick;
 import rx.Subscription;
 import rx.functions.Action1;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Bind(R.id.view_pager)
     VerticalViewPager viewPager;

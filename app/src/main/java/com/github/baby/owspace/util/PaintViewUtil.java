@@ -2,6 +2,7 @@ package com.github.baby.owspace.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -119,7 +120,10 @@ public class PaintViewUtil {
         ntv.setLayoutParams(layoutParams);
         putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
-
+    private void setFont(SelectTextView selectTextView,Context context){
+        Typeface typeFace =Typeface.createFromAsset(context.getAssets(),"fonts/PMingLiU.ttf");
+        selectTextView.setTypeface(typeFace);
+    }
     private int getColorById(Context paramContext, int paramInt)
     {
         return paramContext.getResources().getColor(paramInt);

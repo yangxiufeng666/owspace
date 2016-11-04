@@ -119,7 +119,7 @@
             android:layout_height="0.5dip"
             android:layout_below="@id/content_tv"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10.0dip"
+            android:layout_marginTop="29.0dip"
             android:background="@color/pagefragment_view_line_bg_common" />
 
         <TextView

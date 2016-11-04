@@ -3,7 +3,6 @@ package com.github.baby.owspace.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -37,7 +36,7 @@ import butterknife.ButterKnife;
  * DATE 2016/8/9
  * owspace
  */
-public class DetailActivity extends AppCompatActivity implements DetailContract.View, ObservableScrollViewCallbacks {
+public class DetailActivity extends BaseActivity implements DetailContract.View, ObservableScrollViewCallbacks {
     @Bind(R.id.favorite)
     ImageView favorite;
     @Bind(R.id.write)

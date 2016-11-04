@@ -79,5 +79,7 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.7'
     //java注解
     compile 'org.glassfish:javax.annotation:10.0-b28'
+    //字体
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
 }

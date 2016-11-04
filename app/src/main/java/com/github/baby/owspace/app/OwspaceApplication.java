@@ -4,12 +4,15 @@ import android.app.Application;
 import android.content.Context;
 
 import com.github.baby.owspace.BuildConfig;
+import com.github.baby.owspace.R;
 import com.github.baby.owspace.di.components.DaggerNetComponent;
 import com.github.baby.owspace.di.components.NetComponent;
 import com.github.baby.owspace.di.modules.ApplicationModule;
 import com.github.baby.owspace.di.modules.NetModule;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -31,6 +34,11 @@ public class OwspaceApplication extends Application{
         instance = this;
         initLogger();
         initNet();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/PMingLiU.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
     private void initLogger(){
         if (!BuildConfig.API_ENV){

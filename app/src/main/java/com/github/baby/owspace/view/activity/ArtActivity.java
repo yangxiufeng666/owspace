@@ -3,7 +3,6 @@ package com.github.baby.owspace.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,8 +15,8 @@ import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerArtComponent;
 import com.github.baby.owspace.di.modules.ArtModule;
 import com.github.baby.owspace.model.entity.Item;
-import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.presenter.ArticalContract;
+import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.view.adapter.ArtRecycleViewAdapter;
 import com.github.baby.owspace.view.widget.CustomPtrHeader;
@@ -38,7 +37,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * DATE 2016/8/3
  * owspace
  */
-public class ArtActivity extends AppCompatActivity implements ArticalContract.View {
+public class ArtActivity extends BaseActivity implements ArticalContract.View {
     @Bind(R.id.title)
     TextView title;
     @Bind(R.id.toolBar)

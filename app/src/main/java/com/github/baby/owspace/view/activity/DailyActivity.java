@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -12,13 +11,11 @@ import android.widget.Toast;
 
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.app.OwspaceApplication;
-import com.github.baby.owspace.di.components.DaggerArtComponent;
 import com.github.baby.owspace.di.components.DaggerDailyComponent;
-import com.github.baby.owspace.di.modules.ArtModule;
 import com.github.baby.owspace.di.modules.DailyModule;
 import com.github.baby.owspace.model.entity.Item;
-import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.presenter.ArticalContract;
+import com.github.baby.owspace.presenter.ArticalPresenter;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.view.adapter.DailyViewPagerAdapter;
 import com.github.baby.owspace.view.widget.VerticalViewPager;
@@ -36,7 +33,7 @@ import butterknife.ButterKnife;
  * DATE 2016/8/3
  * owspace
  */
-public class DailyActivity extends AppCompatActivity implements ArticalContract.View{
+public class DailyActivity extends BaseActivity implements ArticalContract.View{
     @Bind(R.id.title)
     TextView title;
     @Bind(R.id.toolBar)
