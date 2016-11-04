@@ -48,7 +48,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * DATE 2016/7/22
  * owspace
  */
-public class SplashActivity extends AppCompatActivity implements SplashContract.View, EasyPermissions.PermissionCallbacks {
+public class SplashActivity extends BaseActivity implements SplashContract.View, EasyPermissions.PermissionCallbacks {
     @Bind(R.id.splash_img)
     FixedImageView splashImg;
     @Inject
