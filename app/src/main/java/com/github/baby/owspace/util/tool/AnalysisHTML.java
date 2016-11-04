@@ -44,7 +44,7 @@ public class AnalysisHTML {
     private String imgUrl;
     private String imgWidth;
     private Elements pChild;
-    private PaintViewUtil paintViewUtil = new PaintViewUtil();
+    private PaintViewUtil paintViewUtil;
     private int r;
     private int space = 10;
     private StyleSpan span;
@@ -111,6 +111,7 @@ public class AnalysisHTML {
     private void parseDocument(Document paramDocument) {
 //        Logger.e("paramDocument="+paramDocument);
         this.wordsLength = this.forwardLen;
+        paintViewUtil = new PaintViewUtil(context);
         Iterator localIterator = paramDocument.getAllElements().iterator();
         while (localIterator.hasNext()) {
             Element localElement = (Element) localIterator.next();

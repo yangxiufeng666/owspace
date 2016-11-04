@@ -34,6 +34,11 @@ public class PaintViewUtil {
     private View lineView;
     private SelectTextView ntv;
     private SelectTextView poetryTv;
+    private Typeface typeFace;
+
+    public PaintViewUtil(Context context) {
+        typeFace =Typeface.createFromAsset(context.getAssets(),"fonts/PMingLiU.ttf");
+    }
 
     private void addBlock(Context paramContext, ViewGroup paramViewGroup, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2)
     {
@@ -48,6 +53,7 @@ public class PaintViewUtil {
         this.ntv = new SelectTextView(paramContext);
         this.ntv.setSingleLine(false);
         ntv.setTextIsSelectable(true);
+        setFont(ntv,paramContext);
         paramViewGroup.addView(this.ntv);
         putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
@@ -59,6 +65,7 @@ public class PaintViewUtil {
         this.ntv.setSingleLine(false);
         ntv.setTextIsSelectable(true);
         ntv.setTextColor(paramContext.getResources().getColor(R.color.black));
+        setFont(ntv,paramContext);
         paramViewGroup.addView(this.ntv);
         putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
@@ -70,6 +77,7 @@ public class PaintViewUtil {
         ntv.setTextIsSelectable(true);
         ntv.setTextColor(paramContext.getResources().getColor(R.color.green));
         ntv.setTextSize(10);
+        setFont(ntv,paramContext);
         paramViewGroup.addView(this.ntv);
         putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
@@ -103,6 +111,7 @@ public class PaintViewUtil {
         this.poetryTv = new SelectTextView(paramContext);
         this.poetryTv.setSingleLine(false);
         this.poetryTv.setText(paramSpannableStringBuilder, TextView.BufferType.SPANNABLE);
+        setFont(poetryTv,paramContext);
         paramViewGroup.addView(this.poetryTv);
     }
 
@@ -113,6 +122,7 @@ public class PaintViewUtil {
         ntv.setLineSpacing(1.5f,1.8f);
         ntv.setTextSize(16);
         ntv.setTextIsSelectable(true);
+        setFont(ntv,paramContext);
         paramViewGroup.addView(this.ntv);
         this.lParam = getLinearParams(paramContext);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -121,7 +131,7 @@ public class PaintViewUtil {
         putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
     private void setFont(SelectTextView selectTextView,Context context){
-        Typeface typeFace =Typeface.createFromAsset(context.getAssets(),"fonts/PMingLiU.ttf");
+
         selectTextView.setTypeface(typeFace);
     }
     private int getColorById(Context paramContext, int paramInt)
