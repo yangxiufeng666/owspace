@@ -11,9 +11,11 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 * jsoup解析DOM
 * sqldelight SqlBrite
 
-#修改列表
+#里程碑列表
 
 ###2016/11/4 添加新细明字体
+###2016/10/28 Dagger2改造
+###2016/7/21 初始化
 
 #demo
 [点击下载](https://beta.bugly.qq.com/dsn9)
@@ -33,7 +35,11 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 #thanks
 ```
-	compile 'com.android.support:appcompat-v7:24.2.1'
+	compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile(name: 'SildeMenulibrary-release', ext: 'aar')
+    compile(name: 'ObservableScrollView-release', ext: 'aar')
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'net.danlew:android.joda:2.9.3'
@@ -55,6 +61,9 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
     compile 'org.jsoup:jsoup:1.7.3'
     compile 'pub.devrel:easypermissions:0.2.0'
     compile 'com.wang.avi:library:2.1.3'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    compile 'com.google.dagger:dagger:2.7'
+    apt 'com.google.dagger:dagger-compiler:2.7'
+    compile 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 ```
 

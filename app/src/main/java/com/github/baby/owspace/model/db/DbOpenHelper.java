@@ -19,7 +19,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-final class DbOpenHelper extends SQLiteOpenHelper {
+public class DbOpenHelper extends SQLiteOpenHelper {
   private static final int VERSION = 1;
 
   private static final String CREATE_LIST = "";

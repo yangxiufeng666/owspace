@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.baby.owspace.model.db;
+package com.github.baby.owspace.di.modules;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.github.baby.owspace.model.db.DbOpenHelper;
 import com.orhanobut.logger.Logger;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
@@ -29,7 +30,15 @@ import dagger.Provides;
 import rx.schedulers.Schedulers;
 
 @Module
-public final class DbModule {
+public class DbModule {
+  private Application application;
+
+  public DbModule(Application application) {
+    this.application = application;
+  }
+  @Provides @Singleton Application provideApplication() {
+    return application;
+  }
   @Provides
   @Singleton SQLiteOpenHelper provideOpenHelper(Application application) {
     return new DbOpenHelper(application);

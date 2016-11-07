@@ -1,6 +1,5 @@
 package com.github.baby.owspace.presenter;
 
-import com.github.baby.owspace.model.api.ApiClient;
 import com.github.baby.owspace.model.api.ApiService;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.model.entity.Result;

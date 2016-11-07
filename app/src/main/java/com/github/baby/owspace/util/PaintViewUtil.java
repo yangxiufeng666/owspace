@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,9 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.view.widget.SelectTextView;
-import com.orhanobut.logger.Logger;
-
-import java.util.ArrayList;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -53,9 +49,9 @@ public class PaintViewUtil {
         this.ntv = new SelectTextView(paramContext);
         this.ntv.setSingleLine(false);
         ntv.setTextIsSelectable(true);
-        setFont(ntv,paramContext);
+        setFont(ntv);
         paramViewGroup.addView(this.ntv);
-        putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
 
     private void addH4TextView(Context paramContext, ViewGroup paramViewGroup, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2, int paramInt3)
@@ -65,9 +61,9 @@ public class PaintViewUtil {
         this.ntv.setSingleLine(false);
         ntv.setTextIsSelectable(true);
         ntv.setTextColor(paramContext.getResources().getColor(R.color.black));
-        setFont(ntv,paramContext);
+        setFont(ntv);
         paramViewGroup.addView(this.ntv);
-        putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
 
     private void addH5TextView(Context paramContext, ViewGroup paramViewGroup, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2, int paramInt3)
@@ -77,15 +73,15 @@ public class PaintViewUtil {
         ntv.setTextIsSelectable(true);
         ntv.setTextColor(paramContext.getResources().getColor(R.color.green));
         ntv.setTextSize(10);
-        setFont(ntv,paramContext);
+        setFont(ntv);
         paramViewGroup.addView(this.ntv);
-        putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
 
     private void addImageView(final Activity paramActivity, SpannableStringBuilder paramSpannableStringBuilder, ViewGroup paramViewGroup, String imgWidth,String imgHeight, String imgUrl)
     {
         ImageView localImageView = (ImageView)View.inflate(paramActivity, R.layout.item_image_view, null);
-        this.lParam = getLinearParams(paramActivity);
+        this.lParam = getLinearParams();
         if ((imgWidth != null) && (imgHeight != null) && (!imgWidth.isEmpty()) && (!imgHeight.isEmpty()))
         {
             String str3 = imgWidth.replace("px", "");
@@ -102,7 +98,7 @@ public class PaintViewUtil {
     private void addLines(Context paramContext, ViewGroup paramViewGroup, String paramString)
     {
         this.lineView = new View(paramContext);
-        this.lParam = getLinearParams(paramContext);
+        this.lParam = getLinearParams();
         paramViewGroup.addView(this.lineView);
     }
 
@@ -111,7 +107,7 @@ public class PaintViewUtil {
         this.poetryTv = new SelectTextView(paramContext);
         this.poetryTv.setSingleLine(false);
         this.poetryTv.setText(paramSpannableStringBuilder, TextView.BufferType.SPANNABLE);
-        setFont(poetryTv,paramContext);
+        setFont(poetryTv);
         paramViewGroup.addView(this.poetryTv);
     }
 
@@ -122,16 +118,15 @@ public class PaintViewUtil {
         ntv.setLineSpacing(1.5f,1.8f);
         ntv.setTextSize(16);
         ntv.setTextIsSelectable(true);
-        setFont(ntv,paramContext);
+        setFont(ntv);
         paramViewGroup.addView(this.ntv);
-        this.lParam = getLinearParams(paramContext);
+        this.lParam = getLinearParams();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0,14,0,0);
         ntv.setLayoutParams(layoutParams);
-        putTextSpanViewSettings(paramContext, this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
     }
-    private void setFont(SelectTextView selectTextView,Context context){
-
+    private void setFont(SelectTextView selectTextView){
         selectTextView.setTypeface(typeFace);
     }
     private int getColorById(Context paramContext, int paramInt)
@@ -139,7 +134,7 @@ public class PaintViewUtil {
         return paramContext.getResources().getColor(paramInt);
     }
 
-    private LinearLayout.LayoutParams getLinearParams(Context paramContext)
+    private LinearLayout.LayoutParams getLinearParams()
     {
         this.lParam = new LinearLayout.LayoutParams(-1, -2);
         return this.lParam;
@@ -148,7 +143,7 @@ public class PaintViewUtil {
     private void paintBlockLine(Context paramContext, ViewGroup paramViewGroup, boolean paramBoolean)
     {
         this.lineView = new View(paramContext);
-        this.lParam = getLinearParams(paramContext);
+        this.lParam = getLinearParams();
         this.lineView.setLayoutParams(this.lParam);
         paramViewGroup.addView(this.lineView);
     }
@@ -156,7 +151,7 @@ public class PaintViewUtil {
     private void paintBlockTextView(Context paramContext, ViewGroup paramViewGroup, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2)
     {
         this.blockTv = new SelectTextView(paramContext);
-        this.lParam = getLinearParams(paramContext);
+        this.lParam = getLinearParams();
         this.blockTv.setText(paramSpannableStringBuilder, TextView.BufferType.SPANNABLE);
         int i = 0;
         int j = 0;
@@ -166,7 +161,7 @@ public class PaintViewUtil {
 //        popUtils.initListener(paramContext, this.blockTv, paramSpannableStringBuilder, paramInt1, paramInt2, this.noteList);
     }
 
-    private void putTextSpanViewSettings(Context paramContext, TextView paramTextView, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2, int paramInt3)
+    private void putTextSpanViewSettings(TextView paramTextView, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2, int paramInt3)
     {
         paramTextView.setText(paramSpannableStringBuilder, TextView.BufferType.SPANNABLE);
     }
