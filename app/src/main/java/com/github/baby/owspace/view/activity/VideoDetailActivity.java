@@ -23,23 +23,26 @@ import com.github.baby.owspace.presenter.DetailPresenter;
 import com.github.baby.owspace.util.AppUtil;
 import com.github.baby.owspace.util.tool.AnalysisHTML;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
-
-import org.jsoup.helper.StringUtil;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Created by Mr.Yangxiufeng
- * DATE 2016/8/9
+ * DATE 2016/11/8
  * owspace
  */
-public class DetailActivity extends BaseActivity implements DetailContract.View, ObservableScrollViewCallbacks {
+
+public class VideoDetailActivity extends BaseActivity implements DetailContract.View {
+
+
+    @Inject
+    DetailPresenter presenter;
     @Bind(R.id.favorite)
     ImageView favorite;
     @Bind(R.id.write)
@@ -48,14 +51,10 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     ImageView share;
     @Bind(R.id.toolBar)
     Toolbar toolBar;
-    @Bind(R.id.webView)
-    WebView webView;
-    @Bind(R.id.scrollView)
-    ObservableScrollView scrollView;
-    @Bind(R.id.image)
-    ImageView image;
-    @Bind(R.id.news_parse_web)
-    LinearLayout newsParseWeb;
+    @Bind(R.id.video)
+    JCVideoPlayerStandard video;
+    @Bind(R.id.news_top_img_under_line)
+    View newsTopImgUnderLine;
     @Bind(R.id.news_top_type)
     TextView newsTopType;
     @Bind(R.id.news_top_date)
@@ -66,20 +65,21 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     TextView newsTopAuthor;
     @Bind(R.id.news_top_lead)
     TextView newsTopLead;
-    @Bind(R.id.news_top)
-    LinearLayout newsTop;
-    @Bind(R.id.news_top_img_under_line)
-    View newsTopImgUnderLine;
     @Bind(R.id.news_top_lead_line)
     View newsTopLeadLine;
-    @Inject
-    DetailPresenter presenter;
-    private int mParallaxImageHeight;
+    @Bind(R.id.news_top)
+    LinearLayout newsTop;
+    @Bind(R.id.news_parse_web)
+    LinearLayout newsParseWeb;
+    @Bind(R.id.webView)
+    WebView webView;
+    @Bind(R.id.scrollView)
+    ObservableScrollView scrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_art_detail);
+        setContentView(R.layout.activity_video_detail);
         ButterKnife.bind(this);
         initView();
         initPresenter();
@@ -91,34 +91,27 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         Bundle bundle = getIntent().getExtras();
         Item item = bundle.getParcelable("item");
         if (item != null){
-            Glide.with(this).load(item.getThumbnail()).centerCrop().into(image);
-            int mode = Integer.valueOf(item.getModel());
+            video.setUp(item.getVideo(), JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
+            Glide.with(this).load(item.getThumbnail()).centerCrop().into(video.thumbImageView);
+            newsTopType.setText("视 频");
             newsTopLeadLine.setVisibility(View.VISIBLE);
             newsTopImgUnderLine.setVisibility(View.VISIBLE);
-            switch (mode){
-                case 1:
-                    newsTopType.setText("文 字");
-                    break;
-                case 3:
-                    newsTopType.setText("音 频");
-                    break;
-            }
             newsTopDate.setText(item.getUpdate_time());
             newsTopTitle.setText(item.getTitle());
             newsTopAuthor.setText(item.getAuthor());
             newsTopLead.setText(item.getLead());
             presenter.getDetail(item.getId());
         }
-
     }
 
-    private void initPresenter(){
+    private void initPresenter() {
         DaggerDetailComponent.builder()
                 .netComponent(OwspaceApplication.get(this).getNetComponent())
                 .detailModule(new DetailModule(this))
                 .build()
                 .inject(this);
     }
+
     private void initView() {
         setSupportActionBar(toolBar);
         ActionBar actionBar = getSupportActionBar();
@@ -131,8 +124,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
             }
         });
         toolBar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
-        scrollView.setScrollViewCallbacks(this);
-        mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
     }
 
     private void initWebViewSetting() {
@@ -158,22 +149,15 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     @Override
     public void updateListUI(DetailEntity detailEntity) {
         if (detailEntity.getParseXML() == 1) {
+            newsTopLeadLine.setVisibility(View.VISIBLE);
+            newsTopImgUnderLine.setVisibility(View.VISIBLE);
             int i = detailEntity.getLead().trim().length();
             AnalysisHTML analysisHTML = new AnalysisHTML();
             analysisHTML.loadHtml(this, detailEntity.getContent(), analysisHTML.HTML_STRING, newsParseWeb, i);
-            int mode = Integer.valueOf(detailEntity.getModel());
-            switch (mode){
-                case 1:
-                    newsTopType.setText("文 字");
-                    break;
-                case 3:
-                    newsTopType.setText("音 频");
-                    break;
-            }
         } else {
             initWebViewSetting();
             newsParseWeb.setVisibility(View.GONE);
-            image.setVisibility(View.GONE);
+            video.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
             newsTop.setVisibility(View.GONE);
             webView.loadUrl(addParams2WezeitUrl(detailEntity.getHtml5(), false));
@@ -183,24 +167,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
 
     @Override
     public void showOnFailure() {
-
-    }
-
-    @Override
-    public void onScrollChanged(int i, boolean b, boolean b1) {
-        int baseColor = getResources().getColor(R.color.primary);
-        float alpha = Math.min(1, (float) i / mParallaxImageHeight);
-        toolBar.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
-//        ViewHelper.setTranslationY(image, i / 2);
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
 
     }
 
@@ -218,4 +184,17 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         return localStringBuffer.toString();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        JCVideoPlayer.releaseAllVideos();
+        super.onPause();
+    }
 }

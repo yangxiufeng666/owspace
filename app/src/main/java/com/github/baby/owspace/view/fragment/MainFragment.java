@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.view.activity.DetailActivity;
+import com.github.baby.owspace.view.activity.VideoDetailActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -114,14 +115,22 @@ public class MainFragment extends Fragment {
         typeContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (model==5){
-                    Uri uri = Uri.parse(item.getHtml5());
-                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra("itemId", item.getId());
-                    startActivity(intent);
+                Intent intent;
+                switch (model){
+                    case 5:
+                        Uri uri = Uri.parse(item.getHtml5());
+                        intent = new Intent(Intent.ACTION_VIEW,uri);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(getActivity(), VideoDetailActivity.class);
+                        intent.putExtra("item",item);
+                        startActivity(intent);
+                        break;
+                    default:
+                        intent = new Intent(getActivity(), DetailActivity.class);
+                        intent.putExtra("item",item);
+                        startActivity(intent);
                 }
             }
         });

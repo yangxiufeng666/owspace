@@ -2,6 +2,7 @@ package com.github.baby.owspace.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.view.activity.DetailActivity;
+import com.github.baby.owspace.view.activity.VideoDetailActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -104,9 +106,22 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             artHolder.typeContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("itemId", item.getId());
-                    context.startActivity(intent);
+                    int model = Integer.valueOf(item.getModel());
+                    Intent intent=null;
+                    switch (model){
+                        case 2://视频
+                            intent= new Intent(context, VideoDetailActivity.class);
+                            break;
+                        case 1://文字
+                        case 3://音频
+                            intent= new Intent(context, DetailActivity.class);
+                            break;
+                    }
+                    if (intent != null){
+                        intent.putExtra("item",item);
+                        context.startActivity(intent);
+                    }
+
                 }
             });
         }

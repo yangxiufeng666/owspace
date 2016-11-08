@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeLaunch">
         <activity android:name=".view.activity.SplashActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,11 +23,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.MainActivity"/>
-        <activity android:name=".view.activity.ArtActivity"/>
-        <activity android:name=".view.activity.DailyActivity"/>
-        <activity android:name=".view.activity.DetailActivity"/>
-        <activity android:name=".view.activity.SettingsActivity"/>
+        <activity android:name=".view.activity.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.ArtActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.DailyActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.DetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.VideoDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.SettingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
         <meta-data android:name="com.github.baby.owspace.util.GlideConfiguration" android:value="GlideModule"/>
     </application>
 

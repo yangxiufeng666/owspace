@@ -74,7 +74,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.7.3'
     compile 'pub.devrel:easypermissions:0.2.0'
     compile 'com.wang.avi:library:2.1.3'
-//    compile 'fm.jiecao:jiecaovideoplayer:4.7.1_preview'
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.2'
     compile 'com.google.dagger:dagger:2.7'
     apt 'com.google.dagger:dagger-compiler:2.7'
     //java注解
