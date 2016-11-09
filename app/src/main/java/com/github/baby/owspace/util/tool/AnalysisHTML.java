@@ -82,7 +82,7 @@ public class AnalysisHTML {
     private void parseChildOfPH(Element paramElement) {
         String str1 = paramElement.text().replaceAll("br;", "\n");
         if (!TextUtils.isEmpty(str1)) {
-            ssb = new SpannableStringBuilder(str1);
+            ssb = new SpannableStringBuilder("\n" + str1);
             if (paramElement.nodeName().equals("h1")) {
                 viewType = 1;
             } else if (paramElement.nodeName().equals("h2")) {
@@ -103,6 +103,11 @@ public class AnalysisHTML {
                 this.viewType = 10;
             } else {
                 viewType = 0;
+                if (paramElement.nodeName().contains("strong")){
+                    viewType=11;
+                }
+                ssb = new SpannableStringBuilder("\n"+setFirstLineSpace(str1,2));
+
             }
             paintViewUtil.addTypeView(context, this.fuView, this.viewType, ssb, null, null, null, this.wordsLength, 4 * space);
         }
@@ -133,13 +138,11 @@ public class AnalysisHTML {
         }
     }
 
-    private String setFirstLineSpace(int paramInt) {
-        String str = "";
-        for (int i = paramInt; ; i--) {
-            if (i <= 0)
-                return str;
-            str = str + "    ";
+    private String setFirstLineSpace(String str,int paramInt) {
+        for (int i = paramInt; i >= 0; i--) {
+            str = "  " + str;
         }
+        return str;
     }
 
     private SpannableStringBuilder setTextSpan(int paramInt1, int paramInt2, int paramInt3) {

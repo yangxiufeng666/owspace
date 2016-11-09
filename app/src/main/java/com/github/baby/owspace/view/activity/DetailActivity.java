@@ -107,6 +107,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
             newsTopTitle.setText(item.getTitle());
             newsTopAuthor.setText(item.getAuthor());
             newsTopLead.setText(item.getLead());
+            newsTopLead.setLineSpacing(1.5f,1.8f);
             presenter.getDetail(item.getId());
         }
 

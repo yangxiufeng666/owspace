@@ -122,7 +122,7 @@
                     android:paddingRight="10dp"
                     android:textSize="24sp"
                     android:typeface="serif"
-                    android:textColor="#ff000000" />
+                    android:textColor="@color/article_page_textcolor_cust3"/>
 
                 <TextView
                     android:id="@+id/news_top_author"
@@ -132,7 +132,8 @@
                     android:paddingTop="12.0dip"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:textColor="#ff000000" />
+                    android:textSize="11sp"
+                    android:textColor="@color/article_page_textcolor_author" />
 
                 <TextView
                     android:id="@+id/news_top_lead"
@@ -140,13 +141,15 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:textColor="#ff000000" />
+                    android:textSize="15sp"
+                    android:textColor="@color/article_page_textcolor_cust3" />
 
                 <View
                     android:id="@+id/news_top_lead_line"
                     android:layout_width="fill_parent"
                     android:layout_height="0.5dp"
                     android:layout_margin="5dp"
+                    android:layout_marginTop="15dp"
                     android:background="@color/item_column_page_textcolor_author"
                     android:visibility="gone" />
             </LinearLayout>

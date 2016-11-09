@@ -25,4 +25,12 @@
     <color name="setting_act_textcolor_cus1">#ffd4d4d4</color>
     <color name="setting_act_rl_bgcolor_common">#ffffffff</color>
 
+    <color name="article_page_textcolor_author">#ff000000</color>
+    <color name="article_page_textcolor_cust1">#ff000000</color>
+    <color name="article_page_textcolor_cust2">#ffc3c3c3</color>
+    <color name="article_page_textcolor_cust3">#ff000000</color>
+    <color name="article_page_text_select_bg">#ffebe1c4</color>
+    <color name="article_page_textcolor_select_text">#ff000000</color>
+    <color name="article_page_textcolor_selected">#ffad8a5a</color>
+
 </resources>

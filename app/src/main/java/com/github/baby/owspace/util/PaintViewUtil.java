@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -74,8 +76,20 @@ public class PaintViewUtil {
         ntv.setTextColor(paramContext.getResources().getColor(R.color.green));
         ntv.setTextSize(10);
         setFont(ntv);
-        paramViewGroup.addView(this.ntv);
         putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        paramViewGroup.addView(this.ntv);
+    }
+    private void addH6TextView(Context paramContext, ViewGroup paramViewGroup, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2, int paramInt3)
+    {
+        this.ntv = new SelectTextView(paramContext);
+        this.ntv.setSingleLine(false);
+        ntv.setTextIsSelectable(true);
+        ntv.setTextColor(paramContext.getResources().getColor(R.color.black));
+        ntv.setTextSize(8);
+        ntv.setLineSpacing(1.5f,1.8f);
+        setFont(ntv);
+        putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        paramViewGroup.addView(this.ntv);
     }
 
     private void addImageView(final Activity paramActivity, SpannableStringBuilder paramSpannableStringBuilder, ViewGroup paramViewGroup, String imgWidth,String imgHeight, String imgUrl)
@@ -107,6 +121,7 @@ public class PaintViewUtil {
         this.poetryTv = new SelectTextView(paramContext);
         this.poetryTv.setSingleLine(false);
         this.poetryTv.setText(paramSpannableStringBuilder, TextView.BufferType.SPANNABLE);
+        poetryTv.setTextColor(paramContext.getResources().getColor(R.color.black));
         setFont(poetryTv);
         paramViewGroup.addView(this.poetryTv);
     }
@@ -116,15 +131,35 @@ public class PaintViewUtil {
         this.ntv = new SelectTextView(paramContext);
         this.ntv.setSingleLine(false);
         ntv.setLineSpacing(1.5f,1.8f);
-        ntv.setTextSize(16);
+        ntv.setTextSize(15);
         ntv.setTextIsSelectable(true);
+        ntv.setTextColor(paramContext.getResources().getColor(R.color.black));
         setFont(ntv);
-        paramViewGroup.addView(this.ntv);
         this.lParam = getLinearParams();
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0,14,0,0);
         ntv.setLayoutParams(layoutParams);
         putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        paramViewGroup.addView(this.ntv);
+    }
+    private void addStrongTextSpanView(Context paramContext, ViewGroup paramViewGroup, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2, int paramInt3)
+    {
+        this.ntv = new SelectTextView(paramContext);
+        this.ntv.setSingleLine(false);
+        ntv.setLineSpacing(1.5f,1.8f);
+        ntv.setTextSize(15);
+        ntv.setTextIsSelectable(true);
+        ntv.setTextColor(paramContext.getResources().getColor(R.color.black));
+        setFont(ntv);
+        this.lParam = getLinearParams();
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0,14,0,0);
+        ntv.setGravity(Gravity.LEFT);
+        ntv.setLayoutParams(layoutParams);
+        TextPaint tp = ntv .getPaint();
+        tp.setFakeBoldText(true);
+        putTextSpanViewSettings(this.ntv, paramSpannableStringBuilder, paramInt1, paramInt2, paramInt3);
+        paramViewGroup.addView(this.ntv);
     }
     private void setFont(SelectTextView selectTextView){
         selectTextView.setTypeface(typeFace);
@@ -158,12 +193,12 @@ public class PaintViewUtil {
         this.lParam.setMargins(i, j, i, j);
         this.blockTv.setLayoutParams(this.lParam);
         paramViewGroup.addView(this.blockTv);
-//        popUtils.initListener(paramContext, this.blockTv, paramSpannableStringBuilder, paramInt1, paramInt2, this.noteList);
     }
 
     private void putTextSpanViewSettings(TextView paramTextView, SpannableStringBuilder paramSpannableStringBuilder, int paramInt1, int paramInt2, int paramInt3)
     {
         paramTextView.setText(paramSpannableStringBuilder, TextView.BufferType.SPANNABLE);
+        paramTextView.setGravity(Gravity.LEFT);
     }
 
     public void addTypeView(Activity paramActivity, ViewGroup paramViewGroup, int type, SpannableStringBuilder paramSpannableStringBuilder, String imgWidth, String imgHeight,String imgUrl, int wordsLength, int spaces)
@@ -175,7 +210,6 @@ public class PaintViewUtil {
                 case 0:
                 case 1:
                 case 2:
-                case 6:
                     addTextSpanView(paramActivity, paramViewGroup, paramSpannableStringBuilder, type, wordsLength, spaces);
                     break;
                 case 3:
@@ -186,6 +220,9 @@ public class PaintViewUtil {
                     break;
                 case 5:
                     addH5TextView(paramActivity, paramViewGroup, paramSpannableStringBuilder, type, wordsLength, spaces);
+                    break;
+                case 6:
+                    addH6TextView(paramActivity, paramViewGroup, paramSpannableStringBuilder, type, wordsLength, spaces);
                     break;
                 case 7:
                     addBlock(paramActivity, paramViewGroup, paramSpannableStringBuilder, wordsLength, spaces);
@@ -198,6 +235,9 @@ public class PaintViewUtil {
                     break;
                 case 10:
                     addLines(paramActivity, paramViewGroup, "LINE_HR");
+                    break;
+                case 11:
+                    addStrongTextSpanView(paramActivity, paramViewGroup, paramSpannableStringBuilder, type, wordsLength, spaces);
                     break;
             }
 
