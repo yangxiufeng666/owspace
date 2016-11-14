@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
+import com.github.baby.owspace.view.activity.AudioDetailActivity;
 import com.github.baby.owspace.view.activity.DetailActivity;
 import com.github.baby.owspace.view.activity.VideoDetailActivity;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -113,8 +114,10 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             intent= new Intent(context, VideoDetailActivity.class);
                             break;
                         case 1://文字
-                        case 3://音频
                             intent= new Intent(context, DetailActivity.class);
+                            break;
+                        case 3://音频
+                            intent= new Intent(context, AudioDetailActivity.class);
                             break;
                     }
                     if (intent != null){

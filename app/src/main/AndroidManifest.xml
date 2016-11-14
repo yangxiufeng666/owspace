@@ -38,9 +38,13 @@
         <activity android:name=".view.activity.VideoDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.AudioDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.SettingsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
+        <service android:name=".player.PlaybackService"/>
         <meta-data android:name="com.github.baby.owspace.util.GlideConfiguration" android:value="GlideModule"/>
     </application>
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
+import com.github.baby.owspace.view.activity.AudioDetailActivity;
 import com.github.baby.owspace.view.activity.DetailActivity;
 import com.github.baby.owspace.view.activity.VideoDetailActivity;
 
@@ -122,8 +123,18 @@ public class MainFragment extends Fragment {
                         intent = new Intent(Intent.ACTION_VIEW,uri);
                         startActivity(intent);
                         break;
+                    case 3:
+                        intent = new Intent(getActivity(), AudioDetailActivity.class);
+                        intent.putExtra("item",item);
+                        startActivity(intent);
+                        break;
                     case 2:
                         intent = new Intent(getActivity(), VideoDetailActivity.class);
+                        intent.putExtra("item",item);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(getActivity(), DetailActivity.class);
                         intent.putExtra("item",item);
                         startActivity(intent);
                         break;

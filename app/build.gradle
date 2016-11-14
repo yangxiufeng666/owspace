@@ -20,10 +20,11 @@ android {
     defaultConfig {
         applicationId "com.github.baby.owspace"
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 22
         versionCode Integer.parseInt(version)
         versionName name
         signingConfig signingConfigs.config
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
