@@ -20,6 +20,8 @@ public interface IPlayback {
 
     int getProgress();
 
+    int getDuration();
+
     boolean seekTo(int progress);
 
     void registerCallback(Callback callback);
@@ -32,8 +34,10 @@ public interface IPlayback {
 
     interface Callback {
 
-        void onComplete(@Nullable String next);
+        void onComplete(PlayState state);
 
-        void onPlayStatusChanged(boolean isPlaying);
+        void onPlayStatusChanged(PlayState status);
+
+        void onPosition(int position);
     }
 }

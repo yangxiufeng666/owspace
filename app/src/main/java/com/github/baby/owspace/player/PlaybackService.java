@@ -119,10 +119,17 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
     public boolean isPlaying() {
         return mPlayer.isPlaying();
     }
-
+    public String getSong(){
+        return mPlayer.getSong();
+    }
     @Override
     public int getProgress() {
         return mPlayer.getProgress();
+    }
+
+    @Override
+    public int getDuration() {
+        return mPlayer.getDuration();
     }
 
     @Override
@@ -146,24 +153,29 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
     }
 
     @Override
+    public void onPosition(int position) {
+
+    }
+
+    @Override
     public void releasePlayer() {
         mPlayer.releasePlayer();
         super.onDestroy();
     }
 
     @Override
-    public void onComplete(@Nullable String next) {
-
+    public void onComplete(PlayState state) {
+        showNotification(state);
     }
 
     @Override
-    public void onPlayStatusChanged(boolean isPlaying) {
-        showNotification();
+    public void onPlayStatusChanged(PlayState status) {
+        showNotification(status);
     }
     /**
             * Show a notification while this service is running.
     */
-    private void showNotification() {
+    private void showNotification(PlayState status) {
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
 
@@ -173,7 +185,6 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
                 .setWhen(System.currentTimeMillis())  // the time stamp
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
                 .setCustomContentView(getSmallContentView())
-                .setCustomBigContentView(getBigContentView())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setOngoing(true)
                 .build();
@@ -212,20 +223,9 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
     }
 
     private void updateRemoteViews(RemoteViews remoteView) {
-//        Song currentSong = mPlayer.getPlayingSong();
-//        if (currentSong != null) {
-//            remoteView.setTextViewText(R.id.text_view_name, currentSong.getDisplayName());
-//            remoteView.setTextViewText(R.id.text_view_artist, currentSong.getArtist());
-//        }
         remoteView.setImageViewResource(R.id.image_view_play_toggle, isPlaying()
                 ? R.drawable.ic_remote_view_pause : R.drawable.ic_remote_view_play);
-//        Bitmap album = AlbumUtils.parseAlbum(getPlayingSong());
-//        if (album == null) {
-//            remoteView.setImageViewResource(R.id.image_view_album, R.mipmap.ic_launcher);
-//        } else {
-//            remoteView.setImageViewBitmap(R.id.image_view_album, album);
-//
-//        }
+
     }
 
     // PendingIntent

@@ -1,10 +1,15 @@
 package com.github.baby.owspace.player;
 
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.Message;
+
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
 /**
  * Created by Mr.Yangxiufeng
@@ -12,16 +17,19 @@ import java.util.List;
  * owspace
  */
 
-public class Player implements IPlayback,MediaPlayer.OnCompletionListener{
+public class Player implements IPlayback,MediaPlayer.OnCompletionListener,MediaPlayer.OnBufferingUpdateListener,MediaPlayer.OnPreparedListener,MediaPlayer.OnErrorListener{
 
     private static volatile Player sInstance;
     private MediaPlayer mPlayer;
     private List<Callback> mCallbacks = new ArrayList<>(2);
     private boolean isPaused;
+    private String song;
 
     private Player() {
         mPlayer = new MediaPlayer();
         mPlayer.setOnCompletionListener(this);
+        mPlayer.setOnPreparedListener(this);
+        mPlayer.setOnBufferingUpdateListener(this);
     }
 
     public static Player getInstance() {
@@ -34,17 +42,11 @@ public class Player implements IPlayback,MediaPlayer.OnCompletionListener{
         }
         return sInstance;
     }
-
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-        notifyComplete(null);
-    }
-
     @Override
     public boolean play() {
         if (isPaused){
             mPlayer.start();
-            notifyPlayStatusChanged(true);
+            notifyPlayStatusChanged(PlayState.PLAYING);
             return true;
         }
         return false;
@@ -56,11 +58,11 @@ public class Player implements IPlayback,MediaPlayer.OnCompletionListener{
             mPlayer.reset();
             mPlayer.setDataSource(song);
             mPlayer.prepare();
-            mPlayer.start();
-            notifyPlayStatusChanged(true);
+            this.song = song;
+            notifyPlayStatusChanged(PlayState.PLAYING);
             return true;
         } catch (IOException e) {
-            notifyPlayStatusChanged(false);
+            notifyPlayStatusChanged(PlayState.ERROR);
             e.printStackTrace();
         }
         return false;
@@ -71,7 +73,7 @@ public class Player implements IPlayback,MediaPlayer.OnCompletionListener{
         if (mPlayer.isPlaying()) {
             mPlayer.pause();
             isPaused = true;
-            notifyPlayStatusChanged(false);
+            notifyPlayStatusChanged(PlayState.PAUSE);
             return true;
         }
         return false;
@@ -85,6 +87,11 @@ public class Player implements IPlayback,MediaPlayer.OnCompletionListener{
     @Override
     public int getProgress() {
         return mPlayer.getCurrentPosition();
+    }
+
+    @Override
+    public int getDuration() {
+        return mPlayer.getDuration();
     }
 
     @Override
@@ -113,16 +120,43 @@ public class Player implements IPlayback,MediaPlayer.OnCompletionListener{
         mPlayer.release();
         mPlayer = null;
         sInstance = null;
+        song = null;
     }
 
-    private void notifyPlayStatusChanged(boolean isPlaying) {
+    private void notifyPlayStatusChanged(PlayState status) {
         for (Callback callback : mCallbacks) {
-            callback.onPlayStatusChanged(isPlaying);
+            callback.onPlayStatusChanged(status);
         }
     }
-    private void notifyComplete(String song) {
+    private void notifyComplete(PlayState state) {
         for (Callback callback : mCallbacks) {
-            callback.onComplete(song);
+            callback.onComplete(state);
         }
+    }
+
+    public String getSong() {
+        return song;
+    }
+
+    @Override
+    public void onBufferingUpdate(MediaPlayer mp, int percent) {
+//        Logger.d("onBufferingUpdate");
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        Logger.d("onPrepared");
+        mPlayer.start();
+    }
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        Logger.d("onCompletion");
+        notifyComplete(PlayState.COMPLETE);
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        notifyPlayStatusChanged(PlayState.ERROR);
+        return false;
     }
 }

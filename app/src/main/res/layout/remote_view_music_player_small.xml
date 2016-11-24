@@ -21,34 +21,13 @@
         android:src="@drawable/app_logo"
         />
 
-    <FrameLayout
-        android:id="@+id/button_close"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:clickable="true"
-        android:background="@drawable/selector_remote_views_action_background"
-        android:visibility="gone"
-        >
-
-        <ImageView
-            android:id="@+id/image_view_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_remote_view_close"
-            android:layout_gravity="center"
-            />
-    </FrameLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/image_view_album"
-        android:layout_toEndOf="@+id/image_view_album"
-        android:layout_toLeftOf="@+id/layout_play_controls"
-        android:layout_toStartOf="@+id/layout_play_controls"
+        android:layout_toRightOf="@id/image_view_album"
+        android:layout_toEndOf="@id/image_view_album"
         android:layout_centerVertical="true"
         >
 
@@ -80,7 +59,6 @@
         android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         >
 
         <FrameLayout
@@ -133,6 +111,23 @@
                 android:layout_height="wrap_content"
                 android:scaleType="center"
                 app:srcCompat="@drawable/ic_remote_view_play_next"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/button_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:clickable="true"
+            android:background="@drawable/selector_remote_views_action_background"
+            android:visibility="visible"
+            >
+
+            <ImageView
+                android:id="@+id/image_view_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_remote_view_close"
                 android:layout_gravity="center"
                 />
         </FrameLayout>

@@ -23,13 +23,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/parallax_image_height"
                     android:scaleType="centerCrop" />
-
                 <LinearLayout
                     android:id="@+id/layout_play_controls"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
+                    android:background="#33000000"
                     android:showDividers="middle"
                     android:divider="@drawable/common_divider_xlarge_horizontal"
                     android:gravity="center_vertical"
@@ -37,7 +37,8 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/button_play_last"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         app:srcCompat="@drawable/ic_play_last"
@@ -46,7 +47,8 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/button_play_toggle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         app:srcCompat="@drawable/ic_play"
@@ -55,11 +57,51 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/button_play_next"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         app:srcCompat="@drawable/ic_play_next"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_above="@id/layout_play_controls"
+                    android:id="@+id/layout_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="44dp"
+                    android:background="#33000000"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/text_view_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorAccent"
+                        android:textSize="12sp"
+                        android:singleLine="true"
+                        android:text="00：00"
+                        />
+
+                    <android.support.v7.widget.AppCompatSeekBar
+                        android:id="@+id/seek_bar"
+                        style="@style/Widget.AppCompat.SeekBar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="10000"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_view_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorAccent"
+                        android:textSize="12sp"
+                        android:singleLine="true"
+                        android:text="03：00"
                         />
                 </LinearLayout>
             </RelativeLayout>

@@ -4,17 +4,22 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,15 +30,21 @@ import com.github.baby.owspace.di.modules.DetailModule;
 import com.github.baby.owspace.model.entity.DetailEntity;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.player.IPlayback;
+import com.github.baby.owspace.player.PlayState;
 import com.github.baby.owspace.player.PlaybackService;
 import com.github.baby.owspace.presenter.DetailContract;
 import com.github.baby.owspace.presenter.DetailPresenter;
 import com.github.baby.owspace.util.AppUtil;
+import com.github.baby.owspace.util.TimeUtils;
 import com.github.baby.owspace.util.tool.AnalysisHTML;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+import com.orhanobut.logger.Logger;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.inject.Inject;
 
@@ -47,7 +58,7 @@ import butterknife.OnClick;
  * owspace
  */
 
-public class AudioDetailActivity extends BaseActivity implements DetailContract.View, ObservableScrollViewCallbacks {
+public class AudioDetailActivity extends BaseActivity implements DetailContract.View, ObservableScrollViewCallbacks, IPlayback.Callback {
     @Bind(R.id.image)
     ImageView image;
     @Bind(R.id.news_top_img_under_line)
@@ -89,6 +100,12 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
     AppCompatImageView buttonPlayToggle;
     @Bind(R.id.button_play_next)
     AppCompatImageView buttonPlayNext;
+    @Bind(R.id.text_view_progress)
+    TextView textViewProgress;
+    @Bind(R.id.seek_bar)
+    AppCompatSeekBar seekBar;
+    @Bind(R.id.text_view_duration)
+    TextView textViewDuration;
     private int mParallaxImageHeight;
 
     private PlaybackService mPlaybackService;
@@ -101,6 +118,7 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
             // service that we know is running in our own process, we can
             // cast its IBinder to a concrete class and directly access it.
             mPlaybackService = ((PlaybackService.LocalBinder) service).getService();
+            register();
         }
 
         public void onServiceDisconnected(ComponentName className) {
@@ -108,6 +126,7 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
             // unexpectedly disconnected -- that is, its process crashed.
             // Because it is running in our same process, we should never
             // see this happen.
+            unRegister();
             mPlaybackService = null;
         }
     };
@@ -121,6 +140,7 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
         initPresenter();
         bindPlaybackService();
     }
+
     public void bindPlaybackService() {
         this.bindService(new Intent(this, PlaybackService.class), mConnection, Context.BIND_AUTO_CREATE);
     }
@@ -145,8 +165,20 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
 
     }
 
+    private void register() {
+        mPlaybackService.registerCallback(this);
+    }
+
+    private void unRegister() {
+        if (mPlaybackService != null) {
+            mPlaybackService.unregisterCallback(this);
+        }
+    }
+
     @Override
     protected void onDestroy() {
+        unRegister();
+        handleProgress.removeCallbacks(runnable);
         super.onDestroy();
         ButterKnife.unbind(this);
     }
@@ -173,7 +205,22 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
         toolBar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.primary)));
         scrollView.setScrollViewCallbacks(this);
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void initWebViewSetting() {
@@ -195,7 +242,9 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
     public void dismissLoading() {
 
     }
+
     String song;
+
     @Override
     public void updateListUI(DetailEntity detailEntity) {
         song = detailEntity.getFm();
@@ -253,13 +302,110 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
 
     @OnClick(R.id.button_play_toggle)
     public void onClick() {
-        if (mPlaybackService == null) return;
-        buttonPlayToggle.setImageResource(R.drawable.ic_pause);
-        if (mPlaybackService.isPlaying()) {
-            mPlaybackService.pause();
-            buttonPlayToggle.setImageResource(R.drawable.ic_pause);
-        }else {
-            mPlaybackService.play(song);
+        if (mPlaybackService == null || song == null) {
+            Logger.d("mPlaybackService == null");
+            return;
         }
+        if (mPlaybackService.isPlaying()) {
+            if (song.equals(mPlaybackService.getSong())) {
+                mPlaybackService.pause();
+                buttonPlayToggle.setImageResource(R.drawable.ic_play);
+            } else {
+                mPlaybackService.play(song);
+                buttonPlayToggle.setImageResource(R.drawable.ic_pause);
+            }
+        } else {
+            if (song.equals(mPlaybackService.getSong())) {
+                mPlaybackService.play();
+            } else {
+                mPlaybackService.play(song);
+            }
+            buttonPlayToggle.setImageResource(R.drawable.ic_pause);
+        }
+    }
+
+    @Override
+    public void onComplete(PlayState status) {
+        Logger.d("onComplete.......");
+        cancelTimer();
+    }
+
+    @Override
+    public void onPlayStatusChanged(PlayState status) {
+        Logger.d("onPlayStatusChanged.......status=" + status);
+        switch (status) {
+            case INIT:
+                break;
+            case PREPARE:
+                break;
+            case PLAYING:
+                updateDuration();
+                playTimer();
+                Logger.d(mPlaybackService.getDuration());
+                break;
+            case PAUSE:
+                cancelTimer();
+                break;
+            case ERROR:
+                break;
+            case COMPLETE:
+                cancelTimer();
+                break;
+        }
+    }
+
+    @Override
+    public void onPosition(int position) {
+        Logger.d("onPosition.......=" + position);
+    }
+
+    Timer timer = null;
+
+    private void playTimer() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (mPlaybackService == null)
+                    return;
+                if (mPlaybackService.isPlaying()) {
+                    handleProgress.post(runnable);
+                }
+            }
+        }, 0, 1000);
+    }
+
+    private void cancelTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
+        timer = null;
+    }
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mPlaybackService.isPlaying()) {
+                if (isFinishing()){
+                    return;
+                }
+                int progress = (int) (seekBar.getMax()
+                        * ((float) mPlaybackService.getProgress() / (float) mPlaybackService.getDuration()));
+                updateProgressTextWithProgress(mPlaybackService.getProgress());
+                if (progress >= 0 && progress <= seekBar.getMax()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        seekBar.setProgress(progress, true);
+                    } else {
+                        seekBar.setProgress(progress);
+                    }
+                }
+            }
+        }
+    };
+    Handler handleProgress = new Handler();
+    private void updateProgressTextWithProgress(int progress) {
+        textViewProgress.setText(TimeUtils.formatDuration(progress));
+    }
+    private void updateDuration() {
+        textViewDuration.setText(TimeUtils.formatDuration(mPlaybackService.getDuration()));
     }
 }
