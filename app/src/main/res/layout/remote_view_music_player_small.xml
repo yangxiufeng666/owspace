@@ -18,7 +18,7 @@
         android:layout_marginRight="12dp"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/app_logo"
+        android:src="@mipmap/ic_launcher"
         />
 
 

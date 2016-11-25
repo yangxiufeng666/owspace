@@ -213,16 +213,26 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                cancelTimer();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                mPlaybackService.seekTo(getSeekDuration(seekBar.getProgress()));
+                playTimer();
             }
         });
     }
-
+    private int getSeekDuration(int progress) {
+        return (int) (getCurrentSongDuration() * ((float) progress / seekBar.getMax()));
+    }
+    private int getCurrentSongDuration() {
+        int duration=0;
+        if (mPlaybackService != null){
+            duration = mPlaybackService.getDuration();
+        }
+        return duration;
+    }
     private void initWebViewSetting() {
         WebSettings localWebSettings = this.webView.getSettings();
         localWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
@@ -341,15 +351,19 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
             case PLAYING:
                 updateDuration();
                 playTimer();
+                buttonPlayToggle.setImageResource(R.drawable.ic_pause);
                 Logger.d(mPlaybackService.getDuration());
                 break;
             case PAUSE:
                 cancelTimer();
+                buttonPlayToggle.setImageResource(R.drawable.ic_play);
                 break;
             case ERROR:
                 break;
             case COMPLETE:
                 cancelTimer();
+                buttonPlayToggle.setImageResource(R.drawable.ic_play);
+                seekBar.setProgress(0);
                 break;
         }
     }

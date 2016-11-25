@@ -134,7 +134,7 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
 
     @Override
     public boolean seekTo(int progress) {
-        return false;
+        return mPlayer.seekTo(progress);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
 
         // Set the info for the views that show in the notification panel.
         Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.app_logo)  // the status icon
+                .setSmallIcon(R.mipmap.ic_launcher)  // the status icon
                 .setWhen(System.currentTimeMillis())  // the time stamp
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
                 .setCustomContentView(getSmallContentView())

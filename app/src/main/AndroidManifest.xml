@@ -44,7 +44,14 @@
         <activity android:name=".view.activity.SettingsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
-        <service android:name=".player.PlaybackService"/>
+        <service android:name=".player.PlaybackService">
+            <intent-filter>
+                <action android:name="com.github.baby.owspace.ACTION.PLAY_TOGGLE"/>
+                <action android:name="com.github.baby.owspace.ACTION.PLAY_NEXT"/>
+                <action android:name="com.github.baby.owspace.ACTION.PLAY_LAST"/>
+                <action android:name="com.github.baby.owspace.ACTION.STOP_SERVICE"/>
+            </intent-filter>
+        </service>
         <meta-data android:name="com.github.baby.owspace.util.GlideConfiguration" android:value="GlideModule"/>
     </application>
 

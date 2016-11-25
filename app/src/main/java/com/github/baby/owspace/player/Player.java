@@ -96,7 +96,12 @@ public class Player implements IPlayback,MediaPlayer.OnCompletionListener,MediaP
 
     @Override
     public boolean seekTo(int progress) {
-        return false;
+        try {
+            mPlayer.seekTo(progress);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override
@@ -147,10 +152,12 @@ public class Player implements IPlayback,MediaPlayer.OnCompletionListener,MediaP
     public void onPrepared(MediaPlayer mp) {
         Logger.d("onPrepared");
         mPlayer.start();
+        notifyPlayStatusChanged(PlayState.PLAYING);
     }
     @Override
     public void onCompletion(MediaPlayer mp) {
         Logger.d("onCompletion");
+        mPlayer.reset();
         notifyComplete(PlayState.COMPLETE);
     }
 
