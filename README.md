@@ -10,9 +10,12 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 * Dagger2
 * jsoup解析DOM
 * sqldelight SqlBrite
+* 音视频播放等
+* some fucking source code
 
 #里程碑列表
 
+###2016/11/25 添加音频播放
 ###2016/11/8 添加视频播放功能
 ###2016/11/4 添加新细明字体
 ###2016/10/28 Dagger2改造
@@ -20,7 +23,7 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 #demo
 
-[最新DEMO点击下载](https://beta.bugly.qq.com/dsn9)
+[最新DEMO点击下载](https://beta.bugly.qq.com/5rik)
 
 
 #展示
