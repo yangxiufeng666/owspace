@@ -1,10 +1,10 @@
 # owspace
 owspace是基于MVP+Dagger2+Retrofit2.0+Rxjava的APP
 
-#简介
+# 简介
 owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
-#你能学到
+# 你能学到
 * MVP模式
 * Retrofit2.0 + rxjava
 * Dagger2
@@ -13,20 +13,20 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 * 音视频播放等
 * some fucking source code
 
-#里程碑列表
+# 里程碑列表
 
-###2016/11/25 添加音频播放
-###2016/11/8 添加视频播放功能
-###2016/11/4 添加新细明字体
-###2016/10/28 Dagger2改造
-###2016/7/21 初始化
+### 2016/11/25 添加音频播放
+### 2016/11/8 添加视频播放功能
+### 2016/11/4 添加新细明字体
+### 2016/10/28 Dagger2改造
+### 2016/7/21 初始化
 
-#demo
+# demo
 
 [最新DEMO点击下载](https://beta.bugly.qq.com/5rik)
 
 
-#展示
+# 展示
 ![image](art/show1.png) ![image](art/show2.png)
 
 ![image](art/show3.png) ![image](art/show4.png)
@@ -37,18 +37,18 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 ![image](art/show.gif)
 
-#TODO LIST
+# TODO LIST
 * sqldelight SqlBrite 缓存
 * 字体
 * 评论列表
 * some fucking features
 
-#声明
+# 声明
 单读这个文艺的APP本人比较喜欢，一时冲动就抓取了数据，反编译了APP。so,API接口是通过非法手段获取，严禁商用，违者后果自负。<br>
 
-#thanks
+# thanks
 ```
-	compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile(name: 'SildeMenulibrary-release', ext: 'aar')
     compile(name: 'ObservableScrollView-release', ext: 'aar')
