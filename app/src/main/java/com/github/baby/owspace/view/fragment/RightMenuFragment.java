@@ -22,7 +22,7 @@ import com.github.baby.owspace.view.activity.SettingsActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -32,23 +32,23 @@ import butterknife.OnClick;
  * owspace
  */
 public class RightMenuFragment extends Fragment {
-    @Bind(R.id.right_slide_close)
+    @BindView(R.id.right_slide_close)
     ImageView rightSlideClose;
-    @Bind(R.id.setting)
+    @BindView(R.id.setting)
     ImageView setting;
-    @Bind(R.id.avater_iv)
+    @BindView(R.id.avater_iv)
     ImageView avaterIv;
-    @Bind(R.id.name_tv)
+    @BindView(R.id.name_tv)
     TextView nameTv;
-    @Bind(R.id.notification_tv)
+    @BindView(R.id.notification_tv)
     TextView notificationTv;
-    @Bind(R.id.favorites_tv)
+    @BindView(R.id.favorites_tv)
     TextView favoritesTv;
-    @Bind(R.id.download_tv)
+    @BindView(R.id.download_tv)
     TextView downloadTv;
-    @Bind(R.id.note_tv)
+    @BindView(R.id.note_tv)
     TextView noteTv;
-    @Bind(R.id.title_bar)
+    @BindView(R.id.title_bar)
     RelativeLayout titleBar;
 
     private List<View> mViewList = new ArrayList();
@@ -70,7 +70,6 @@ public class RightMenuFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @OnClick({R.id.right_slide_close, R.id.setting, R.id.notification_tv, R.id.favorites_tv, R.id.download_tv, R.id.note_tv})

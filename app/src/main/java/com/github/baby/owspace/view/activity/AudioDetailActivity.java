@@ -48,7 +48,7 @@ import java.util.TimerTask;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -59,52 +59,52 @@ import butterknife.OnClick;
  */
 
 public class AudioDetailActivity extends BaseActivity implements DetailContract.View, ObservableScrollViewCallbacks, IPlayback.Callback {
-    @Bind(R.id.image)
+    @BindView(R.id.image)
     ImageView image;
-    @Bind(R.id.news_top_img_under_line)
+    @BindView(R.id.news_top_img_under_line)
     View newsTopImgUnderLine;
-    @Bind(R.id.news_top_type)
+    @BindView(R.id.news_top_type)
     TextView newsTopType;
-    @Bind(R.id.news_top_date)
+    @BindView(R.id.news_top_date)
     TextView newsTopDate;
-    @Bind(R.id.news_top_title)
+    @BindView(R.id.news_top_title)
     TextView newsTopTitle;
-    @Bind(R.id.news_top_author)
+    @BindView(R.id.news_top_author)
     TextView newsTopAuthor;
-    @Bind(R.id.news_top_lead)
+    @BindView(R.id.news_top_lead)
     TextView newsTopLead;
-    @Bind(R.id.news_top_lead_line)
+    @BindView(R.id.news_top_lead_line)
     View newsTopLeadLine;
-    @Bind(R.id.news_top)
+    @BindView(R.id.news_top)
     LinearLayout newsTop;
-    @Bind(R.id.news_parse_web)
+    @BindView(R.id.news_parse_web)
     LinearLayout newsParseWeb;
-    @Bind(R.id.webView)
+    @BindView(R.id.webView)
     WebView webView;
-    @Bind(R.id.scrollView)
+    @BindView(R.id.scrollView)
     ObservableScrollView scrollView;
-    @Bind(R.id.favorite)
+    @BindView(R.id.favorite)
     ImageView favorite;
-    @Bind(R.id.write)
+    @BindView(R.id.write)
     ImageView write;
-    @Bind(R.id.share)
+    @BindView(R.id.share)
     ImageView share;
-    @Bind(R.id.toolBar)
+    @BindView(R.id.toolBar)
     Toolbar toolBar;
 
     @Inject
     DetailPresenter presenter;
-    @Bind(R.id.button_play_last)
+    @BindView(R.id.button_play_last)
     AppCompatImageView buttonPlayLast;
-    @Bind(R.id.button_play_toggle)
+    @BindView(R.id.button_play_toggle)
     AppCompatImageView buttonPlayToggle;
-    @Bind(R.id.button_play_next)
+    @BindView(R.id.button_play_next)
     AppCompatImageView buttonPlayNext;
-    @Bind(R.id.text_view_progress)
+    @BindView(R.id.text_view_progress)
     TextView textViewProgress;
-    @Bind(R.id.seek_bar)
+    @BindView(R.id.seek_bar)
     AppCompatSeekBar seekBar;
-    @Bind(R.id.text_view_duration)
+    @BindView(R.id.text_view_duration)
     TextView textViewDuration;
     private int mParallaxImageHeight;
 
@@ -180,7 +180,6 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
         unRegister();
         handleProgress.removeCallbacks(runnable);
         super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     private void initPresenter() {

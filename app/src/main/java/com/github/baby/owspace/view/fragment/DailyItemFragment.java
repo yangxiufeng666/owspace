@@ -15,7 +15,7 @@ import com.github.baby.owspace.R;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.util.TimeUtil;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,13 +24,13 @@ import butterknife.ButterKnife;
  * owspace
  */
 public class DailyItemFragment extends Fragment {
-    @Bind(R.id.month_tv)
+    @BindView(R.id.month_tv)
     TextView monthTv;
-    @Bind(R.id.year_tv)
+    @BindView(R.id.year_tv)
     TextView yearTv;
-    @Bind(R.id.date_rl)
+    @BindView(R.id.date_rl)
     RelativeLayout dateRl;
-    @Bind(R.id.calendar_iv)
+    @BindView(R.id.calendar_iv)
     ImageView calendarIv;
 
     public static Fragment getInstance(Item item){
@@ -65,6 +65,5 @@ public class DailyItemFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

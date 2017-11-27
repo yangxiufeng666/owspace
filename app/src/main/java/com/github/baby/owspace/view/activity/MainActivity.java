@@ -32,7 +32,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Subscription;
@@ -40,7 +40,7 @@ import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
 
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     VerticalViewPager viewPager;
     private SlidingMenu slidingMenu;
     private LeftMenuFragment leftMenu;

@@ -23,7 +23,7 @@ import com.github.baby.owspace.view.activity.DailyActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -33,21 +33,21 @@ import butterknife.OnClick;
  * owspace
  */
 public class LeftMenuFragment extends Fragment {
-    @Bind(R.id.right_slide_close)
+    @BindView(R.id.right_slide_close)
     ImageView rightSlideClose;
-    @Bind(R.id.search)
+    @BindView(R.id.search)
     ImageView search;
-    @Bind(R.id.home_page_tv)
+    @BindView(R.id.home_page_tv)
     TextView homePageTv;
-    @Bind(R.id.words_tv)
+    @BindView(R.id.words_tv)
     TextView wordsTv;
-    @Bind(R.id.voice_tv)
+    @BindView(R.id.voice_tv)
     TextView voiceTv;
-    @Bind(R.id.video_tv)
+    @BindView(R.id.video_tv)
     TextView videoTv;
-    @Bind(R.id.calendar_tv)
+    @BindView(R.id.calendar_tv)
     TextView calendarTv;
-    @Bind(R.id.title_bar)
+    @BindView(R.id.title_bar)
     RelativeLayout titleBar;
 
     private List<View> mViewList = new ArrayList();
@@ -62,7 +62,6 @@ public class LeftMenuFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     private void loadView() {

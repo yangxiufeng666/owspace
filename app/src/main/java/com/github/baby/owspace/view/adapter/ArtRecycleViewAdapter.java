@@ -22,7 +22,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -165,15 +165,15 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     static class ArtHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.image_iv)
+        @BindView(R.id.image_iv)
         ImageView imageIv;
-        @Bind(R.id.arrow_iv)
+        @BindView(R.id.arrow_iv)
         ImageView arrowIv;
-        @Bind(R.id.title_tv)
+        @BindView(R.id.title_tv)
         TextView titleTv;
-        @Bind(R.id.author_tv)
+        @BindView(R.id.author_tv)
         TextView authorTv;
-        @Bind(R.id.type_container)
+        @BindView(R.id.type_container)
         RelativeLayout typeContainer;
 
         public ArtHolder(View itemView) {
@@ -183,11 +183,11 @@ public class ArtRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     static class FooterViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.avi)
+        @BindView(R.id.avi)
         AVLoadingIndicatorView avi;
-        @Bind(R.id.nomore_tx)
+        @BindView(R.id.nomore_tx)
         TextView noMoreTx;
-        @Bind(R.id.error_tx)
+        @BindView(R.id.error_tx)
         TextView errorTx;
         public FooterViewHolder(View itemView) {
             super(itemView);

@@ -26,7 +26,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -38,13 +38,13 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * owspace
  */
 public class ArtActivity extends BaseActivity implements ArticalContract.View {
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     TextView title;
-    @Bind(R.id.toolBar)
+    @BindView(R.id.toolBar)
     Toolbar toolbar;
-    @Bind(R.id.recycleView)
+    @BindView(R.id.recycleView)
     RecyclerView recycleView;
-    @Bind(R.id.ptrFrameLayout)
+    @BindView(R.id.ptrFrameLayout)
     PtrClassicFrameLayout mPtrFrame;
     @Inject
     ArticalPresenter presenter;

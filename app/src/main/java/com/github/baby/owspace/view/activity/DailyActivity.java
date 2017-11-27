@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -34,11 +34,11 @@ import butterknife.ButterKnife;
  * owspace
  */
 public class DailyActivity extends BaseActivity implements ArticalContract.View{
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     TextView title;
-    @Bind(R.id.toolBar)
+    @BindView(R.id.toolBar)
     Toolbar toolBar;
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     VerticalViewPager viewPager;
     @Inject
     ArticalPresenter presenter;

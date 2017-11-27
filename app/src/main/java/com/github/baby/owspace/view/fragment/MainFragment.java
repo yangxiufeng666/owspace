@@ -20,7 +20,7 @@ import com.github.baby.owspace.view.activity.AudioDetailActivity;
 import com.github.baby.owspace.view.activity.DetailActivity;
 import com.github.baby.owspace.view.activity.VideoDetailActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -31,33 +31,33 @@ import butterknife.ButterKnife;
  */
 public class MainFragment extends Fragment {
     String title;
-    @Bind(R.id.image_iv)
+    @BindView(R.id.image_iv)
     ImageView imageIv;
-    @Bind(R.id.type_container)
+    @BindView(R.id.type_container)
     LinearLayout typeContainer;
-    @Bind(R.id.comment_tv)
+    @BindView(R.id.comment_tv)
     TextView commentTv;
-    @Bind(R.id.like_tv)
+    @BindView(R.id.like_tv)
     TextView likeTv;
-    @Bind(R.id.readcount_tv)
+    @BindView(R.id.readcount_tv)
     TextView readcountTv;
-    @Bind(R.id.title_tv)
+    @BindView(R.id.title_tv)
     TextView titleTv;
-    @Bind(R.id.content_tv)
+    @BindView(R.id.content_tv)
     TextView contentTv;
-    @Bind(R.id.author_tv)
+    @BindView(R.id.author_tv)
     TextView authorTv;
-    @Bind(R.id.type_tv)
+    @BindView(R.id.type_tv)
     TextView typeTv;
-    @Bind(R.id.time_tv)
+    @BindView(R.id.time_tv)
     TextView timeTv;
-    @Bind(R.id.image_type)
+    @BindView(R.id.image_type)
     ImageView imageType;
-    @Bind(R.id.download_start_white)
+    @BindView(R.id.download_start_white)
     ImageView downloadStartWhite;
-    @Bind(R.id.home_advertise_iv)
+    @BindView(R.id.home_advertise_iv)
     ImageView homeAdvertiseIv;
-    @Bind(R.id.pager_content)
+    @BindView(R.id.pager_content)
     RelativeLayout pagerContent;
 
     public static Fragment instance(Item item) {
@@ -150,6 +150,5 @@ public class MainFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

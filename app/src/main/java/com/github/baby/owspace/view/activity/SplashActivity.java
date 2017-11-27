@@ -38,8 +38,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -50,7 +49,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * owspace
  */
 public class SplashActivity extends BaseActivity implements SplashContract.View, EasyPermissions.PermissionCallbacks {
-    @Bind(R.id.splash_img)
+    @BindView(R.id.splash_img)
     FixedImageView splashImg;
     @Inject
     SplashPresenter presenter;

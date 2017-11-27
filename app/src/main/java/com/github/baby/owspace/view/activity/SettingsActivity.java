@@ -16,7 +16,7 @@ import com.github.baby.owspace.R;
 import java.io.File;
 import java.text.DecimalFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -26,21 +26,21 @@ import butterknife.OnClick;
  * owspace
  */
 public class SettingsActivity extends BaseActivity {
-    @Bind(R.id.toolBar)
+    @BindView(R.id.toolBar)
     Toolbar toolBar;
-    @Bind(R.id.push_toggle)
+    @BindView(R.id.push_toggle)
     Switch pushToggle;
-    @Bind(R.id.cacheSize)
+    @BindView(R.id.cacheSize)
     TextView cacheSize;
-    @Bind(R.id.cacheLayout)
+    @BindView(R.id.cacheLayout)
     RelativeLayout cacheLayout;
-    @Bind(R.id.about)
+    @BindView(R.id.about)
     RelativeLayout about;
-    @Bind(R.id.feedback)
+    @BindView(R.id.feedback)
     RelativeLayout feedback;
-    @Bind(R.id.version_tv)
+    @BindView(R.id.version_tv)
     TextView versionTv;
-    @Bind(R.id.checkUpgrade)
+    @BindView(R.id.checkUpgrade)
     RelativeLayout checkUpgrade;
 
     @Override
