@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.GlideApp;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.util.TimeUtil;
 
@@ -53,7 +54,7 @@ public class DailyItemFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Item item = getArguments().getParcelable("item");
-        Glide.with(getActivity()).load(item.getThumbnail()).centerCrop().into(calendarIv);
+        GlideApp.with(getActivity()).load(item.getThumbnail()).centerCrop().into(calendarIv);
         String[] arrayOfString = TimeUtil.getCalendarShowTime(item.getUpdate_time());
         if ((arrayOfString != null) && (arrayOfString.length == 3))
         {

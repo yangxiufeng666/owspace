@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.GlideApp;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.view.activity.DetailActivity;
 
@@ -48,11 +49,11 @@ public class VerticalRecycleViewAdapter extends RecyclerView.Adapter<VerticalRec
         if (model == 5){
             holder.pagerContent.setVisibility(View.GONE);
             holder.homeAdvertiseIv.setVisibility(View.VISIBLE);
-            Glide.with(context).load(item.getThumbnail()).centerCrop().into(holder.homeAdvertiseIv);
+            GlideApp.with(context).load(item.getThumbnail()).centerCrop().into(holder.homeAdvertiseIv);
         }else{
             holder.pagerContent.setVisibility(View.VISIBLE);
             holder.homeAdvertiseIv.setVisibility(View.GONE);
-            Glide.with(context).load(item.getThumbnail()).centerCrop().into(holder.imageIv);
+            GlideApp.with(context).load(item.getThumbnail()).centerCrop().into(holder.imageIv);
             holder.commentTv.setText(item.getComment());
             holder.likeTv.setText(item.getGood());
             holder.readcountTv.setText(item.getView());

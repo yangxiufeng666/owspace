@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.GlideApp;
 import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
@@ -152,7 +153,7 @@ public class CustomPtrHeader extends FrameLayout implements PtrUIHandler{
                 R.layout.refresh_header, this);
         refreshImage = (ImageView)view.findViewById(R.id.refresh_loading);
         mLastUpdateTextView = (TextView)view.findViewById(R.id.latest_fresh_time);
-        Glide.with(context).load(R.drawable.refresh_loading).asGif().into(refreshImage);
+        GlideApp.with(context).load(R.drawable.refresh_loading).into(refreshImage);
         mShouldShowLastUpdate=true;
         tryUpdateLastUpdateTime();
     }

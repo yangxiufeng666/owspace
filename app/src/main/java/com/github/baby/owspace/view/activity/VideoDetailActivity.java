@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.GlideApp;
 import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerDetailComponent;
 import com.github.baby.owspace.di.modules.DetailModule;
@@ -92,7 +93,7 @@ public class VideoDetailActivity extends BaseActivity implements DetailContract.
         Item item = bundle.getParcelable("item");
         if (item != null){
             video.setUp(item.getVideo(), JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
-            Glide.with(this).load(item.getThumbnail()).centerCrop().into(video.thumbImageView);
+            GlideApp.with(this).load(item.getThumbnail()).centerCrop().into(video.thumbImageView);
             newsTopType.setText("视 频");
             newsTopLeadLine.setVisibility(View.VISIBLE);
             newsTopImgUnderLine.setVisibility(View.VISIBLE);

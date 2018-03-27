@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.GlideApp;
 import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerDetailComponent;
 import com.github.baby.owspace.di.modules.DetailModule;
@@ -151,7 +152,7 @@ public class AudioDetailActivity extends BaseActivity implements DetailContract.
         Bundle bundle = getIntent().getExtras();
         Item item = bundle.getParcelable("item");
         if (item != null) {
-            Glide.with(this).load(item.getThumbnail()).centerCrop().into(image);
+            GlideApp.with(this).load(item.getThumbnail()).centerCrop().into(image);
             newsTopLeadLine.setVisibility(View.VISIBLE);
             newsTopImgUnderLine.setVisibility(View.VISIBLE);
             newsTopType.setText("音 频");

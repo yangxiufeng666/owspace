@@ -52,7 +52,7 @@
                 <action android:name="com.github.baby.owspace.ACTION.STOP_SERVICE"/>
             </intent-filter>
         </service>
-        <meta-data android:name="com.github.baby.owspace.util.GlideConfiguration" android:value="GlideModule"/>
+        <!--<meta-data android:name="com.github.baby.owspace.util.GlideConfiguration" android:value="GlideModule"/>-->
     </application>
 
 </manifest>

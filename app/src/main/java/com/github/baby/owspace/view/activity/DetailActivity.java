@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.GlideApp;
 import com.github.baby.owspace.app.OwspaceApplication;
 import com.github.baby.owspace.di.components.DaggerDetailComponent;
 import com.github.baby.owspace.di.modules.DetailModule;
@@ -26,8 +27,6 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
-
-import org.jsoup.helper.StringUtil;
 
 import javax.inject.Inject;
 
@@ -91,7 +90,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         Bundle bundle = getIntent().getExtras();
         Item item = bundle.getParcelable("item");
         if (item != null){
-            Glide.with(this).load(item.getThumbnail()).centerCrop().into(image);
+            GlideApp.with(this).load(item.getThumbnail()).centerCrop().into(image);
             int mode = Integer.valueOf(item.getModel());
             newsTopLeadLine.setVisibility(View.VISIBLE);
             newsTopImgUnderLine.setVisibility(View.VISIBLE);

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.baby.owspace.R;
+import com.github.baby.owspace.app.GlideApp;
 import com.github.baby.owspace.model.entity.Item;
 import com.github.baby.owspace.view.activity.AudioDetailActivity;
 import com.github.baby.owspace.view.activity.DetailActivity;
@@ -84,12 +85,12 @@ public class MainFragment extends Fragment {
         if (model == 5){
             pagerContent.setVisibility(View.GONE);
             homeAdvertiseIv.setVisibility(View.VISIBLE);
-            Glide.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(homeAdvertiseIv);
+            GlideApp.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(homeAdvertiseIv);
         }else{
             pagerContent.setVisibility(View.VISIBLE);
             homeAdvertiseIv.setVisibility(View.GONE);
             title = item.getTitle();
-            Glide.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(imageIv);
+            GlideApp.with(this.getContext()).load(item.getThumbnail()).centerCrop().into(imageIv);
             commentTv.setText(item.getComment());
             likeTv.setText(item.getGood());
             readcountTv.setText(item.getView());

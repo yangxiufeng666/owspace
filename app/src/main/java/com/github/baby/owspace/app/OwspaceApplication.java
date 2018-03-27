@@ -8,7 +8,7 @@ import com.github.baby.owspace.R;
 import com.github.baby.owspace.di.components.DaggerNetComponent;
 import com.github.baby.owspace.di.components.NetComponent;
 import com.github.baby.owspace.di.modules.NetModule;
-import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -46,15 +46,17 @@ public class OwspaceApplication extends Application{
     }
 
     private void initLogger(){
-        LogLevel logLevel;
-        if (!BuildConfig.API_ENV){
-           logLevel = LogLevel.FULL;
-        }else{
-            logLevel = LogLevel.NONE;
-        }
-        Logger.init("GithubOwspace")                 // default PRETTYLOGGER or use just init()
-                .methodCount(3)                 // default 2
-                .logLevel(logLevel) ;       // default LogLevel.FULL
+        Logger.addLogAdapter(new AndroidLogAdapter());
+//        LogLevel logLevel;
+//        if (!BuildConfig.API_ENV){
+//           logLevel = LogLevel.FULL;
+//        }else{
+//            logLevel = LogLevel.NONE;
+//        }
+//        Logger.addLogAdapter();
+//        Logger.init("GithubOwspace")                 // default PRETTYLOGGER or use just init()
+//                .methodCount(3)                 // default 2
+//                .logLevel(logLevel) ;       // default LogLevel.FULL
     }
     private void initNet(){
         netComponent = DaggerNetComponent.builder()
