@@ -14,6 +14,7 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 * some fucking source code
 
 # 里程碑列表
+### 2018/3/27 升级API Level到27，各种依赖包全部升级
 ### 2017/11/27 更新gradle、更新相关dependencies版本
 ### 2016/11/25 添加音频播放
 ### 2016/11/8 添加视频播放功能
@@ -48,40 +49,41 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 # thanks
 ```
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    testCompile 'junit:junit:4.12'
-    compile(name: 'SildeMenulibrary-release', ext: 'aar')
-    compile(name: 'ObservableScrollView-release', ext: 'aar')
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'net.danlew:android.joda:2.9.3'
-    compile 'com.squareup.okhttp3:okhttp:3.7.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.sqlbrite:sqlbrite:0.7.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.orhanobut:logger:1.15'
-    compile 'com.elyeproj.libraries:loaderviewlibrary:1.2.1'
-    compile 'in.srain.cube:ultra-ptr:1.0.11'
-    compile 'org.jsoup:jsoup:1.7.3'
-    compile 'pub.devrel:easypermissions:0.3.0'
-    compile 'com.wang.avi:library:2.1.3'
-    compile 'fm.jiecao:jiecaovideoplayer:4.8.2'
-    compile 'com.google.dagger:dagger:2.12'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
+    testImplementation 'junit:junit:4.12'
+    implementation(name: 'SildeMenulibrary-release', ext: 'aar')
+    implementation(name: 'ObservableScrollView-release', ext: 'aar')
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'net.danlew:android.joda:2.9.3'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.sqlbrite:sqlbrite:0.7.0'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.2.1'
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    implementation 'com.orhanobut:logger:2.1.1'
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:1.2.1'
+    implementation 'in.srain.cube:ultra-ptr:1.0.11'
+    implementation 'org.jsoup:jsoup:1.11.1'
+    implementation 'pub.devrel:easypermissions:0.3.0'
+    implementation 'com.wang.avi:library:2.1.3'
+    implementation 'fm.jiecao:jiecaovideoplayer:4.8.2'
+    implementation 'com.google.dagger:dagger:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
     //java注解
-    compile 'org.glassfish:javax.annotation:10.0-b28'
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
     //字体
-    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
+
 ```
 
