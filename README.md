@@ -30,6 +30,8 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 
 # 展示
+![image](art/permission1.png) ![image](art/permission2.png)
+
 ![image](art/show1.png) ![image](art/show2.png)
 
 ![image](art/show3.png) ![image](art/show4.png)
