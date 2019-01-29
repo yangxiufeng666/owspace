@@ -11,9 +11,11 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 * jsoup解析DOM
 * sqldelight SqlBrite
 * 音视频播放等
+* Android6.0 动态权限申请 easypermissions  
 * some fucking source code
 
-# 里程碑列表
+# 里程碑列表   
+### 2018/11/14 修正音频播放crash问题  
 ### 2018/3/27 升级API Level到27，各种依赖包全部升级
 ### 2017/11/27 更新gradle、更新相关dependencies版本
 ### 2016/11/25 添加音频播放
@@ -28,6 +30,8 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 
 
 # 展示
+![image](art/permission1.png) ![image](art/permission2.png)
+
 ![image](art/show1.png) ![image](art/show2.png)
 
 ![image](art/show3.png) ![image](art/show4.png)
@@ -50,9 +54,9 @@ owspace是一款高仿单读的APP，API接口通过非法手段获取。<br>
 # thanks
 ```
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     implementation(name: 'SildeMenulibrary-release', ext: 'aar')

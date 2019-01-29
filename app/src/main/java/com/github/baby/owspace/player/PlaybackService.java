@@ -1,12 +1,18 @@
 package com.github.baby.owspace.player;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -116,7 +122,7 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
 
     @Override
     public boolean isPlaying() {
-        return mPlayer.isPlaying();
+        return mPlayer != null && mPlayer.isPlaying();
     }
     public String getSong(){
         return mPlayer.getSong();
@@ -178,8 +184,18 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
 
+        // startForeground fail after upgrade to Android 8.1, because Builder(context) has deprecated, we must
+        // use Builder(context, channel) instead of
+        // https://stackoverflow.com/questions/47531742/startforeground-fail-after-upgrade-to-android-8-1
+        String channel;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            channel = createChannel();
+        else {
+            channel = "";
+        }
+
         // Set the info for the views that show in the notification panel.
-        Notification notification = new NotificationCompat.Builder(this)
+        Notification notification = new NotificationCompat.Builder(this, channel)
                 .setSmallIcon(R.mipmap.ic_launcher)  // the status icon
                 .setWhen(System.currentTimeMillis())  // the time stamp
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
@@ -190,6 +206,30 @@ public class PlaybackService extends Service implements IPlayback,IPlayback.Call
 
         // Send the notification.
         startForeground(NOTIFICATION_ID, notification);
+    }
+
+    /**
+     * startForeground fail after upgrade to Android 8.1
+     * https://stackoverflow.com/questions/47531742/startforeground-fail-after-upgrade-to-android-8-1
+     * @return
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private synchronized String createChannel() {
+        NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        String name = "snap map fake location ";
+        int importance = NotificationManager.IMPORTANCE_LOW;
+
+        NotificationChannel mChannel = new NotificationChannel("snap map channel", name, importance);
+
+        mChannel.enableLights(true);
+        mChannel.setLightColor(Color.BLUE);
+        if (mNotificationManager != null) {
+            mNotificationManager.createNotificationChannel(mChannel);
+        } else {
+            stopSelf();
+        }
+        return "snap map channel";
     }
 
     private RemoteViews getSmallContentView() {
